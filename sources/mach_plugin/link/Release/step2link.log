@@ -1,0 +1,30 @@
+﻿Build started 2012-03-20 14:36:55.
+     1>Project "D:\Projects\private\mach\mach_plugin\link\step2link.vcxproj" on node 3 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Release\step2link.unsuccessfulbuild".
+       GenerateTargetFrameworkMonikerAttribute:
+       Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+       ClCompile:
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Projects\private\mach\mach_plugin\Release\step2link.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\step2link.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Projects\private\mach\mach_plugin\Release\step2link.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 /DLL Release\CncCommunication.obj
+         Release\crc16.obj
+         Release\serW32.obj
+         Release\stdafx.obj
+         Release\step2link.obj
+         "Release\.NETFramework,Version=v4.0.AssemblyAttributes.obj"
+         D:\Projects\private\mach\mach_plugin\Release\step2boot.lib
+            Creating library D:\Projects\private\mach\mach_plugin\Release\step2link.lib and object D:\Projects\private\mach\mach_plugin\Release\step2link.exp
+     1>LINK : warning C4727: PCH named d:\projects\private\mach\mach_plugin\bootloader\release\step2boot.pch with same timestamp found in D:\Projects\private\mach\mach_plugin\bootloader\Release\bootloader.obj and D:\Projects\private\mach\mach_plugin\bootloader\Release\fw.obj.  Using first PCH.
+     1>step2boot.lib(bootloader.obj) : error LNK2005: ___@@_PchSym_@00@UkilqvxghUkirezgvUnzxsUnzxsPkoftrmUyllgolzwviUivovzhvUyllgolzwviOlyq@ already defined in step2boot.lib(fw.obj)
+     1>LINK : warning C4727: PCH named d:\projects\private\mach\mach_plugin\bootloader\release\step2boot.pch with same timestamp found in D:\Projects\private\mach\mach_plugin\bootloader\Release\frame.obj and D:\Projects\private\mach\mach_plugin\bootloader\Release\fw.obj.  Using first PCH.
+     1>step2boot.lib(frame.obj) : error LNK2005: ___@@_PchSym_@00@UkilqvxghUkirezgvUnzxsUnzxsPkoftrmUyllgolzwviUivovzhvUyllgolzwviOlyq@ already defined in step2boot.lib(fw.obj)
+     1>LINK : warning C4727: PCH named d:\projects\private\mach\mach_plugin\bootloader\release\step2boot.pch with same timestamp found in D:\Projects\private\mach\mach_plugin\bootloader\Release\mem.obj and D:\Projects\private\mach\mach_plugin\bootloader\Release\fw.obj.  Using first PCH.
+     1>step2boot.lib(mem.obj) : error LNK2005: ___@@_PchSym_@00@UkilqvxghUkirezgvUnzxsUnzxsPkoftrmUyllgolzwviUivovzhvUyllgolzwviOlyq@ already defined in step2boot.lib(fw.obj)
+     1>D:\Projects\private\mach\mach_plugin\Release\step2link.dll : fatal error LNK1169: one or more multiply defined symbols found
+     1>Done Building Project "D:\Projects\private\mach\mach_plugin\link\step2link.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.23

@@ -1,0 +1,21 @@
+---- jog_abort_active Matches (5 in 1 files) ----
+Timer.c (d:\projects\...\mach_firmware):31
+int                 jog_abort_active  = 0;
+
+
+Timer.c (d:\projects\...\mach_firmware):100
+           jog_abort_active  = 1;
+       }break;
+
+Timer.c (d:\projects\...\mach_firmware):290
+    jog_abort_active = 0;
+    jog_stop_active  = 0;
+    
+Timer.c (d:\projects\...\mach_firmware):509
+      if(jog_abort_active != 0)
+      {
+          buffer.current_jog = NULL;
+Timer.c (d:\projects\...\mach_firmware):658
+               jog_abort_active = 1; 
+            }
+        } 

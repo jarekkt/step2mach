@@ -1,0 +1,51 @@
+x - input from ADC for IL1
+y - output
+
+
+x1 =x - dc_offset;
+
+
+if( abs(x1) < 104)
+{
+	y1 = x1 * m(0,0.2A);
+}
+else if(abs(x1) < 520)
+{
+	y1 = x1 * m(0.2A,1A);
+}
+else if(abs(x1) < 2602)
+{
+	y1 = x1 * m(1A,5A);
+}
+else 
+	// 5A..25A..Fullscale
+	y1 = x1 * m(5A,25A);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
