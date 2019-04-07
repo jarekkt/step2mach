@@ -6,32 +6,32 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jarosaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------
 
 
 
-#include "../mach_common/types.h"
+#include "stdint.h"
 #include "../mach_common/mach_firmware.h"
-#include "p33fj64MC802.h"
 
 
-    
+    
+
 typedef struct
 {
    pin_hw_e map[PIN_MAP_COUNT];
 }pinctrl_data_t;
 
 
-void   pinctrl_map(pin_map_e  pin_id,pin_hw_e pin_fn);
+void pinctrl_map(pin_map_e  pin_id,pin_hw_e pin_fn);
 
-void inline pinctrl_set(pin_map_e pin_id);
-void inline pinctrl_clear(pin_map_e pin_id);
+void pinctrl_set(pin_map_e pin_id);
+void pinctrl_clear(pin_map_e pin_id);
 
-void inline pinctrl_set_outputs(Uint32_t outputs,Uint32_t mask);
+void pinctrl_set_outputs(uint32_t outputs,uint32_t mask);
 
 
 

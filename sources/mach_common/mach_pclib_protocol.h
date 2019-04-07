@@ -18,7 +18,6 @@
 #ifndef MACH_PCLIB_PROTOCOL_H
 #define MACH_PCLIB_PROTOCOL_H
 
-#include "types.h"
 #include "mach_firmware.h"
 
 #ifdef WIN32
@@ -58,7 +57,7 @@ FNTYPE int  STDCALL Cnc_Status_Get(timer_resp_t  * status);
 
 FNTYPE int  STDCALL Cnc_SetCoords(timer_coord_t  * coord);
 FNTYPE int  STDCALL Cnc_SetMap(timer_map_t    * map, int map_cnt);
-FNTYPE int  STDCALL Cnc_SetOutputs(Uint32_t outputs,Uint32_t mask);
+FNTYPE int  STDCALL Cnc_SetOutputs(uint32_t outputs,uint32_t mask);
 
 FNTYPE void STDCALL Cnc_SendCommand(command_e cmd,int clear_queue);
 

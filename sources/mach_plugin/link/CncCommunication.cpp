@@ -55,9 +55,9 @@ DWORD						frame_cntr = 0;
 static timer_frame_t		frame_buf[MAX_FRAME_BUFFER][2];
 static struct
 {
-	Uint8_t					start;
+	uint8_t					start;
 	timer_frame_t			frame_buf[MAX_FRAME_OUT];
-	Uint32_t				extra;
+	uint32_t				extra;
 }send_buf;
 #pragma pack(pop)
 
@@ -69,7 +69,7 @@ static int 					frame_free[2];
 
 static int					frame_buf_in_use;
 
-static Uint8_t				frame_id;
+static uint8_t				frame_id;
 
 #pragma pack(push, 1)
 static timer_resp_t			current_response;
@@ -276,7 +276,7 @@ void CncCom_SendQueue(void)
 {
 	int						ii;
 	int						retry			  = 0;	
-	Uint16_t				crc_calc          = CRC_INIT;
+	uint16_t				crc_calc          = CRC_INIT;
 	static clock_t			last_sent;	
 	double					timeout;
 
@@ -575,7 +575,7 @@ int  STDCALL Cnc_SetCoords(timer_coord_t  * coord)
 
 //---------------------------------------------------------------------------
 
-int  STDCALL Cnc_SetOutputs(Uint32_t outputs,Uint32_t mask)
+int  STDCALL Cnc_SetOutputs(uint32_t outputs,uint32_t mask)
 {
 	int result = -1;
 

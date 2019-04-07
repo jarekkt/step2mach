@@ -1257,13 +1257,21 @@ void MyDeviceClass::SetMachError(CString  Message)
 //	Helper for text conversion       
 //
 
-std::string MyDeviceClass::wchar2s(wchar_t * wchar_string,int size){			std::string	  result;			char		  cc[8];			int			  cnv_size;			int			  ii,jj;
+std::string MyDeviceClass::wchar2s(wchar_t * wchar_string,int size)
+{
+			std::string	  result;
+			char		  cc[8];
+			int			  cnv_size;
+			int			  ii,jj;
+
 			for(ii =0; ii < size;ii++)
 			{
 	#pragma warning (disable : 4996)
-				cnv_size = wctomb ((char*)&cc, wchar_string[ii]);				for(jj = 0; jj < cnv_size; jj++)
+				cnv_size = wctomb ((char*)&cc, wchar_string[ii]);
+				for(jj = 0; jj < cnv_size; jj++)
 				{
-					result += cc[jj];				}
+					result += cc[jj];
+				}
 			}
 			return result;
 }
@@ -1274,13 +1282,16 @@ std::string MyDeviceClass::wchar2s(wchar_t * wchar_string,int size){			std::st
 //
 std::string MyDeviceClass::nets2s(System::String^ net_string)
 {
-		int ii;
+		int ii;
+
 		array<System::Byte>^ byte_array = Encoding::UTF8->GetBytes(net_string);
-		std::string	  result;
+		std::string	  result;
+
 		result.resize(byte_array->Length);
 		for(ii =0; ii< byte_array->Length;ii++)
 		{
 			result[ii] = byte_array[ii];
 		}
-		return result;
+		return result;
+
 }

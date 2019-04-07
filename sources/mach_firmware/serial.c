@@ -6,8 +6,8 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jarosaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------
@@ -16,113 +16,26 @@
 
 /*---------------------------------------------------------------------------
 ;
-;	   File:	serdrv.c	
+;      File:    serdrv.c    
 ;
 ---------------------------------------------------------------------------*/
 
 #include <string.h>
-#include "..\mach_common\types.h"
-#include "..\mach_common\mach_firmware.h"
-#include "hwinit.h"
+#include "stdint.h"
+#include "../mach_common/mach_firmware.h"
+#include "init.h"
 #include "serial.h"
 #include "crc16.h"
 #include "timer.h"
 
 
 
+static timer_resp_t     response;
+static uint8_t          recv_buffer[1988];
+static uint16_t         last_ptr = 0;
 
 
 
-#define BAUDRATE            1000000
-
-
-
-static timer_resp_t     response             __attribute__((space(dma)));
-static Uint8_t          recv_buffer[1988]  __attribute__((space(dma)));
-static Uint16_t         last_ptr = 0;
-
-
-
-
-
-/*---------------------------------------------------------------------------
----------------------------------------------------------------------------*/
-
-void serial_dma_init(void)
-{
-
-
-	/*  
-	   Associate DMA Channel 0 with UART Tx 
-	*/
-	
-	DMA1REQ = 0x0C;         // Select UART1 Transmitter DMA association
-	DMA1PAD = (volatile unsigned int) &U1TXREG;
-	
-	/*  
-	    Configure DMA Channel 0 to: 
-	    Transfer data from RAM to UART
-	    Continous mode, no ping-pong
-	    Register Indirect with Post-Increment
-	    Using single buffer
-	    Transfer bytes
-       */
-	DMA1CONbits.AMODE = 0;
-	DMA1CONbits.MODE  = 1;
-	DMA1CONbits.DIR   = 1;
-	DMA1CONbits.SIZE  = 1;
-
-    /* 
-	    Setup buffers & sizes
-    	*/
-
-	DMA1STA = __builtin_dmaoffset(&response);
-    DMA1CNT = sizeof(response)-1;
-
-	/*	
-	    Enable interrupt		
-	*/
-	IFS0bits.DMA1IF  = 0;			// Clear DMA Interrupt Flag
-	IEC0bits.DMA1IE	 = 1;			// Enable DMA interrupt
-
-
-    /*  
-            Associate DMA Channel 1 with UART Rx 
-       */
-     DMA0REQ = 0x0B       ;         // Select UART1 Receiver DMA association
-     DMA0PAD = (volatile unsigned int) &U1RXREG;
-        
-    /*  
-         Configure DMA Channel 0 to: 
-         Transfer data from UART to RAM
-         Continous  mode, no ping-pong
-         Register Indirect with Post-Increment
-         Using single buffer
-         Transfer bytes
-        */
-     DMA0CONbits.AMODE = 0;
-     DMA0CONbits.MODE  = 1;
-     DMA0CONbits.DIR   = 0;
-     DMA0CONbits.SIZE  = 1;
-
-
-     /* 
-         Setup buffers & sizes
-         */
-     
-     DMA0STA = __builtin_dmaoffset(recv_buffer);
-     DMA0CNT = sizeof(recv_buffer);
-     
-     /*  
-         Enable interrupt        
-         */
-     IFS0bits.DMA0IF  = 0;           // Clear DMA0 Interrupt Flag
-     IEC0bits.DMA0IE  = 1;           // Enable DMA0 interrupt
-     DMA0CONbits.CHEN = 1;           // Enable DMA0 Channel
-
-     
-
- }
 
 
 
@@ -133,33 +46,7 @@ void serial_dma_init(void)
 
 int serial_init(void)
 {
-	/*
-		 UART Configuration
-	*/
-	U1MODEbits.STSEL = 0;			// 1-stop bit
-	U1MODEbits.PDSEL = 0;			// No Parity, 8-data bits
-	U1MODEbits.ABAUD = 0;			// Autobaud Disabled
-    U1MODEbits.BRGH  = 1;           // High speed mode
-
-	U1BRG = ((FCY/BAUDRATE)/4)-1 ;	// Baudrate
-
-	/*
-	   Configure UART for Tx DMA transfers / Rx interrupt
-	*/
-	U1STAbits.UTXISEL0 = 0;			// Interrupt after one Tx character is transmitted
-	U1STAbits.UTXISEL1 = 0;			                            
-	U1STAbits.URXISEL  = 0;			// Interrupt after one RX character is received
-
-	/*
-	    Enable UART Rx and Tx
-       */
-	U1MODEbits.UARTEN   = 1;		// Enable UART
-	U1STAbits.UTXEN     = 1;		// Enable UART Tx
-	
-	IFS0bits.U1RXIF     = 0;		// Clear the Recieve Interrupt Flag
-    IFS0bits.U1TXIF     = 0;        // Clear the Transmit Interrupt Flag
-
-	serial_dma_init();
+    
 
 
     /*
@@ -172,7 +59,7 @@ int serial_init(void)
     response.magic_end           = '#';
 
 
-	return 0;    
+    return 0;    
 }
 
 
@@ -182,13 +69,14 @@ int serial_init(void)
 
 void serial_send_response(void)
 {
+#if 0 //TODO
     int ipl;
 
 
-	while(DMA1CONbits.CHEN  != 0)
-	{
-	 // Transmission in progrss
-	}
+    while(DMA1CONbits.CHEN  != 0)
+    {
+     // Transmission in progrss
+    }
 
     SET_AND_SAVE_CPU_IPL(ipl,7); 
    
@@ -220,12 +108,12 @@ void serial_send_response(void)
     IEC0bits.DMA1IE = 1; // Enable DMA interrupt
 
     
-	DMA1CONbits.CHEN            = 1;			// Re-enable DMA1 Channel
-	DMA1REQbits.FORCE           = 1;			// Manual mode: Kick-start the first transfer
+    DMA1CONbits.CHEN            = 1;            // Re-enable DMA1 Channel
+    DMA1REQbits.FORCE           = 1;            // Manual mode: Kick-start the first transfer
 
 
 
-
+#endif
     
 }
 
@@ -235,10 +123,11 @@ void serial_send_response(void)
 
 void  serial_receive(void)
 {
-    Uint16_t cnt;
-    Uint16_t item_idx;
-    Uint16_t item_idx_max;
-    Uint16_t free_slots;
+#if 0
+    uint16_t cnt;
+    uint16_t item_idx;
+    uint16_t item_idx_max;
+    uint16_t free_slots;
     
     if( (last_ptr != DMA0STA) || (DMA0STA == __builtin_dmaoffset(recv_buffer) ))
     {
@@ -301,24 +190,7 @@ reinit:
     IEC0bits.DMA0IE  = 1;           // Enable DMA0 interrupt
     U1STAbits.OERR = 0;             // Just in case     - clear UART overrun status
     DMA0CONbits.CHEN = 1;           // Enable DMA0 Channel    
-
+#endif
     
 }
-
-
-/*---------------------------------------------------------------------------*/
- 
-void __attribute__((interrupt, no_auto_psv)) _DMA1Interrupt(void)
-{
-	IFS0bits.DMA1IF = 0; // Clear the DMA1 Interrupt Flag;
-}
-
-/*---------------------------------------------------------------------------*/
- 
-void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void)
-{
-	IFS0bits.DMA0IF = 0; // Clear the DMA0 Interrupt Flag;
-}
-
-
 

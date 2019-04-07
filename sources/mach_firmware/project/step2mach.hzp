@@ -1,0 +1,273 @@
+<!DOCTYPE CrossStudio_Project_File>
+<solution Name="step2mach" target="8" version="2">
+  <project Name="step2mach">
+    <configuration
+      Name="Common"
+      Placement="Flash Vectors In RAM"
+      Target="STM32F429ZI"
+      arm_architecture="v7EM"
+      arm_core_type="Cortex-M4"
+      arm_fp_abi="Hard"
+      arm_fpu_type="FPv4-SP-D16"
+      arm_linker_heap_size="128"
+      arm_linker_jtag_pad_pre_dr="1"
+      arm_linker_jtag_pad_pre_ir="5"
+      arm_linker_process_stack_size="0"
+      arm_linker_stack_size="1024"
+      arm_simulator_memory_simulation_filename="$(ProjectDir)/STM32SimulatorMemory.so_x64"
+      arm_simulator_memory_simulation_parameter="STM32F429ZI;0x200000;0x40000"
+      arm_target_loader_applicable_loaders="Flash"
+      arm_target_loader_default_loader="Flash"
+      c_preprocessor_definitions="STM32F429xx;__VECTORS=&quot;STM32F429xx.vec&quot;;__SYSTEM_STM32F4XX;__TARGET_PROCESSOR_STM32F429ZI;VECTORS_IN_RAM=1"
+      c_user_include_directories="$(ProjectDir)/STM32/include;$(PackagesDir)/CMSIS_4/CMSIS/Include"
+      debug_register_definition_file="$(ProjectDir)/STM32F429_Peripherals.xml"
+      linker_memory_map_file="$(ProjectDir)/STM32F429ZI_MemoryMap.xml"
+      linker_output_format="bin"
+      linker_section_placement_file="$(ProjectDir)/flash_placement.xml"
+      macros="DeviceVectorsFile=STM32F429xx.vec;Family=STM32;Target=STM32F429ZI;Placement=Flash Vectors In RAM"
+      project_dependencies="cube"
+      project_directory=""
+      project_type="Executable"
+      target_get_partname_script="GetPartName()"
+      target_match_partname_script="MatchPartName(&quot;$(Target)&quot;)"
+      target_script_file="$(ProjectDir)/STM32_Target.js"
+      target_trace_initialize_script="EnableTrace(&quot;$(TraceInterfaceType)&quot;)" />
+    <configuration
+      Name="Flash"
+      arm_target_flash_loader_file_path="$(LOADER:$(TargetsDir)/STM32/Release/STM32F2xx_Loader_rpc.elf)"
+      arm_target_loader_can_erase_all="Yes"
+      arm_target_loader_can_lock_all="No"
+      arm_target_loader_can_lock_range="No"
+      arm_target_loader_can_unlock_all="No"
+      arm_target_loader_can_unlock_range="No"
+      target_reset_script="FLASHReset()" />
+    <configuration Name="RAM" target_reset_script="Reset()" />
+    <folder Name="Source Files">
+      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
+      <file file_name="../crc16.c" />
+      <file file_name="../crc16.h" />
+      <file file_name="../pinctrl.c" />
+      <file file_name="../pinctrl.h" />
+      <file file_name="../serial.c" />
+      <file file_name="../serial.h" />
+      <file file_name="../timer.c" />
+      <file file_name="../timer.h" />
+      <file file_name="../init.c" />
+      <file file_name="../init.h" />
+    </folder>
+    <folder Name="System Files">
+      <file file_name="thumb_crt0.s" />
+      <file file_name="targets/STM32/STM32_Startup.s" />
+      <file file_name="targets/STM32/STM32F429xx.vec" />
+    </folder>
+    <folder Name="common">
+      <file file_name="../../mach_common/mach_firmware.h" />
+      <file file_name="../../mach_common/mach_pclib_protocol.h" />
+    </folder>
+  </project>
+  <configuration Name="THUMB Debug" inherited_configurations="THUMB;Debug" />
+  <configuration
+    Name="THUMB"
+    Platform="ARM"
+    arm_instruction_set="Thumb"
+    arm_library_instruction_set="Thumb"
+    c_preprocessor_definitions="__THUMB"
+    hidden="Yes" />
+  <configuration
+    Name="Debug"
+    c_preprocessor_definitions="DEBUG"
+    gcc_debugging_level="Level 3"
+    gcc_omit_frame_pointer="Yes"
+    gcc_optimization_level="None"
+    hidden="Yes" />
+  <configuration
+    Name="THUMB Release"
+    inherited_configurations="THUMB;Release" />
+  <configuration
+    Name="Release"
+    c_preprocessor_definitions="NDEBUG"
+    gcc_debugging_level="None"
+    gcc_omit_frame_pointer="Yes"
+    gcc_optimization_level="Level 1"
+    hidden="Yes" />
+  <configuration Name="ARM Debug" inherited_configurations="ARM;Debug" />
+  <configuration
+    Name="ARM"
+    Platform="ARM"
+    arm_instruction_set="ARM"
+    arm_library_instruction_set="ARM"
+    c_preprocessor_definitions="__ARM"
+    hidden="Yes" />
+  <configuration Name="ARM Release" inherited_configurations="ARM;Release" />
+  <configuration
+    Name="ARM Flash Debug"
+    inherited_configurations="ARM;Flash;Debug" />
+  <configuration
+    Name="Flash"
+    c_preprocessor_definitions="__FLASH_BUILD"
+    hidden="Yes" />
+  <configuration
+    Name="ARM Flash Release"
+    inherited_configurations="ARM;Flash;Release" />
+  <configuration
+    Name="THUMB Flash Debug"
+    inherited_configurations="THUMB;Flash;Debug" />
+  <configuration
+    Name="THUMB Flash Release"
+    inherited_configurations="THUMB;Flash;Release" />
+  <configuration
+    Name="ARM RAM Debug"
+    inherited_configurations="ARM;RAM;Debug" />
+  <configuration
+    Name="RAM"
+    c_preprocessor_definitions="__RAM_BUILD"
+    hidden="Yes" />
+  <configuration
+    Name="ARM RAM Release"
+    inherited_configurations="ARM;RAM;Release" />
+  <configuration
+    Name="THUMB RAM Debug"
+    inherited_configurations="THUMB;RAM;Debug" />
+  <configuration
+    Name="THUMB RAM Release"
+    inherited_configurations="THUMB;RAM;Release" />
+  <project Name="cube">
+    <configuration
+      Name="Common"
+      arm_architecture="v7EM"
+      arm_core_type="Cortex-M4"
+      arm_fp_abi="Hard"
+      arm_fpu_type="FPv4-SP-D16"
+      c_preprocessor_definitions="STM32F429xx"
+      c_user_include_directories="$(ProjectDir)/../cube/Inc;$(ProjectDir)/../cube/Drivers/STM32F4xx_HAL_Driver/Inc;$(ProjectDir)/../cube/Drivers/CMSIS/Device/ST/STM32F4xx/Include;$(ProjectDir)/../cube/Drivers/CMSIS/Include;$(ProjectDir)/../cube/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;$(ProjectDir)/../cube/Middlewares/Third_Party/FreeRTOS/Source/include;$(ProjectDir)/../cube/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F;$(ProjectDir)/../cube/Middlewares/Third_Party/LwIP/src/include;$(ProjectDir)/../cube/Middlewares/Third_Party/LwIP/system"
+      project_directory=""
+      project_type="Library" />
+    <folder Name="Application">
+      <folder Name="User">
+        <file file_name="../cube/Src/main.c" />
+        <file file_name="../cube/Src/freertos.c" />
+        <file file_name="../cube/Src/lwip.c" />
+        <file file_name="../cube/Src/ethernetif.c" />
+        <file file_name="../cube/Src/stm32f4xx_it.c" />
+        <file file_name="../cube/Src/stm32f4xx_hal_msp.c" />
+        <file file_name="../cube/Src/stm32f4xx_hal_timebase_tim.c" />
+      </folder>
+    </folder>
+    <folder Name="Drivers">
+      <folder Name="STM32F4xx_HAL_Driver">
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" />
+        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" />
+      </folder>
+      <folder Name="CMSIS">
+        <file file_name="../cube/Src/system_stm32f4xx.c" />
+      </folder>
+    </folder>
+    <folder Name="Middlewares">
+      <folder Name="FreeRTOS">
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/croutine.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/list.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/queue.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/tasks.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/timers.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c" />
+        <file file_name="../cube/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portasm.s">
+          <configuration Name="Common" build_exclude_from_build="Yes" />
+        </file>
+      </folder>
+      <folder Name="LwIP">
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/auth.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/ccp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/chap_ms.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/chap-md5.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/chap-new.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/demand.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/eap.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/eui64.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/fsm.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/ipcp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/ipv6cp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/lcp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/magic.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/mppe.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/multilink.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/ppp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/pppapi.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/pppcrypt.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/pppoe.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/pppol2tp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/pppos.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/upap.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/utils.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/vj.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ethernet.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/slipif.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/lowpan6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/netif/ppp/ecp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/netbuf.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/tcpip.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/api_msg.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/err.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/api_lib.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/sockets.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/netdb.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/api/netifapi.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/memp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/def.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/sys.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/stats.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/dns.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/tcp_out.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/timeouts.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/pbuf.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/tcp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/udp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/raw.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ip.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/init.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/mem.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/tcp_in.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/netif.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/inet_chksum.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/igmp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/dhcp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/etharp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_addr.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/autoip.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/inet6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/ethip6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_frag.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/dhcp6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/icmp6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/mld6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_addr.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/system/OS/sys_arch.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c" />
+      </folder>
+    </folder>
+  </project>
+</solution>

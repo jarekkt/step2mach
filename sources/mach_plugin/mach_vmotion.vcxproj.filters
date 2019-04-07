@@ -83,21 +83,12 @@
     <ClInclude Include="..\mach_common\mach_pclib_protocol.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\mach_common\types.h">
-      <Filter>Source Files\Common</Filter>
-    </ClInclude>
     <ClInclude Include="PlugInControlDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfigDialog.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
     <EmbeddedResource Include="PlugInControlDialog.resx">
-      <Filter>Resource Files</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LicenseDialog.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

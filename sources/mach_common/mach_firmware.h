@@ -6,7 +6,7 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
+   Author:      Jarosaw Karwik
    E-Mail:     jaroslaw.karwik(at)gnail.com
    
 **/
@@ -16,20 +16,15 @@
 #ifndef MACH_FIRMWARE_H
 #define MACH_FIRMWARE_H
 
-#include "types.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #ifdef _WIN32
 #pragma pack(push, 2)
 #endif
 
 #define VERSION_NR              0x11
-#define WATCHDOG_JOG_TIMEOUT	400
-#define WATCHDOG_COMM_TIMEOUT	250
-#define HARDWARE_FREQ			100000 /*Hz*/
+#define WATCHDOG_JOG_TIMEOUT    400
+#define WATCHDOG_COMM_TIMEOUT   250
+#define HARDWARE_FREQ           100000 /*Hz*/
 
 typedef enum
 {
@@ -52,7 +47,7 @@ typedef enum
     PIN_LPTO_8_INV,      
     PIN_LPTO_9,      
     PIN_LPTO_9_INV,      
-	PIN_LPTO_14,
+    PIN_LPTO_14,
     PIN_LPTO_14_INV,
     PIN_LPTO_16,
     PIN_LPTO_16_INV,
@@ -81,12 +76,12 @@ typedef enum
     CMD_STOP_JOG,
     CMD_VECTORS_BUFFER,
     CMD_VECTORS_RUN,
-	CMD_VECTORS_JOG,
-	CMD_VECTORS_DELAY,
-	CMD_SET_JOG_BREAK,
+    CMD_VECTORS_JOG,
+    CMD_VECTORS_DELAY,
+    CMD_SET_JOG_BREAK,
     CMD_MAP,
     CMD_COORDS,
-	CMD_OUTPUTS,
+    CMD_OUTPUTS,
     CMD_WATCHDOG,
     CMD_RESET
 }command_e;
@@ -101,46 +96,46 @@ typedef enum
 
 typedef struct
 {
-	 Uint8_t size;
-	 Uint8_t id;
-	 Uint8_t command;
-	 Uint8_t in_mask;
+     uint8_t size;
+     uint8_t id;
+     uint8_t command;
+     uint8_t in_mask;
 }header_u;
 
 typedef struct
 {
-    Uint32_t      line_id;
+    uint32_t      line_id;
 
-	union
-	{
-		struct
-		{
-			Int16_t       Xs;
-			Int16_t       Ys;
-			Int16_t       Zs;
-			Int16_t       As;
+    union
+    {
+        struct
+        {
+            int16_t       Xs;
+            int16_t       Ys;
+            int16_t       Zs;
+            int16_t       As;
 
-			Uint32_t      Xv;
-			Uint32_t      Yv;
-			Uint32_t      Zv;
-			Uint32_t      Av;
-		}gcode;
-
-		struct
-		{
-			Uint32_t	  cnt;
-			Int32_t	      dir;
-			Uint32_t      fract;
-			Int32_t       vfract;
-			Uint16_t	  axis;
-		}jog;
+            uint32_t      Xv;
+            uint32_t      Yv;
+            uint32_t      Zv;
+            uint32_t      Av;
+        }gcode;
 
         struct
         {
-            Uint32_t     tick_delay;
+            uint32_t      cnt;
+            int32_t       dir;
+            uint32_t      fract;
+            int32_t       vfract;
+            uint16_t      axis;
+        }jog;
+
+        struct
+        {
+            uint32_t     tick_delay;
         }delay;
         
-	}motion;
+    }motion;
 }timer_step_t;
 
 
@@ -149,71 +144,71 @@ typedef struct
 
 typedef struct
 {
-	Int32_t Xc;
-	Int32_t Yc;
-	Int32_t Zc;
-	Int32_t Ac;
+    int32_t Xc;
+    int32_t Yc;
+    int32_t Zc;
+    int32_t Ac;
 }timer_coord_t;
 
 
 typedef struct
 {
-	Uint8_t    map_cnt;
-	Uint8_t    pin_map[8];
-	Uint8_t    pin_hw[8];
+    uint8_t    map_cnt;
+    uint8_t    pin_map[8];
+    uint8_t    pin_hw[8];
 }timer_map_t;
 
 typedef struct
 {
-	Uint32_t mask;
-	Uint32_t outputs;
+    uint32_t mask;
+    uint32_t outputs;
 }timer_io_t;
 
 
 typedef struct
 {
-	header_u  header;
-	union
-	{
-		timer_step_t    step;
-		timer_coord_t   coord;
-		timer_map_t     map;
-		timer_io_t	    io;
+    header_u  header;
+    union
+    {
+        timer_step_t    step;
+        timer_coord_t   coord;
+        timer_map_t     map;
+        timer_io_t      io;
 
-		struct
-		{
-			Uint16_t	mask;
-			Uint16_t	value;
-		}stop_condition;
-	}data;
+        struct
+        {
+            uint16_t    mask;
+            uint16_t    value;
+        }stop_condition;
+    }data;
 
 }timer_frame_t;
 
 
 typedef struct
 {
-	Uint8_t        magic_beg;
-	Uint8_t        size;
-	Uint8_t        version;
-	Uint8_t        state;
+    uint8_t        magic_beg;
+    uint8_t        size;
+    uint8_t        version;
+    uint8_t        state;
 }timer_resp_header_t;
 
 typedef struct
 {
-	Uint16_t          last_valid_id;
-	Uint8_t           free_slots;
-	Uint8_t           inputs;
-	timer_coord_t     coords;
-    Uint32_t          line_id;
+    uint16_t          last_valid_id;
+    uint8_t           free_slots;
+    uint8_t           inputs;
+    timer_coord_t     coords;
+    uint32_t          line_id;
 }timer_resp_data_t;
 
 typedef struct
 {
-	timer_resp_header_t header;
-	timer_resp_data_t   data;
+    timer_resp_header_t header;
+    timer_resp_data_t   data;
 
-	Uint16_t              crc16;
-	Uint8_t               magic_end;
+    uint16_t              crc16;
+    uint8_t               magic_end;
 }timer_resp_t;
 
 
@@ -221,9 +216,7 @@ typedef struct
 #pragma pack(pop)
 #endif
 
-#ifdef __cplusplus
-}
-#endif
+
 
 #endif // MACH_FIRMWARE_H
 

@@ -6,16 +6,16 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jarosaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------
 
 
 
-#include "..\mach_common\types.h"
-#include "..\mach_common\mach_firmware.h"
+#include "stdint.h"
+#include "../mach_common/mach_firmware.h"
 #include "timer.h"
 #include "serial.h"
 #include "pinctrl.h"
@@ -37,8 +37,8 @@ timer_frame_t       frames_jog[3];
 
 
 
-Uint32_t            tick;
-Uint32_t            tick_watchdog;
+uint32_t            tick;
+uint32_t            tick_watchdog;
 int                 watchdog_active;
 
 
@@ -50,7 +50,7 @@ int                 jog_abort_active  = 0;
 
 
 unsigned int        response_timeout = RESP_TOUT;
-Uint32_t            frame_counter    = 0;
+uint32_t            frame_counter    = 0;
 
 
 
@@ -62,6 +62,7 @@ static inline void timer_jog_start(void);
 
 static void timer_reset_hw(void)
 {
+#if 0
     // Execute software reset
     RCONbits.SWDTEN = 1;
     CORCONbits.IPL3 = 1;
@@ -69,14 +70,16 @@ static void timer_reset_hw(void)
     {
         ;
     }  
+#endif
 }
 
-int timer_execute_frame(Uint8_t * frame_stream,int idx)
+int timer_execute_frame(uint8_t * frame_stream,int idx)
 {
    int      ipl;
    int      ii;
    int      head;
 
+#if 0
    // Copy item from DMA stream buffer
    head = buffer.slots_head;
 
@@ -202,7 +205,8 @@ int timer_execute_frame(Uint8_t * frame_stream,int idx)
                     
      }
             
-     SET_CPU_IPL(ipl);            
+     SET_CPU_IPL(ipl);  
+#endif               
        
      return 0;    
 }
@@ -391,7 +395,7 @@ static inline void timer_gcode_mode(void)
     static int  next_step_pulse = 0;
     static int  phase;   
     int         is_active = 0;
-    Uint32_t    tmp;
+    int32_t    tmp;
 
     if(phase++ & 0x01)
     {        
@@ -512,7 +516,7 @@ static inline void timer_jog_mode(void)
 {
     static int  next_step_pulse = 0;
     static int  phase;   
-    Uint32_t    tmp;
+    uint32_t    tmp;
 
     if(phase++ & 0x01)
     {        
@@ -610,12 +614,12 @@ static inline void timer_jog_mode(void)
 }
 
 
-
+#if 0   
 
 // Timer  interrupt routine
 void __attribute__((interrupt,no_auto_psv)) _T1Interrupt( void )
 {    
-   
+
 
     PIN_DBG(1);
 
@@ -631,7 +635,8 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt( void )
     PIN_DBG(0);
 
 
-	IFS0bits.T1IF = 0;
+    IFS0bits.T1IF = 0;
+
 
 }
 
@@ -640,7 +645,7 @@ void __attribute__((interrupt,no_auto_psv))  _T2Interrupt( void )
     Uint8_t    inputs = 0;
     static int hit_cntr = 0;
     
-	IFS0bits.T2IF = 0;
+    IFS0bits.T2IF = 0;
 
     // System 1ms tick
     tick++;
@@ -706,7 +711,7 @@ void __attribute__((interrupt,no_auto_psv))  _T2Interrupt( void )
     
 }
 
-
+#endif
 
 
 void timer_init( void )
@@ -719,34 +724,36 @@ void timer_init( void )
 
     buffer.last_valid_id = -1;
 
-	// Timer 1 - base runner
+#if 0
+    // Timer 1 - base runner
 
-    T1CON 		  	=  0;      // Timer reset
-	T1CONbits.TCKPS =  0;	   // Fcy/1
- 	TMR1		    =  0;  	
- 	PR1			    =  (FCY /1) / (BASE_FREQ * 2);  
+    T1CON           =  0;      // Timer reset
+    T1CONbits.TCKPS =  0;      // Fcy/1
+    TMR1            =  0;   
+    PR1             =  (FCY /1) / (BASE_FREQ * 2);  
 
-	IFS0bits.T1IF   = 0;      // Reset Timer interrupt flag
-	IPC0bits.T1IP   = 5;      // Timer Interrupt priority 
- 	IEC0bits.T1IE   = 1;      // Enable Timer interrupt
+    IFS0bits.T1IF   = 0;      // Reset Timer interrupt flag
+    IPC0bits.T1IP   = 5;      // Timer Interrupt priority 
+    IEC0bits.T1IE   = 1;      // Enable Timer interrupt
 
-	T1CONbits.TON	= 1;
+    T1CONbits.TON   = 1;
 
     // Timer 2 
 
-    T2CON 		  	=  0;      // Timer reset
-	T2CONbits.TCKPS =  3;	   // Fcy/256
- 	TMR2		    =  0; 
+    T2CON           =  0;      // Timer reset
+    T2CONbits.TCKPS =  3;      // Fcy/256
+    TMR2            =  0; 
     PR2             = (FCY /256) / (IO_FREQ);  
- 	
-	IFS0bits.T2IF   =  0;      // Reset Timer interrupt flag
-	IPC1bits.T2IP   =  2;      // Timer Interrupt priority 
- 	IEC0bits.T2IE   =  1;      // Enable Timer interrupt
+    
+    IFS0bits.T2IF   =  0;      // Reset Timer interrupt flag
+    IPC1bits.T2IP   =  2;      // Timer Interrupt priority 
+    IEC0bits.T2IE   =  1;      // Enable Timer interrupt
 
-    T2CONbits.TON	= 1;
+    T2CONbits.TON   = 1;
 
 
     watchdog_active = 0;
+#endif
 
 }
 

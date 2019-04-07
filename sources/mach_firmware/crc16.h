@@ -6,8 +6,8 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jarosaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------
@@ -16,8 +16,8 @@
 #define CRC_INIT 0xFFFF
 
 
-Uint16_t crc_sum(const unsigned char* message, int length,Uint16_t crc);
-void   crc_single(unsigned char cc, Uint16_t * crc);
+uint16_t crc_sum(const unsigned char* message, int length,uint16_t crc);
+void   crc_single(unsigned char cc, uint16_t * crc);
 
 int    crc_verify(const unsigned char* message, unsigned long length);
 void   crc_append(unsigned char* message, int length);

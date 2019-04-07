@@ -154,7 +154,6 @@
   <ItemGroup>
     <ClInclude Include="..\mach_common\mach_firmware.h" />
     <ClInclude Include="..\mach_common\mach_pclib_protocol.h" />
-    <ClInclude Include="..\mach_common\types.h" />
     <ClInclude Include="PlugInControlDialog.h">
       <FileType>CppForm</FileType>
     </ClInclude>

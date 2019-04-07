@@ -15,7 +15,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "types.h"
+
 
 #include "mach_firmware.h"
 #include "mach_pclib_protocol.h"
@@ -26,13 +26,13 @@ typedef struct
 {
 	double		T;
     double		S;
-    Uint32_t    Cnt;
+    uint32_t    Cnt;
 }LineVectorType;
 
 typedef struct
 {
-    Uint32_t    Cnt;
-    Int32_t     Dir;
+    uint32_t    Cnt;
+    int32_t     Dir;
 
     double V;
     double Vstart;
@@ -53,16 +53,16 @@ private:
 	double    steps_accumulated[4];
 	char      dev_address[128];
 	double	  move_tick;
-	Uint32_t  move_tick_ms;
+	uint32_t  move_tick_ms;
 	int		  connected;	
 
-	Uint32_t  CalcSpeed(int delta);
+	uint32_t  CalcSpeed(int delta);
 
 
 	pin_hw_e PinNr2Fn(int pin_nr,int polarity);
 
 	void	CalculateAxis(VectorSpeedType * VS);
-	void	PrepareAxisData(int	axis,Uint32_t Frequency,VectorSpeedType *  Vs,timer_step_t	*  AccVector,timer_step_t *  ConstVector,timer_step_t *  DccVector);
+	void	PrepareAxisData(int	axis,uint32_t Frequency,VectorSpeedType *  Vs,timer_step_t	*  AccVector,timer_step_t *  ConstVector,timer_step_t *  DccVector);
 
 public:
 
@@ -71,8 +71,8 @@ public:
 
 
 	// GCode moves processing
-	Uint32_t	GetLineId(void);
-	int		    AddMove(double ex,double ey,double ez,double ea,Uint32_t line_id);
+	uint32_t	GetLineId(void);
+	int		    AddMove(double ex,double ey,double ez,double ea,uint32_t line_id);
 
 	// IO control
 	unsigned int GetInputs(void);

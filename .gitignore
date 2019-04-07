@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+/sources/mach_plugin/Release/step2boot
+/sources/mach_plugin/Release/step2link
+/sources/mach_plugin/Release/step2mach
+/sources/mach_plugin/Release
+/sources/mach_firmware/project/step2mach THUMB Debug

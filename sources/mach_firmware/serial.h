@@ -6,8 +6,8 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jarosaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------
@@ -19,18 +19,18 @@
 
 /*---------------------------------------------------------------------------
 ;
-;	   File:	serial.h
+;      File:    serial.h
 ;
 ---------------------------------------------------------------------------*/
 
-#include "..\mach_common\types.h"
+#include "stdint.h"
 
 int   serial_init(void);
 void  serial_send_response(void);
 void  serial_receive(void);
 
 
-extern Uint32_t  oslot;
+extern uint32_t  oslot;
 
 
 

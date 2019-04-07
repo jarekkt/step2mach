@@ -1,7 +1,7 @@
 #include "crc16.h"
 
 /* CRC16 Definitions */
-static const Uint16_t crc_table[256] = {
+static const uint16_t crc_table[256] = {
   0x0000, 0x1189, 0x2312, 0x329b, 0x4624, 0x57ad, 0x6536, 0x74bf,
   0x8c48, 0x9dc1, 0xaf5a, 0xbed3, 0xca6c, 0xdbe5, 0xe97e, 0xf8f7,
   0x1081, 0x0108, 0x3393, 0x221a, 0x56a5, 0x472c, 0x75b7, 0x643e,
@@ -42,7 +42,7 @@ static const Uint16_t crc_table[256] = {
 
 
 /*---------------------------------------------------------------------------*/
-void   crc_single(unsigned char cc, Uint16_t * crc)
+void   crc_single(unsigned char cc, uint16_t * crc)
 {
       CRC((*crc), cc);    
 }
@@ -50,7 +50,7 @@ void   crc_single(unsigned char cc, Uint16_t * crc)
 
 /*---------------------------------------------------------------------------*/
 
-Uint16_t crc_sum(const unsigned char* message, int length,Uint16_t crc)
+uint16_t crc_sum(const unsigned char* message, int length,uint16_t crc)
 {
   int  i;
 
@@ -70,7 +70,7 @@ int crc_verify(const unsigned char* message, unsigned long length)
    * Returns true if the last two bytes in a message is the crc of the
    * preceding bytes.
    */
-  Uint16_t expected;
+  uint16_t expected;
 
   expected = crc_sum(message, length - 1, CRC_INIT);
   return (expected == 0);
@@ -80,7 +80,7 @@ int crc_verify(const unsigned char* message, unsigned long length)
 
 void crc_append(unsigned char* message, int length)
 {
-  Uint16_t crc;
+  uint16_t crc;
 
   crc = crc_sum(message, length, CRC_INIT);
   message[length] = (unsigned char)(crc & 0xff);

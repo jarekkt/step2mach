@@ -1,0 +1,27 @@
+<!DOCTYPE Board_Memory_Definition_File>
+<Root name="STM32F429ZI">
+  <MemorySegment size="0x10" name="DBG" start="0xE0042000" />
+  <MemorySegment size="0x100000" name="PPB" start="0xE0000000" />
+  <MemorySegment size="$(SDRAM2_SIZE:0)" name="SDRAM2" start="0xD0000000" />
+  <MemorySegment size="$(SDRAM1_SIZE:0)" name="SDRAM1" start="0xC0000000" />
+  <MemorySegment start="0x60000000" name="$(NOR_PSRAM1_NAME:NOR_PSRAM1)" size="$(NOR_PSRAM1_SIZE:0)" access="$(NOR_PSRAM1_ACCESS:Read/Write)" />
+  <MemorySegment start="0x64000000" name="$(NOR_PSRAM2_NAME:NOR_PSRAM2)" size="$(NOR_PSRAM2_SIZE:0)" access="$(NOR_PSRAM2_ACCESS:Read/Write)" />
+  <MemorySegment start="0x68000000" name="$(NOR_PSRAM3_NAME:NOR_PSRAM3)" size="$(NOR_PSRAM3_SIZE:0)" access="$(NOR_PSRAM3_ACCESS:Read/Write)" />
+  <MemorySegment start="0x6C000000" name="$(NOR_PSRAM4_NAME:NOR_PSRAM4)" size="$(NOR_PSRAM4_SIZE:0)" access="$(NOR_PSRAM4_ACCESS:Read/Write)" />
+  <MemorySegment start="0x70000000" name="$(NAND1_NAME:NAND1)" size="$(NAND1_SIZE:0)" access="$(NAND1_ACCESS:Read/Write)" />
+  <MemorySegment start="0x80000000" name="$(NAND2_NAME:NAND2)" size="$(NAND2_SIZE:0)" access="$(NAND2_ACCESS:Read/Write)" />
+  <MemorySegment start="0x90000000" name="$(PCCARD_NAME:PCCARD)" size="$(PCCARD_SIZE:0)" access="$(PCCARD_ACCESS:Read/Write)" />
+  <MemorySegment start="0xA0000000" name="FSMC" size="0x1000" />
+  <MemorySegment size="0x60C00" name="AHB2" start="0x50000000" />
+  <MemorySegment size="0x80000" name="AHB1" start="0x40020000" />
+  <MemorySegment size="0x8000" name="APB2" start="0x40010000" />
+  <MemorySegment size="0x8000" name="APB1" start="0x40000000" />
+  <MemorySegment size="0x10000" name="SRAM3" start="0x20020000" />
+  <MemorySegment size="0x4000" name="SRAM2" start="0x2001C000" />
+  <MemorySegment size="0x1C000" name="SRAM1" start="0x20000000" />
+  <MemorySegment size="0x30000" name="RAM" start="0x20000000" />
+  <MemorySegment size="0x8" name="OPTION" start="0x1FFFC000" />
+  <MemorySegment size="0x7A10" name="SYSTEM" start="0x1FFF0000" />
+  <MemorySegment size="0x10000" name="DATA_SRAM" start="0x10000000" />
+  <MemorySegment size="0x200000" access="ReadOnly" name="FLASH" start="0x08000000" />
+</Root>

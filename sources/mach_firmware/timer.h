@@ -6,8 +6,8 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jarosaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------
@@ -17,9 +17,9 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include "..\mach_common\types.h"
-#include "..\mach_common\mach_firmware.h"
-#include "hwinit.h"
+#include "stdint.h"
+#include "../mach_common/mach_firmware.h"
+#include "init.h"
 
 
 
@@ -36,31 +36,31 @@ typedef struct
 {   
     timer_frame_t    * current_step;
     timer_frame_t    * current_jog;
-    Uint8_t            inputs; 
+    uint8_t            inputs; 
 
-    Int16_t            last_valid_id;              
-    Uint16_t           slots_head;    
-    Uint16_t           slots_tail;
-    Uint16_t           slots_used;     
+    int16_t            last_valid_id;              
+    uint16_t           slots_head;    
+    uint16_t           slots_tail;
+    uint16_t           slots_used;     
     int                jog_mode;
-    Uint16_t           jog_in_mask;
-    Uint16_t           jog_in_value;
+    uint16_t           jog_in_mask;
+    uint16_t           jog_in_value;
     
 }timer_buffer_t;
 
 typedef struct
 {
-    Uint32_t           Xac;
-    Uint32_t           Yac;
-    Uint32_t           Zac;
-    Uint32_t           Aac;
+    uint32_t           Xac;
+    uint32_t           Yac;
+    uint32_t           Zac;
+    uint32_t           Aac;
 }timer_engine_t;
 
 
 typedef struct
 {
-    Uint32_t           accumulator;
-    Int32_t          * coord_ptr;    
+    uint32_t           accumulator;
+    int32_t          * coord_ptr;    
     int                dir_neg; 
     int                pulse;
 }timer_jog_engine_t;
@@ -70,7 +70,7 @@ typedef struct
 
 extern timer_coord_t    coords;
 extern timer_buffer_t   buffer;
-extern Uint32_t         tick;
+extern uint32_t         tick;
 
 void timer_init(void);
 
@@ -78,7 +78,7 @@ void timer_enable_run(void);
 void timer_disable_run(void);
 void timer_flush_buffers(void);
 void timer_sync_coords(void);
-int  timer_execute_frame(Uint8_t * frame_stream,int idx);
+int  timer_execute_frame(uint8_t * frame_stream,int idx);
 
 
 #endif

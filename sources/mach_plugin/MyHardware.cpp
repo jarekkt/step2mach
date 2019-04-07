@@ -23,7 +23,7 @@
 MyHardwareClass::MyHardwareClass(double move_tick,const char * address)
 {
 	this->move_tick	   = move_tick;
-	this->move_tick_ms = (Uint32_t)(move_tick * 1000);
+	this->move_tick_ms = (uint32_t)(move_tick * 1000);
 
 	memset(this->dev_address,0,sizeof(this->dev_address));
 	strncpy(this->dev_address,address,sizeof(this->dev_address)-1);
@@ -69,8 +69,8 @@ void MyHardwareClass::StartJogMove(int axis,int distance,double JogVel, double J
 	// Setup generic stop mask
 	frames[0].header.command			= CMD_SET_JOG_BREAK;
 	frames[0].header.in_mask			= 0;
-	frames[0].data.stop_condition.mask  = (Uint16_t) (PinStopMask >> 9);
-	frames[0].data.stop_condition.value = (Uint16_t) (PinStopValue >> 9);
+	frames[0].data.stop_condition.mask  = (uint16_t) (PinStopMask >> 9);
+	frames[0].data.stop_condition.value = (uint16_t) (PinStopValue >> 9);
 
 	for(ii = 1;ii <=3;ii++)
 	{
@@ -161,19 +161,19 @@ void MyHardwareClass::Stop(void)
 //	 Calculates speed coeffifient for device move
 //
 //
-Uint32_t  MyHardwareClass::CalcSpeed(int delta)
+uint32_t  MyHardwareClass::CalcSpeed(int delta)
 {
-	Uint64_t r;
-	Uint64_t v;
+	uint64_t r;
+	uint64_t v;
 
 
 	if(delta == 0)return 0;
 
 	if(delta < 0)delta = -delta;
 
-	r =  (Uint64_t)HARDWARE_FREQ/*khz*/ / (1000/move_tick_ms);
-	v =  ((Uint64_t)delta << 32) / r;
-	return (Uint32_t)v;
+	r =  (uint64_t)HARDWARE_FREQ/*khz*/ / (1000/move_tick_ms);
+	v =  ((uint64_t)delta << 32) / r;
+	return (uint32_t)v;
 }
 
 
@@ -183,7 +183,7 @@ Uint32_t  MyHardwareClass::CalcSpeed(int delta)
 //	 Buffers and sends to device single move
 //
 //
-int   MyHardwareClass::AddMove(double ex,double ey,double ez,double ea,Uint32_t line_id)
+int   MyHardwareClass::AddMove(double ex,double ey,double ez,double ea,uint32_t line_id)
 {
 	timer_frame_t  frames[1];
 
@@ -236,7 +236,7 @@ int   MyHardwareClass::AddMove(double ex,double ey,double ez,double ea,Uint32_t 
 	{
 		// Just delay frame
 		frames[0].header.command = CMD_VECTORS_DELAY;
-		frames[0].data.step.motion.delay.tick_delay = (Uint32_t)(HARDWARE_FREQ * move_tick);   
+		frames[0].data.step.motion.delay.tick_delay = (uint32_t)(HARDWARE_FREQ * move_tick);   
 		Cnc_SetFrame(frames,1,0);
 	}
 
@@ -250,7 +250,7 @@ int   MyHardwareClass::AddMove(double ex,double ey,double ez,double ea,Uint32_t 
 //	 Reports current GCODE line
 //
 
-Uint32_t	 MyHardwareClass::GetLineId(void)
+uint32_t	 MyHardwareClass::GetLineId(void)
 {
 	timer_resp_t	status;
 
@@ -591,8 +591,8 @@ void   MyHardwareClass::CalculateAxis(
 			VS->LineConst.S = VS->Cnt - VS->LineAcc.S - VS->LineDcc.S;
 			VS->LineConst.T = (VS->LineConst.S / VS->V);
 
-			VS->LineAcc.Cnt   = (Uint32_t)VS->LineAcc.S;
-			VS->LineDcc.Cnt   = (Uint32_t)VS->LineDcc.S;
+			VS->LineAcc.Cnt   = (uint32_t)VS->LineAcc.S;
+			VS->LineDcc.Cnt   = (uint32_t)VS->LineDcc.S;
 			VS->LineConst.Cnt  = VS->Cnt - (VS->LineAcc.Cnt + VS->LineDcc.Cnt);
 
 			assert( fabs((double)(VS->V -( VS->Vstart + VS->Acc*VS->LineAcc.T))) < 0.1);
@@ -613,7 +613,7 @@ void   MyHardwareClass::CalculateAxis(
 
 			VS->LineAcc.T   =  (-WB+sqrt(WB*WB-4*WA*WC))/(2*WA);
 			VS->LineAcc.S   = VS->Acc*VS->LineAcc.T*VS->LineAcc.T/2 + VS->LineAcc.T*VS->Vstart;
-			VS->LineAcc.Cnt = (Uint32_t)VS->LineAcc.S;
+			VS->LineAcc.Cnt = (uint32_t)VS->LineAcc.S;
 
 			VS->LineDcc.T   = (VS->LineAcc.T*VS->Acc)/VS->Dcc;
 			VS->LineDcc.S   = VS->Dcc*VS->LineDcc.T*VS->LineDcc.T/2 + VS->LineDcc.T*VS->Vstop;
@@ -664,14 +664,14 @@ void   MyHardwareClass::CalculateAxis(
 
 void   MyHardwareClass::PrepareAxisData(
 	int						  axis,
-	Uint32_t                  Frequency,
+	uint32_t                  Frequency,
     VectorSpeedType        *  Vs,
     timer_step_t		   *  AccVector,
 	timer_step_t		   *  ConstVector,
 	timer_step_t		   *  DccVector
 )
 {
-   Uint32_t  fract_end;
+   uint32_t  fract_end;
 
    memset(AccVector,0,sizeof(*AccVector));
    memset(DccVector,0,sizeof(*DccVector));
@@ -701,7 +701,7 @@ void   MyHardwareClass::PrepareAxisData(
 
    if( (ConstVector->motion.jog.fract  !=  AccVector->motion.jog.fract ) && ( AccVector->motion.jog.cnt != 0))
    {
-      AccVector->motion.jog.vfract   = (Int32_t)(((Int64_t)(Uint64_t)ConstVector->motion.jog.fract-(Int64_t)(Uint64_t)AccVector->motion.jog.fract) /  AccVector->motion.jog.cnt);
+      AccVector->motion.jog.vfract   = (int32_t)(((int64_t)(uint64_t)ConstVector->motion.jog.fract-(int64_t)(uint64_t)AccVector->motion.jog.fract) /  AccVector->motion.jog.cnt);
 	  if(AccVector->motion.jog.vfract   == 0)
 	  {
 		  AccVector->motion.jog.vfract  = 1;
@@ -716,7 +716,7 @@ void   MyHardwareClass::PrepareAxisData(
 
    if( ( ConstVector->motion.jog.fract !=  fract_end ) && ( DccVector->motion.jog.cnt != 0))
    {
-	  DccVector->motion.jog.vfract = (Int32_t)(((Int64_t)(Int64_t)fract_end - (Int64_t)(Int64_t)ConstVector->motion.jog.fract) / DccVector->motion.jog.cnt);
+	  DccVector->motion.jog.vfract = (int32_t)(((int64_t)(uint64_t)fract_end - (int64_t)(uint64_t)ConstVector->motion.jog.fract) / DccVector->motion.jog.cnt);
    }
    else
    {

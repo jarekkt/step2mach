@@ -6,8 +6,8 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jarosaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------
@@ -42,6 +42,7 @@ void   pinctrl_map(pin_map_e  pin_id,pin_hw_e pin_fn)
 
 void inline pinctrl_set(pin_map_e pin_id)
 {
+#if 0
     switch(pcd.map[pin_id])
     {
     default:    
@@ -70,11 +71,13 @@ void inline pinctrl_set(pin_map_e pin_id)
     case PIN_LPTO_16_INV:  LATBbits.LATB1  = 0; break; 
     case PIN_LPTO_17:      LATBbits.LATB12  = 1; break;  
     case PIN_LPTO_17_INV:  LATBbits.LATB12  = 0; break;         
-    }           
+    }   
+#endif            
 }
 
 void inline pinctrl_clear(pin_map_e pin_id)
 {
+#if 0
     switch(pcd.map[pin_id])
     {
     default:    
@@ -104,11 +107,13 @@ void inline pinctrl_clear(pin_map_e pin_id)
     case PIN_LPTO_17:      LATBbits.LATB12  = 0; break;  
     case PIN_LPTO_17_INV:  LATBbits.LATB12  = 1; break;         
     }
+#endif
 }
 
 
-void inline pinctrl_set_outputs(Uint32_t outputs,Uint32_t mask)
+void inline pinctrl_set_outputs(uint32_t outputs,uint32_t mask)
 {
+#if 0
     if(mask & (((Uint32_t)1)<<0))
     {
         if(outputs & (((Uint32_t)1)<<0) )
@@ -266,6 +271,7 @@ void inline pinctrl_set_outputs(Uint32_t outputs,Uint32_t mask)
           LATBbits.LATB12 = 0;   
         }
     }    
+#endif
 }
 
 
