@@ -30,15 +30,23 @@ void init_reset(void)
 }
 
 
-/*-----------------------*/
 
 
-int init_main(void)
+
+void init_main(void)
 {
 
     serial_init();
     timer_init();
 
 }
-/******************************************************************************/
+
+void  init_net(void)
+{
+    httpd_init();
+    netbiosns_init();
+    netbiosns_set_name("step2mach");
+
+}
+
 

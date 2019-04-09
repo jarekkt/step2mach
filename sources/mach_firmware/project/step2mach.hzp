@@ -1,70 +1,5 @@
 <!DOCTYPE CrossStudio_Project_File>
 <solution Name="step2mach" target="8" version="2">
-  <project Name="step2mach">
-    <configuration
-      Name="Common"
-      Placement="Flash Vectors In RAM"
-      Target="STM32F429ZI"
-      arm_architecture="v7EM"
-      arm_core_type="Cortex-M4"
-      arm_fp_abi="Hard"
-      arm_fpu_type="FPv4-SP-D16"
-      arm_linker_heap_size="128"
-      arm_linker_jtag_pad_pre_dr="1"
-      arm_linker_jtag_pad_pre_ir="5"
-      arm_linker_process_stack_size="0"
-      arm_linker_stack_size="1024"
-      arm_simulator_memory_simulation_filename="$(ProjectDir)/STM32SimulatorMemory.so_x64"
-      arm_simulator_memory_simulation_parameter="STM32F429ZI;0x200000;0x40000"
-      arm_target_loader_applicable_loaders="Flash"
-      arm_target_loader_default_loader="Flash"
-      c_preprocessor_definitions="STM32F429xx;__VECTORS=&quot;STM32F429xx.vec&quot;;__SYSTEM_STM32F4XX;__TARGET_PROCESSOR_STM32F429ZI;VECTORS_IN_RAM=1"
-      c_user_include_directories="$(ProjectDir)/STM32/include;$(PackagesDir)/CMSIS_4/CMSIS/Include"
-      debug_register_definition_file="$(ProjectDir)/STM32F429_Peripherals.xml"
-      linker_memory_map_file="$(ProjectDir)/STM32F429ZI_MemoryMap.xml"
-      linker_output_format="bin"
-      linker_section_placement_file="$(ProjectDir)/flash_placement.xml"
-      macros="DeviceVectorsFile=STM32F429xx.vec;Family=STM32;Target=STM32F429ZI;Placement=Flash Vectors In RAM"
-      project_dependencies="cube"
-      project_directory=""
-      project_type="Executable"
-      target_get_partname_script="GetPartName()"
-      target_match_partname_script="MatchPartName(&quot;$(Target)&quot;)"
-      target_script_file="$(ProjectDir)/STM32_Target.js"
-      target_trace_initialize_script="EnableTrace(&quot;$(TraceInterfaceType)&quot;)" />
-    <configuration
-      Name="Flash"
-      arm_target_flash_loader_file_path="$(LOADER:$(TargetsDir)/STM32/Release/STM32F2xx_Loader_rpc.elf)"
-      arm_target_loader_can_erase_all="Yes"
-      arm_target_loader_can_lock_all="No"
-      arm_target_loader_can_lock_range="No"
-      arm_target_loader_can_unlock_all="No"
-      arm_target_loader_can_unlock_range="No"
-      target_reset_script="FLASHReset()" />
-    <configuration Name="RAM" target_reset_script="Reset()" />
-    <folder Name="Source Files">
-      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
-      <file file_name="../crc16.c" />
-      <file file_name="../crc16.h" />
-      <file file_name="../pinctrl.c" />
-      <file file_name="../pinctrl.h" />
-      <file file_name="../serial.c" />
-      <file file_name="../serial.h" />
-      <file file_name="../timer.c" />
-      <file file_name="../timer.h" />
-      <file file_name="../init.c" />
-      <file file_name="../init.h" />
-    </folder>
-    <folder Name="System Files">
-      <file file_name="thumb_crt0.s" />
-      <file file_name="targets/STM32/STM32_Startup.s" />
-      <file file_name="targets/STM32/STM32F429xx.vec" />
-    </folder>
-    <folder Name="common">
-      <file file_name="../../mach_common/mach_firmware.h" />
-      <file file_name="../../mach_common/mach_pclib_protocol.h" />
-    </folder>
-  </project>
   <configuration Name="THUMB Debug" inherited_configurations="THUMB;Debug" />
   <configuration
     Name="THUMB"
@@ -267,7 +202,140 @@
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/nd6.c" />
         <file file_name="../cube/Middlewares/Third_Party/LwIP/system/OS/sys_arch.c" />
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/apps/mqtt/mqtt.c" />
+        <folder Name="inc">
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/api.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/arch.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/autoip.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/debug.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/def.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp6.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/dns.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/err.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/errno.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/etharp.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ethip6.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/icmp6.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/icmp.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/igmp.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/inet_chksum.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/inet.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/init.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip4_addr.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip4_frag.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip4.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip6_addr.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip6_frag.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip6.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip_addr.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/ip.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/mem.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/memp.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/mld6.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/nd6.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/netbuf.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/netdb.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/netifapi.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/netif.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/opt.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/pbuf.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/raw.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/sio.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/snmp.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/stats.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/sys.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/tcp.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/tcpip.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h" />
+          <file file_name="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/udp.h" />
+        </folder>
       </folder>
+    </folder>
+  </project>
+  <project Name="step2mach">
+    <configuration
+      Name="Common"
+      Placement="Flash Vectors In RAM"
+      Target="STM32F429ZI"
+      arm_architecture="v7EM"
+      arm_core_type="Cortex-M4"
+      arm_fp_abi="Hard"
+      arm_fpu_type="FPv4-SP-D16"
+      arm_linker_heap_size="128"
+      arm_linker_jtag_pad_pre_dr="1"
+      arm_linker_jtag_pad_pre_ir="5"
+      arm_linker_process_stack_size="0"
+      arm_linker_stack_size="1024"
+      arm_simulator_memory_simulation_filename="$(ProjectDir)/STM32SimulatorMemory.so_x64"
+      arm_simulator_memory_simulation_parameter="STM32F429ZI;0x200000;0x40000"
+      arm_target_loader_applicable_loaders="Flash"
+      arm_target_loader_default_loader="Flash"
+      c_preprocessor_definitions="STM32F429xx;__VECTORS=&quot;STM32F429xx.vec&quot;;__SYSTEM_STM32F4XX;__TARGET_PROCESSOR_STM32F429ZI;VECTORS_IN_RAM=1"
+      c_user_include_directories="$(ProjectDir)/STM32/include;$(ProjectDir)/../cube/Inc;$(ProjectDir)/../cube/Drivers/STM32F4xx_HAL_Driver/Inc;$(ProjectDir)/../cube/Drivers/CMSIS/Device/ST/STM32F4xx/Include;$(ProjectDir)/../cube/Drivers/CMSIS/Include;$(ProjectDir)/../cube/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;$(ProjectDir)/../cube/Middlewares/Third_Party/FreeRTOS/Source/include;$(ProjectDir)/../cube/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F;$(ProjectDir)/../cube/Middlewares/Third_Party/LwIP/src/include;$(ProjectDir)/../cube/Middlewares/Third_Party/LwIP/system"
+      debug_register_definition_file="$(ProjectDir)/STM32F429_Peripherals.xml"
+      linker_additional_options="--whole-archive"
+      linker_memory_map_file="$(ProjectDir)/STM32F429ZI_MemoryMap.xml"
+      linker_output_format="bin"
+      linker_section_placement_file="$(ProjectDir)/flash_placement.xml"
+      macros="DeviceVectorsFile=STM32F429xx.vec;Family=STM32;Target=STM32F429ZI;Placement=Flash Vectors In RAM"
+      project_dependencies="cube"
+      project_directory=""
+      project_type="Executable"
+      target_get_partname_script="GetPartName()"
+      target_match_partname_script="MatchPartName(&quot;$(Target)&quot;)"
+      target_script_file="$(ProjectDir)/STM32_Target.js"
+      target_trace_initialize_script="EnableTrace(&quot;$(TraceInterfaceType)&quot;)" />
+    <configuration
+      Name="Flash"
+      arm_target_flash_loader_file_path="$(LOADER:$(TargetsDir)/STM32/Release/STM32F2xx_Loader_rpc.elf)"
+      arm_target_loader_can_erase_all="Yes"
+      arm_target_loader_can_lock_all="No"
+      arm_target_loader_can_lock_range="No"
+      arm_target_loader_can_unlock_all="No"
+      arm_target_loader_can_unlock_range="No"
+      target_reset_script="FLASHReset()" />
+    <configuration Name="RAM" target_reset_script="Reset()" />
+    <folder Name="Source Files">
+      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
+      <file file_name="../crc16.c" />
+      <file file_name="../crc16.h" />
+      <file file_name="../pinctrl.c" />
+      <file file_name="../pinctrl.h" />
+      <file file_name="../serial.c" />
+      <file file_name="../serial.h" />
+      <file file_name="../timer.c" />
+      <file file_name="../timer.h" />
+      <file file_name="../init.c" />
+      <file file_name="../init.h" />
+      <folder Name="lwip_apps">
+        <folder Name="httpd">
+          <file file_name="../lwip_apps/httpd/fs.c" />
+          <file file_name="../lwip_apps/httpd/fsdata.c">
+            <configuration
+              Name="THUMB Debug"
+              build_exclude_from_build="Yes" />
+            <configuration
+              Name="ARM Release"
+              build_exclude_from_build="Yes" />
+          </file>
+          <file file_name="../lwip_apps/httpd/fsdata.h" />
+          <file file_name="../lwip_apps/httpd/httpd.c" />
+          <file file_name="../lwip_apps/httpd/httpd_structs.h" />
+        </folder>
+        <folder Name="netbios">
+          <file file_name="../lwip_apps/netbiosns/netbiosns.c" />
+        </folder>
+      </folder>
+    </folder>
+    <folder Name="System Files">
+      <file file_name="thumb_crt0.s" />
+      <file file_name="targets/STM32/STM32_Startup.s" />
+      <file file_name="targets/STM32/STM32F429xx.vec" />
+    </folder>
+    <folder Name="common">
+      <file file_name="../../mach_common/mach_firmware.h" />
+      <file file_name="../../mach_common/mach_pclib_protocol.h" />
     </folder>
   </project>
 </solution>

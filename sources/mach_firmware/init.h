@@ -22,7 +22,8 @@
 #include "stdint.h"
 
 void init_reset(void);
-int init_main(void);
+void init_main(void);
+void init_net(void);
 
 #endif //INIT_H
 

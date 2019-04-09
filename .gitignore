@@ -35,3 +35,4 @@
 /sources/mach_plugin/Release/step2mach
 /sources/mach_plugin/Release
 /sources/mach_firmware/project/step2mach THUMB Debug
+/sources/mach_firmware/project/step2mach ARM Release
