@@ -21,7 +21,6 @@ namespace mach_plugin
 	public ref struct	Step2MachConfig
 	{
 		String^   dev_ip_address;
-		String^   license_key;
 		bool	  debug_mode;
 	};
 

@@ -98,15 +98,15 @@ char* piSetProName(LPCSTR name)
 	Config->dev_ip_address = profile->ReadString("dev_ip_address");
 	if(Config->dev_ip_address == "")
 	{
-		Config->dev_ip_address = "STEP2MACH";
+		Config->dev_ip_address = "169.254.1.3";
 	}
-	Config->license_key = profile->ReadString("license_key");
+
 	Config->debug_mode  = profile->ReadBool("debug_mode",false);
 
 
 	MG::Config  = Config;
 
-	return "Step2Mach-v1.2.0.0";
+	return "Step2Mach-v2.0.0.0";
 }
 #endif
 
@@ -218,7 +218,6 @@ void piStopPlug()
 	if (profile->Load())
 	{
 		profile->WriteString("dev_ip_address",Config->dev_ip_address);
-		profile->WriteString("license_key",Config->license_key);
 		profile->WriteBool("debug_mode",Config->debug_mode);
 		profile->Save();
 	}

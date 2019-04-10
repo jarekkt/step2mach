@@ -545,7 +545,7 @@ int MyHardwareClass::GetStats(char * buffer,int buffer_size,int line)
 		   }
 		   else
 		   {
-			     result = _snprintf(buffer,buffer_size,"Hardware feedback  : Not available");
+			     result = _snprintf(buffer,buffer_size,"Hardware feedback  : Not available                                                                    ");
 		   }
 		   buffer[buffer_size-1] = 0;
 		}break;

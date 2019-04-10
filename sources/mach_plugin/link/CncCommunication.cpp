@@ -451,6 +451,7 @@ int	STDCALL Cnc_Communication_Enable(const char * address)
 				upgrade = true;
 			}
 
+#if 0 // TODO
 			// Check if upgrade needed ( tried also if there is no answer)
 			if(upgrade == true)
 			{
@@ -464,6 +465,9 @@ int	STDCALL Cnc_Communication_Enable(const char * address)
 
 
 			return ComUpdateResult;
+#else
+			return 0;	
+#endif
 		}
 		else
 		{

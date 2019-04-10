@@ -320,6 +320,7 @@
             <configuration
               Name="ARM Release"
               build_exclude_from_build="Yes" />
+            <configuration Name="ARM Debug" build_exclude_from_build="Yes" />
           </file>
           <file file_name="../lwip_apps/httpd/fsdata.h" />
           <file file_name="../lwip_apps/httpd/httpd.c" />

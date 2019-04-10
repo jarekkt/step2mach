@@ -40,14 +40,16 @@ static void mach_conn_thread(void *nf)
    /* Our connection point */
    sLocalAddr.sin_family      = AF_INET;
    sLocalAddr.sin_len         = sizeof(sLocalAddr);
-   sLocalAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-   sLocalAddr.sin_port        = 7000;
+   sLocalAddr.sin_addr.s_addr = lwip_htonl(INADDR_ANY);
+   sLocalAddr.sin_port        = lwip_htons(7000);
 
    lwip_bind(lSocket, (struct sockaddr *)&sLocalAddr, sizeof(sLocalAddr));
 
    while (1) 
    {
-         nbytes = lwip_recvfrom(lSocket, buffer, sizeof(buffer),8,&sRemoteAddr,&sRemoteAddrLen);
+         sRemoteAddrLen = sizeof(sRemoteAddr);
+
+         nbytes = lwip_recvfrom(lSocket, buffer, sizeof(buffer),0,&sRemoteAddr,&sRemoteAddrLen);
          if (nbytes>0)
          {
              serial_process_receive(buffer,nbytes);
