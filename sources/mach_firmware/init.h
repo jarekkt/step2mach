@@ -21,7 +21,9 @@
 #include "string.h"
 #include "stdint.h"
 
-void init_reset(void);
+
+#define DIM(x_)      (sizeof(x_)/sizeof(x_[0]))
+
 void init_main(void);
 void init_net(void);
 

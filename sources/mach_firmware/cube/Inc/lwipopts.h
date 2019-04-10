@@ -80,17 +80,21 @@
 /*----- Default Value for MEMP_NUM_UDP_PCB: 4 ---*/
 #define MEMP_NUM_UDP_PCB 8
 /*----- Default Value for MEMP_NUM_TCP_PCB: 5 ---*/
-#define MEMP_NUM_TCP_PCB 32
+#define MEMP_NUM_TCP_PCB 16
 /*----- Value in opt.h for MEM_ALIGNMENT: 1 -----*/
 #define MEM_ALIGNMENT 4
 /*----- Default Value for MEM_SIZE: 1600 ---*/
 #define MEM_SIZE 4096
+/*----- Default Value for MEMP_NUM_PBUF: 16 ---*/
+#define MEMP_NUM_PBUF 32
 /*----- Default Value for MEMP_NUM_RAW_PCB: 4 ---*/
 #define MEMP_NUM_RAW_PCB 8
 /*----- Default Value for MEMP_NUM_TCP_PCB_LISTEN: 8 ---*/
-#define MEMP_NUM_TCP_PCB_LISTEN 16
+#define MEMP_NUM_TCP_PCB_LISTEN 32
 /*----- Value in opt.h for LWIP_ETHERNET: LWIP_ARP || PPPOE_SUPPORT -*/
 #define LWIP_ETHERNET 1
+/*----- Default Value for LWIP_DHCP_AUTOIP_COOP_TRIES: 9 ---*/
+#define LWIP_DHCP_AUTOIP_COOP_TRIES 4
 /*----- Value in opt.h for LWIP_DNS_SECURE: (LWIP_DNS_SECURE_RAND_XID | LWIP_DNS_SECURE_NO_MULTIPLE_OUTSTANDING | LWIP_DNS_SECURE_RAND_SRC_PORT) -*/
 #define LWIP_DNS_SECURE 7
 /*----- Value in opt.h for TCP_SND_QUEUELEN: (4*TCP_SND_BUF + (TCP_MSS - 1))/TCP_MSS -----*/

@@ -190,7 +190,9 @@
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c" />
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_addr.c" />
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/ip4_frag.c" />
-        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/autoip.c" />
+        <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/autoip.c">
+          <configuration Name="Common" c_preprocessor_definitions="" />
+        </file>
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/inet6.c" />
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/ethip6.c" />
         <file file_name="../cube/Middlewares/Third_Party/LwIP/src/core/ipv6/ip6_frag.c" />
@@ -325,6 +327,11 @@
         </folder>
         <folder Name="netbios">
           <file file_name="../lwip_apps/netbiosns/netbiosns.c" />
+        </folder>
+        <folder Name="mach_conn">
+          <file file_name="../lwip_apps/mach_conn/mach_conn.c">
+            <configuration Name="ARM Release" build_exclude_from_build="No" />
+          </file>
         </folder>
       </folder>
     </folder>

@@ -22,16 +22,11 @@
 #include "timer.h"
 
 
-
-
-void init_reset(void)
-{
-  //todo
-}
-
-
-
-
+extern void httpd_init();
+extern void netbiosns_init();
+extern void mach_conn_init();
+extern void netbiosns_set_name(const char* hostname);
+    
 
 void init_main(void)
 {
@@ -46,6 +41,7 @@ void  init_net(void)
     httpd_init();
     netbiosns_init();
     netbiosns_set_name("step2mach");
+    mach_conn_init();
 
 }
 

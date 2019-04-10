@@ -20,10 +20,13 @@
 #include "serial.h"
 #include "pinctrl.h"
 
+#include "stm32f4xx.h"
+#include "stm32f4xx_hal.h"
 
-#define BASE_FREQ      100000   /* Hz             */
-#define IO_FREQ          1000   /*  Hz             */
-#define RESP_TOUT          25   /*  IO ticks      */
+
+
+#define BASE_FREQ       100000   /*  Hz             */
+#define IO_FREQ           1000   /*  Hz             */
 
 
 timer_coord_t       coords;
@@ -36,7 +39,6 @@ timer_frame_t       frames[TIMER_BUF_LEN];
 timer_frame_t       frames_jog[3];
 
 
-
 uint32_t            tick;
 uint32_t            tick_watchdog;
 int                 watchdog_active;
@@ -47,30 +49,29 @@ int                 jog_stop_active   = 0;
 int                 jog_abort_active  = 0;
 
 
-
-
-unsigned int        response_timeout = RESP_TOUT;
 uint32_t            frame_counter    = 0;
 
 
+static  void timer_eng_clear(void);
+static  void timer_eng_start(void);
+static  void timer_jog_start(void);
 
-static inline void timer_eng_clear(void);
-static inline void timer_eng_start(void);
-static inline void timer_jog_start(void);
 
+
+typedef struct
+{
+  TIM_HandleTypeDef  hTim4;
+  TIM_HandleTypeDef  hTim3;
+
+  uint32_t           tim_clock;
+}timer_srv_t;
+
+timer_srv_t tsrv;
 
 
 static void timer_reset_hw(void)
 {
-#if 0
-    // Execute software reset
-    RCONbits.SWDTEN = 1;
-    CORCONbits.IPL3 = 1;
-    while(1)
-    {
-        ;
-    }  
-#endif
+  NVIC_SystemReset();
 }
 
 int timer_execute_frame(uint8_t * frame_stream,int idx)
@@ -79,8 +80,8 @@ int timer_execute_frame(uint8_t * frame_stream,int idx)
    int      ii;
    int      head;
 
-#if 0
-   // Copy item from DMA stream buffer
+
+   // Copy item from stream buffer
    head = buffer.slots_head;
 
    memcpy(&frames[head],frame_stream,sizeof(frames[head]));
@@ -95,11 +96,9 @@ int timer_execute_frame(uint8_t * frame_stream,int idx)
    }
 
    buffer.last_valid_id = frames[head].header.id;
-   response_timeout     = 0; 
 
-   
-   SET_AND_SAVE_CPU_IPL(ipl,7); 
 
+  
    // kick watchdog   
    tick_watchdog   = tick; 
    watchdog_active = 0;    
@@ -204,16 +203,14 @@ int timer_execute_frame(uint8_t * frame_stream,int idx)
        }break;
                     
      }
-            
-     SET_CPU_IPL(ipl);  
-#endif               
+          
        
      return 0;    
 }
 
 
 
-static inline void timer_eng_clear(void)
+static  void timer_eng_clear(void)
 {
   engine.Xac             = 0;
   engine.Yac             = 0;
@@ -221,7 +218,7 @@ static inline void timer_eng_clear(void)
   engine.Aac             = 0;            
 }
 
-static inline void timer_jog_start(void)
+static  void timer_jog_start(void)
 {
     memset(&engine_jog,0,sizeof(engine_jog));
 
@@ -316,7 +313,7 @@ static inline void timer_jog_start(void)
 }
 
 
-static inline void timer_eng_prepare_new_vector(void)
+static  void timer_eng_prepare_new_vector(void)
 {
     if( (buffer.current_step->header.command == CMD_VECTORS_DELAY) )
     {
@@ -370,7 +367,7 @@ static inline void timer_eng_prepare_new_vector(void)
 
 }
 
-static inline void timer_eng_start(void)
+static  void timer_eng_start(void)
 {
    if(buffer.current_step == NULL )
    {
@@ -390,7 +387,7 @@ static inline void timer_eng_start(void)
 }
 
 
-static inline void timer_gcode_mode(void)
+static  void timer_gcode_mode(void)
 {
     static int  next_step_pulse = 0;
     static int  phase;   
@@ -512,7 +509,7 @@ static inline void timer_gcode_mode(void)
 }
 
 
-static inline void timer_jog_mode(void)
+static  void timer_jog_mode(void)
 {
     static int  next_step_pulse = 0;
     static int  phase;   
@@ -614,15 +611,8 @@ static inline void timer_jog_mode(void)
 }
 
 
-#if 0   
-
-// Timer  interrupt routine
-void __attribute__((interrupt,no_auto_psv)) _T1Interrupt( void )
-{    
-
-
-    PIN_DBG(1);
-
+void TIM3_IRQHandler()  
+{
     if(buffer.jog_mode != 0)
     {
         timer_jog_mode();
@@ -632,26 +622,19 @@ void __attribute__((interrupt,no_auto_psv)) _T1Interrupt( void )
         timer_gcode_mode();
     }
 
-    PIN_DBG(0);
-
-
-    IFS0bits.T1IF = 0;
-
-
+    __HAL_TIM_CLEAR_IT(&tsrv.hTim3, TIM_IT_UPDATE);
 }
 
-void __attribute__((interrupt,no_auto_psv))  _T2Interrupt( void )
-{    
-    Uint8_t    inputs = 0;
+
+void TIM4_IRQHandler() 
+{
+    
+    uint32_t    inputs = 0;
     static int hit_cntr = 0;
     
-    IFS0bits.T2IF = 0;
-
     // System 1ms tick
     tick++;
 
-    // Process receive frames
-    serial_receive();
 
     if(watchdog_active == 0)
     {
@@ -664,12 +647,7 @@ void __attribute__((interrupt,no_auto_psv))  _T2Interrupt( void )
     }
 
     // Read inputs
-
-    if(PORTBbits.RB5)inputs|= 0x01;
-    if(PORTBbits.RB8)inputs|= 0x02;
-    if(PORTBbits.RB7)inputs|= 0x04;
-    if(PORTBbits.RB6)inputs|= 0x08;
-    if(PORTBbits.RB9)inputs|= 0x20;
+    inputs = pinctrl_read();
 
     buffer.inputs = inputs;
 
@@ -695,65 +673,59 @@ void __attribute__((interrupt,no_auto_psv))  _T2Interrupt( void )
     }
 
 
+    __HAL_TIM_CLEAR_IT(&tsrv.hTim4, TIM_IT_UPDATE);
 
-
-    // Send response ?
-    if(response_timeout == 0)
-    {
-        serial_send_response();
-        response_timeout = RESP_TOUT;
-    }
-    else
-    {
-       response_timeout--; 
-    }    
-
-    
 }
 
-#endif
 
 
 void timer_init( void )
 {
-
+#define PRESCALER_DIV  1000000   
 
     memset(&coords,0,sizeof(coords));
     memset(&buffer,0,sizeof(buffer));
     memset(&engine,0,sizeof(engine));
 
+    memset(&tsrv,0,sizeof(tsrv));
+
     buffer.last_valid_id = -1;
 
-#if 0
-    // Timer 1 - base runner
+    // Becasue of TIM_CLOCKDIVISION_DIV4
+    tsrv.tim_clock = SystemCoreClock / 4;
 
-    T1CON           =  0;      // Timer reset
-    T1CONbits.TCKPS =  0;      // Fcy/1
-    TMR1            =  0;   
-    PR1             =  (FCY /1) / (BASE_FREQ * 2);  
+    // Main pulse clock
+     __HAL_RCC_TIM3_CLK_ENABLE();
 
-    IFS0bits.T1IF   = 0;      // Reset Timer interrupt flag
-    IPC0bits.T1IP   = 5;      // Timer Interrupt priority 
-    IEC0bits.T1IE   = 1;      // Enable Timer interrupt
+    tsrv.hTim3.Instance           = TIM3;
+    tsrv.hTim3.Init.Prescaler     = (tsrv.tim_clock/ PRESCALER_DIV) - 1;
+    tsrv.hTim3.Init.CounterMode   = TIM_COUNTERMODE_UP;
+    tsrv.hTim3.Init.Period        = PRESCALER_DIV / (BASE_FREQ * 2);
+    tsrv.hTim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
+    HAL_TIM_Base_Init(&tsrv.hTim3);
 
-    T1CONbits.TON   = 1;
+    HAL_TIM_Base_Start_IT(&tsrv.hTim3); 
 
-    // Timer 2 
 
-    T2CON           =  0;      // Timer reset
-    T2CONbits.TCKPS =  3;      // Fcy/256
-    TMR2            =  0; 
-    PR2             = (FCY /256) / (IO_FREQ);  
-    
-    IFS0bits.T2IF   =  0;      // Reset Timer interrupt flag
-    IPC1bits.T2IP   =  2;      // Timer Interrupt priority 
-    IEC0bits.T2IE   =  1;      // Enable Timer interrupt
+    HAL_NVIC_SetPriority(TIM3_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(TIM3_IRQn);
 
-    T2CONbits.TON   = 1;
+    // IO clock
+    __HAL_RCC_TIM4_CLK_ENABLE();
 
+    tsrv.hTim4.Instance           = TIM4;
+    tsrv.hTim4.Init.Prescaler     = (tsrv.tim_clock/ IO_FREQ ) - 1;
+    tsrv.hTim4.Init.CounterMode   = TIM_COUNTERMODE_UP;
+    tsrv.hTim4.Init.Period        = -1;
+    tsrv.hTim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
+    HAL_TIM_Base_Init(&tsrv.hTim4);
+
+    HAL_TIM_Base_Start_IT(&tsrv.hTim4); 
+
+
+    HAL_NVIC_SetPriority(TIM4_IRQn, 1, 0);
+    HAL_NVIC_EnableIRQ(TIM4_IRQn);
 
     watchdog_active = 0;
-#endif
-
 }
 

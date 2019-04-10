@@ -15,6 +15,106 @@
 
 
 #include "pinctrl.h"
+#include "init.h"
+
+#include "main.h"
+
+#include "stm32f4xx.h"
+#include "stm32f4xx_hal.h"
+
+
+#define GPIO_PORT(name_)            name_##_GPIO_Port
+#define GPIO_PORT_SET(name_)        &GPIO_PORT(name_)->BSRR
+#define GPIO_PORT_READ(name_)       &GPIO_PORT(name_)->IDR
+#define GPIO_PIN(name_)             name_##_Pin
+
+#define GPIO_STRAIGHT(n_)           { GPIO_PORT_SET(n_),GPIO_PORT_READ(n_),((uint32_t)GPIO_PIN(n_)),     ((uint32_t)GPIO_PIN(n_)<<16) }
+#define GPIO_INV(n_)                { GPIO_PORT_SET(n_),GPIO_PORT_READ(n_),((uint32_t)GPIO_PIN(n_)<<16), ((uint32_t)GPIO_PIN(n_))     }
+
+
+typedef struct
+{  
+    volatile uint32_t   * regaddr_set;
+    volatile uint32_t   * regaddr_read;
+    uint32_t              regval_set;
+    uint32_t              regval_clr;
+
+}gpio_sequence_t;
+
+
+gpio_sequence_t gpio_map[] = 
+{
+   { NULL,0,0 },
+   GPIO_STRAIGHT(LPT1_1),
+   GPIO_INV(LPT1_1),
+   GPIO_STRAIGHT(LPT1_2),
+   GPIO_INV(LPT1_2),
+   GPIO_STRAIGHT(LPT1_3),
+   GPIO_INV(LPT1_3),
+   GPIO_STRAIGHT(LPT1_4),
+   GPIO_INV(LPT1_4),
+   GPIO_STRAIGHT(LPT1_5),
+   GPIO_INV(LPT1_5),
+   GPIO_STRAIGHT(LPT1_6),
+   GPIO_INV(LPT1_6),
+   GPIO_STRAIGHT(LPT1_7),
+   GPIO_INV(LPT1_7),
+   GPIO_STRAIGHT(LPT1_8),
+   GPIO_INV(LPT1_8),
+   GPIO_STRAIGHT(LPT1_9),
+   GPIO_INV(LPT1_9),
+   GPIO_STRAIGHT(LPT1_10),
+   GPIO_INV(LPT1_10),
+   GPIO_STRAIGHT(LPT1_11),
+   GPIO_INV(LPT1_11),
+   GPIO_STRAIGHT(LPT1_12),
+   GPIO_INV(LPT1_12),
+   GPIO_STRAIGHT(LPT1_13),
+   GPIO_INV(LPT1_13),
+   GPIO_STRAIGHT(LPT1_14),
+   GPIO_INV(LPT1_14),
+   GPIO_STRAIGHT(LPT1_15),
+   GPIO_INV(LPT1_15),
+   GPIO_STRAIGHT(LPT1_16),
+   GPIO_INV(LPT1_16),
+   GPIO_STRAIGHT(LPT1_17),
+   GPIO_INV(LPT1_17)
+
+};
+
+
+
+gpio_sequence_t gpio_output_map[] = 
+{
+   GPIO_STRAIGHT(LPT1_1),
+   GPIO_STRAIGHT(LPT1_2),
+   GPIO_STRAIGHT(LPT1_3),
+   GPIO_STRAIGHT(LPT1_4),
+   GPIO_STRAIGHT(LPT1_5),
+   GPIO_STRAIGHT(LPT1_6),
+   GPIO_STRAIGHT(LPT1_7),
+   GPIO_STRAIGHT(LPT1_8),
+   GPIO_STRAIGHT(LPT1_9),
+   GPIO_STRAIGHT(LPT1_10),
+   GPIO_STRAIGHT(LPT1_11),
+   GPIO_STRAIGHT(LPT1_12),
+   GPIO_STRAIGHT(LPT1_13),
+   GPIO_STRAIGHT(LPT1_14),
+   GPIO_STRAIGHT(LPT1_15),
+   GPIO_STRAIGHT(LPT1_16),
+   GPIO_STRAIGHT(LPT1_17)
+};
+
+gpio_sequence_t gpio_input_map[] = 
+{
+   GPIO_STRAIGHT(LPT1_10),
+   GPIO_STRAIGHT(LPT1_11),
+   GPIO_STRAIGHT(LPT1_12),
+   GPIO_STRAIGHT(LPT1_13),
+   GPIO_STRAIGHT(LPT1_15),
+};
+
+
 
 pinctrl_data_t  pcd = 
 {
@@ -42,239 +142,53 @@ void   pinctrl_map(pin_map_e  pin_id,pin_hw_e pin_fn)
 
 void inline pinctrl_set(pin_map_e pin_id)
 {
-#if 0
-    switch(pcd.map[pin_id])
-    {
-    default:    
-    case PIN_LPTO_NONE:    /* No operation */      break;  
-    case PIN_LPTO_1:       LATAbits.LATA0 = 1; break;
-    case PIN_LPTO_1_INV:   LATAbits.LATA0 = 0; break;   
-    case PIN_LPTO_2:       LATAbits.LATA1  = 1; break;  
-    case PIN_LPTO_2_INV:   LATAbits.LATA1  = 0; break;   
-    case PIN_LPTO_3:       LATBbits.LATB14 = 1; break;
-    case PIN_LPTO_3_INV:   LATBbits.LATB14 = 0; break;   
-    case PIN_LPTO_4:       LATBbits.LATB13  = 1; break;  
-    case PIN_LPTO_4_INV:   LATBbits.LATB13  = 0; break;   
-    case PIN_LPTO_5:       LATBbits.LATB11 = 1; break;
-    case PIN_LPTO_5_INV:   LATBbits.LATB11 = 0; break;   
-    case PIN_LPTO_6:       LATBbits.LATB10 = 1; break;
-    case PIN_LPTO_6_INV:   LATBbits.LATB10 = 0; break;   
-    case PIN_LPTO_7:       LATAbits.LATA3 = 1; break;
-    case PIN_LPTO_7_INV:   LATAbits.LATA3 = 0; break;   
-    case PIN_LPTO_8:       LATBbits.LATB4 = 1; break;
-    case PIN_LPTO_8_INV:   LATBbits.LATB4 = 0; break;   
-    case PIN_LPTO_9:       LATAbits.LATA4  = 1; break;  
-    case PIN_LPTO_9_INV:   LATAbits.LATA4  = 0; break;   
-    case PIN_LPTO_14:      LATBbits.LATB15  = 1; break; 
-    case PIN_LPTO_14_INV:  LATBbits.LATB15 = 0; break;
-    case PIN_LPTO_16:      LATBbits.LATB1  = 1; break; 
-    case PIN_LPTO_16_INV:  LATBbits.LATB1  = 0; break; 
-    case PIN_LPTO_17:      LATBbits.LATB12  = 1; break;  
-    case PIN_LPTO_17_INV:  LATBbits.LATB12  = 0; break;         
-    }   
-#endif            
+    *gpio_map[pin_id].regaddr_set = gpio_map[pin_id].regval_set;            
 }
 
 void inline pinctrl_clear(pin_map_e pin_id)
 {
-#if 0
-    switch(pcd.map[pin_id])
-    {
-    default:    
-    case PIN_LPTO_NONE:    /* No operation */      break;  
-    case PIN_LPTO_1:       LATAbits.LATA0 = 0; break;
-    case PIN_LPTO_1_INV:   LATAbits.LATA0 = 1; break;   
-    case PIN_LPTO_2:       LATAbits.LATA1  = 0; break;  
-    case PIN_LPTO_2_INV:   LATAbits.LATA1  = 1; break;   
-    case PIN_LPTO_3:       LATBbits.LATB14 = 0; break;
-    case PIN_LPTO_3_INV:   LATBbits.LATB14 = 1; break;   
-    case PIN_LPTO_4:       LATBbits.LATB13  = 0; break;  
-    case PIN_LPTO_4_INV:   LATBbits.LATB13  = 1; break;   
-    case PIN_LPTO_5:       LATBbits.LATB11 = 0; break;
-    case PIN_LPTO_5_INV:   LATBbits.LATB11 = 1; break;   
-    case PIN_LPTO_6:       LATBbits.LATB10 = 0; break;
-    case PIN_LPTO_6_INV:   LATBbits.LATB10 = 1; break;   
-    case PIN_LPTO_7:       LATAbits.LATA3 = 0; break;
-    case PIN_LPTO_7_INV:   LATAbits.LATA3 = 1; break;   
-    case PIN_LPTO_8:       LATBbits.LATB4 = 0; break;
-    case PIN_LPTO_8_INV:   LATBbits.LATB4 = 1; break;   
-    case PIN_LPTO_9:       LATAbits.LATA4  = 0; break;  
-    case PIN_LPTO_9_INV:   LATAbits.LATA4  = 1; break;   
-    case PIN_LPTO_14:      LATBbits.LATB15  = 0; break; 
-    case PIN_LPTO_14_INV:  LATBbits.LATB15  = 1; break;
-    case PIN_LPTO_16:      LATBbits.LATB1  = 0; break; 
-    case PIN_LPTO_16_INV:  LATBbits.LATB1  = 1; break; 
-    case PIN_LPTO_17:      LATBbits.LATB12  = 0; break;  
-    case PIN_LPTO_17_INV:  LATBbits.LATB12  = 1; break;         
-    }
-#endif
+    *gpio_map[pin_id].regaddr_set = gpio_map[pin_id].regval_clr;    
+
 }
 
 
 void inline pinctrl_set_outputs(uint32_t outputs,uint32_t mask)
 {
-#if 0
-    if(mask & (((Uint32_t)1)<<0))
+    int ii;
+
+    for(ii = 0; ii < DIM(gpio_output_map);ii++)
     {
-        if(outputs & (((Uint32_t)1)<<0) )
-        {
-           LATAbits.LATA0 = 1; 
-        }
-        else
-        {
-          LATAbits.LATA0 = 0;   
-        }
+      if(mask & (1<<ii))
+      {
+          if(outputs & (1<<ii))
+          {
+             *gpio_output_map[ii].regaddr_set = gpio_output_map[ii].regval_set;
+          }
+          else
+          {
+             *gpio_output_map[ii].regaddr_set = gpio_output_map[ii].regval_clr;
+          }
+      }
     }
 
-    if(mask & (((Uint32_t)1)<<1))
-    {
-
-        if(outputs & (((Uint32_t)1)<<1))
-        {
-           LATAbits.LATA1 = 1; 
-        }
-        else
-        {
-          LATAbits.LATA1 = 0;   
-        }
-    }
-
-    if(mask & (((Uint32_t)1)<<2))
-    {
-
-        if(outputs & (((Uint32_t)1)<<2))
-        {
-          LATBbits.LATB14 = 1; 
-        }
-        else
-        {
-          LATBbits.LATB14 = 0;   
-        }
-    }
-
-
-    if(mask & (((Uint32_t)1)<<3))
-    {
-
-        if(outputs & (((Uint32_t)1)<<3))
-        {
-           LATBbits.LATB13 = 1; 
-        }
-        else
-        {
-           LATBbits.LATB13 = 0;   
-        }
-    }
-
-    if(mask & (((Uint32_t)1)<<4))
-    {
-
-        if(outputs & (((Uint32_t)1)<<4))
-        {
-          LATBbits.LATB11 = 1; 
-        }
-        else
-        {
-          LATBbits.LATB11 = 0;   
-        }
-    }
-
-    if(mask & (((Uint32_t)1)<<5))
-    {
-
-        if(outputs & (((Uint32_t)1)<<5))
-        {
-          LATBbits.LATB10 = 1; 
-        }
-        else
-        {
-          LATBbits.LATB10 = 0;   
-        }
-    }
-
-    if(mask & (((Uint32_t)1)<<6))
-    {
-
-        if(outputs & (((Uint32_t)1)<<6))
-        {
-           LATAbits.LATA3 = 1; 
-        }
-        else
-        {
-          LATAbits.LATA3 = 0;   
-        }
-    }
-
-
-    if(mask & (((Uint32_t)1)<<7))
-    {
-
-        if(outputs & (((Uint32_t)1)<<7))
-        {
-          LATBbits.LATB4 = 1; 
-        }
-        else
-        {
-          LATBbits.LATB4 = 0;   
-        }
-    }
-
-    if(mask & (((Uint32_t)1)<<8))
-    {
-
-        if(outputs & (((Uint32_t)1)<<8))
-        {
-           LATAbits.LATA4 = 1; 
-        }
-        else
-        {
-           LATAbits.LATA4 = 0;   
-        }
-    }
-
-
-    if(mask & (((Uint32_t)1)<<13))
-    {
-
-        if(outputs & (((Uint32_t)1)<<13))
-        {
-           LATBbits.LATB15 = 1; 
-        }
-        else
-        {
-           LATBbits.LATB15 = 0;   
-        }
-    }
-
-    if(mask & (((Uint32_t)1)<<15))
-    {
-
-        if(outputs & (((Uint32_t)1)<<15))
-        {
-           LATBbits.LATB1 = 1; 
-        }
-        else
-        {
-          LATBbits.LATB1 = 0;   
-        }
-    }
-
-    if(mask & (((Uint32_t)1)<<16))
-    {
-
-        if(outputs & (((Uint32_t)1)<<16))
-        {
-          LATBbits.LATB12 = 1; 
-        }
-        else
-        {
-          LATBbits.LATB12 = 0;   
-        }
-    }    
-#endif
 }
 
 
+uint32_t pinctrl_read(void)
+{
+    int      ii;
+    uint32_t result = 0;
+
+    for(ii = 0; ii < DIM(gpio_input_map);ii++)
+    {
+        if( (*gpio_input_map[ii].regaddr_read & gpio_input_map[ii].regval_set) != 0)
+        {
+           result |= (1<<ii);
+        }
+    }
+
+    return result;
+}
 
 
 

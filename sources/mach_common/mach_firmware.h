@@ -7,7 +7,7 @@
    See license.txt for details
 
    Author:      Jarosaw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // ----------------------------------------------------------------------------

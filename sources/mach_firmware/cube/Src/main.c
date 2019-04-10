@@ -270,10 +270,17 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOB, LD3_Pin|LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(USB_PowerSwitchOn_GPIO_Port, USB_PowerSwitchOn_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOG, USB_PowerSwitchOn_Pin|LPT1_14_Pin|LPT1_16_Pin|LPT1_17_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, LD1_Pin|LPT1_2_Pin|LPT1_3_Pin|LPT1_4_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LPT1_1_GPIO_Port, LPT1_1_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOD, LPT1_5_Pin|LPT1_6_Pin|LPT1_7_Pin|LPT1_8_Pin 
+                          |LPT1_9_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : USER_Btn_Pin */
   GPIO_InitStruct.Pin = USER_Btn_Pin;
@@ -288,25 +295,25 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : USB_PowerSwitchOn_Pin */
-  GPIO_InitStruct.Pin = USB_PowerSwitchOn_Pin;
+  /*Configure GPIO pins : USB_PowerSwitchOn_Pin LPT1_14_Pin LPT1_16_Pin LPT1_17_Pin */
+  GPIO_InitStruct.Pin = USB_PowerSwitchOn_Pin|LPT1_14_Pin|LPT1_16_Pin|LPT1_17_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(USB_PowerSwitchOn_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : USB_OverCurrent_Pin */
-  GPIO_InitStruct.Pin = USB_OverCurrent_Pin;
+  /*Configure GPIO pins : USB_OverCurrent_Pin LPT1_13_Pin LPT1_15_Pin */
+  GPIO_InitStruct.Pin = USB_OverCurrent_Pin|LPT1_13_Pin|LPT1_15_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(USB_OverCurrent_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : LD1_Pin */
-  GPIO_InitStruct.Pin = LD1_Pin;
+  /*Configure GPIO pins : LD1_Pin LPT1_2_Pin LPT1_3_Pin LPT1_4_Pin */
+  GPIO_InitStruct.Pin = LD1_Pin|LPT1_2_Pin|LPT1_3_Pin|LPT1_4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : USB_SOF_Pin USB_ID_Pin USB_DM_Pin USB_DP_Pin */
   GPIO_InitStruct.Pin = USB_SOF_Pin|USB_ID_Pin|USB_DM_Pin|USB_DP_Pin;
@@ -322,10 +329,38 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USB_VBUS_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : LPT1_1_Pin */
+  GPIO_InitStruct.Pin = LPT1_1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LPT1_1_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LPT1_5_Pin LPT1_6_Pin LPT1_7_Pin LPT1_8_Pin 
+                           LPT1_9_Pin */
+  GPIO_InitStruct.Pin = LPT1_5_Pin|LPT1_6_Pin|LPT1_7_Pin|LPT1_8_Pin 
+                          |LPT1_9_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LPT1_10_Pin LPT1_11_Pin LPT1_12_Pin */
+  GPIO_InitStruct.Pin = LPT1_10_Pin|LPT1_11_Pin|LPT1_12_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LPT2_1_Pin LPT2_2_Pin LPT2_3_Pin */
+  GPIO_InitStruct.Pin = LPT2_1_Pin|LPT2_2_Pin|LPT2_3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
-
+extern void init_net(void);
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */

@@ -26,12 +26,7 @@
 #include "stdint.h"
 
 int   serial_init(void);
-void  serial_send_response(void);
-void  serial_receive(void);
-
-
-extern uint32_t  oslot;
-
-
+void serial_prepare_response(char ** bufp,uint32_t * size);
+void  serial_process_receive(char *recv_buffer, uint32_t cnt);
 
 #endif 
