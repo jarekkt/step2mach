@@ -31,6 +31,9 @@
   <ProjectSessionItem path="step2mach;cube;Application;User"/>
   <ProjectSessionItem path="step2mach;cube;Drivers"/>
   <ProjectSessionItem path="step2mach;cube;Middlewares"/>
+  <ProjectSessionItem path="step2mach;cube;Middlewares;FreeRTOS"/>
+  <ProjectSessionItem path="step2mach;cube;Middlewares;LwIP"/>
+  <ProjectSessionItem path="step2mach;cube;Middlewares;LwIP;inc"/>
   <ProjectSessionItem path="step2mach;step2mach"/>
   <ProjectSessionItem path="step2mach;step2mach;common"/>
   <ProjectSessionItem path="step2mach;step2mach;Source Files"/>
@@ -74,6 +77,9 @@
    <Watchpoint numelements="1500" expression="buffer" evalMode="0" name="buffer" radix="16" linenumber="0" filename="../project" list=""/>
    <Watchpoint numelements="0" expression="from" evalMode="1" name="from" radix="16" linenumber="0" filename="../project" list=""/>
    <Watchpoint numelements="0" expression="fromlen" evalMode="1" name="fromlen" radix="16" linenumber="0" filename="../project" list=""/>
+   <Watchpoint numelements="0" expression="sizeof(response)" evalMode="0" name="sizeof(response)" radix="10" linenumber="0" filename="" list=""/>
+   <Watchpoint numelements="0" expression="response" evalMode="0" name="response" radix="16" linenumber="0" filename="" list=""/>
+   <Watchpoint numelements="0" expression="divider" evalMode="0" name="divider" radix="11" linenumber="67" filename="../lwip_apps/mach_conn/mach_conn.c" list=""/>
   </Watches>
  </Watch2>
  <Watch3>
@@ -83,25 +89,15 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="70" useTextEdit="1" useBinaryEdit="0" left="0" path="../lwip_apps/mach_conn/mach_conn.c" selected="0" top="45" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="913" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/api/sockets.c" selected="0" top="888" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="103" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Src/main.c" selected="0" top="83" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="281" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/api/api_lib.c" selected="0" top="257" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="351" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/api/tcpip.c" selected="0" top="321" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="74" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/def.h" selected="0" top="74" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="254" useTextEdit="1" useBinaryEdit="0" left="0" path="../pinctrl.c" selected="1" top="73" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" useBinaryEdit="0" left="0" path="../timer.c" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="533" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h" selected="0" top="505" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="127" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/pbuf.h" selected="0" top="113" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" useBinaryEdit="0" left="0" path="../serial.c" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="3165" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/FreeRTOS/Source/tasks.c" selected="0" top="3148" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="2916" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c" selected="0" top="2900" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="6" y="34" useTextEdit="1" useBinaryEdit="0" left="0" path="../pinctrl.h" selected="0" top="15" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="65" useTextEdit="1" useBinaryEdit="0" left="0" path="../../mach_common/mach_pclib_protocol.h" selected="0" top="29" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="172" useTextEdit="1" useBinaryEdit="0" left="0" path="../../mach_common/mach_firmware.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Inc/main.h" selected="0" top="186" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" useBinaryEdit="0" left="0" path="../serial.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="25" useTextEdit="1" useBinaryEdit="0" left="0" path="../timer.h" selected="0" top="25" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="68" useTextEdit="1" useBinaryEdit="0" left="0" path="../lwip_apps/mach_conn/mach_conn.c" selected="1" top="46" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="53" y="80" useTextEdit="1" useBinaryEdit="0" left="0" path="../serial.c" selected="0" top="58" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="332" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c" selected="0" top="315" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="248" useTextEdit="1" useBinaryEdit="0" left="0" path="../../mach_common/mach_firmware.h" selected="0" top="233" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="103" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Src/main.c" selected="0" top="86" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1261" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/FreeRTOS/Source/tasks.c" selected="0" top="1234" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="377" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" selected="0" top="354" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="764" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/api/sockets.c" selected="0" top="739" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="349" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/api.h" selected="0" top="333" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="step2mach" fileDialogDefaultFilter="*.c" autoConnectTarget="SEGGER J-Link" buildConfiguration="ARM Debug" debugSearchFileMap="" fileDialogInitialDirectory="/home/jarek/Projects/vcs/step2mach/sources/mach_firmware/lwip_apps/mach_conn" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

@@ -27,27 +27,27 @@ void MyHardwareClass::Init(double move_tick,const char * address)
 	memset(this->dev_address,0,sizeof(this->dev_address));
 	strncpy(this->dev_address,address,sizeof(this->dev_address)-1);
 
-
 	memset(steps_accumulated,0,sizeof(steps_accumulated));
 	memset(steps_fw,0,sizeof(steps_fw));
 
-	Cnc_Init_Controller();
 
-	connected = Cnc_Communication_Enable(this->dev_address);
 }
 
 void MyHardwareClass::Reinit(double move_tick,const char * address)
 {
 	Cnc_Communication_Disable();
-	Cnc_Exit_Controller();
 
 	Init(move_tick,address);
+	connected = Cnc_Communication_Enable(this->dev_address);
 
 }
 
 MyHardwareClass::MyHardwareClass(double move_tick,const char * address)
 {
+	Cnc_Init_Controller();
+
 	Init(move_tick,address);
+	connected = Cnc_Communication_Enable(this->dev_address);
 }
 
 
@@ -65,11 +65,11 @@ MyHardwareClass::~MyHardwareClass()
 
 
 
-void MyHardwareClass::StartJogMove(int axis,int distance,double JogVel, double JogAcc,int PinStopMask,int PinStopValue)
+void MyHardwareClass::StartJogMove(int32_t axis,int32_t distance,double JogVel, double JogAcc,uint64_t PinStopMask,uint64_t PinStopValue)
 {
 	timer_frame_t   frames[4];
 	VectorSpeedType VS;
-	int ii;
+	int32_t ii;
 
 	if(connected != 0)
 	{
@@ -81,8 +81,8 @@ void MyHardwareClass::StartJogMove(int axis,int distance,double JogVel, double J
 	// Setup generic stop mask
 	frames[0].header.command			= CMD_SET_JOG_BREAK;
 	frames[0].header.in_mask			= 0;
-	frames[0].data.stop_condition.mask  = (uint16_t) (PinStopMask >> 9);
-	frames[0].data.stop_condition.value = (uint16_t) (PinStopValue >> 9);
+	frames[0].data.stop_condition.mask  = PinStopMask;
+	frames[0].data.stop_condition.value = PinStopValue;
 
 	for(ii = 1;ii <=3;ii++)
 	{
@@ -131,7 +131,7 @@ void MyHardwareClass::FinishJogMove(void)
 //	Stops device ( if connected), also reconnects if needed
 //
 //
-int MyHardwareClass::Reset(void)
+int32_t MyHardwareClass::Reset(void)
 {
 
 
@@ -173,7 +173,7 @@ void MyHardwareClass::Stop(void)
 //	 Calculates speed coeffifient for device move
 //
 //
-uint32_t  MyHardwareClass::CalcSpeed(int delta)
+uint32_t  MyHardwareClass::CalcSpeed(int32_t delta)
 {
 	uint64_t r;
 	uint64_t v;
@@ -195,7 +195,7 @@ uint32_t  MyHardwareClass::CalcSpeed(int delta)
 //	 Buffers and sends to device single move
 //
 //
-int   MyHardwareClass::AddMove(double ex,double ey,double ez,double ea,uint32_t line_id)
+int32_t   MyHardwareClass::AddMove(double ex,double ey,double ez,double ea,uint32_t line_id)
 {
 	timer_frame_t  frames[1];
 
@@ -215,10 +215,10 @@ int   MyHardwareClass::AddMove(double ex,double ey,double ez,double ea,uint32_t 
 	steps_accumulated[2] += ez;
 	steps_accumulated[3] += ea;
 
-	steps_fw[0]			= (int)ex;
-	steps_fw[1]			= (int)ey;
-	steps_fw[2]			= (int)ez;
-	steps_fw[3]			= (int)ea;
+	steps_fw[0]			= (int32_t)ex;
+	steps_fw[1]			= (int32_t)ey;
+	steps_fw[2]			= (int32_t)ez;
+	steps_fw[3]			= (int32_t)ea;
 
 
 
@@ -308,7 +308,7 @@ uint64_t MyHardwareClass::GetInputs(void)
 //	 Set cooridnates
 //
 //
-void  MyHardwareClass::UpdateCoords(int Xc,int Yc,int Zc, int Ac)
+void  MyHardwareClass::UpdateCoords(int32_t Xc,int32_t Yc,int32_t Zc, int32_t Ac)
 {
 	timer_coord_t   coords;
 
@@ -387,7 +387,7 @@ bool MyHardwareClass::IsIdle()
 //	Reads device status sent to PC
 //
 //
-int MyHardwareClass::ReadDeviceFeedback(int * coords)
+int32_t MyHardwareClass::ReadDeviceFeedback(int32_t * coords)
 {
 	timer_resp_t status;
 
@@ -419,7 +419,7 @@ int MyHardwareClass::ReadDeviceFeedback(int * coords)
 //	Maps pin function for the hardware
 //
 //
-pin_hw_e MyHardwareClass::PinNr2Fn(int pin_nr,int polarity,int pin_port)
+pin_hw_e MyHardwareClass::PinNr2Fn(int32_t pin_nr,int32_t polarity,int32_t pin_port)
 {
 	pin_hw_e result;
 
@@ -468,7 +468,7 @@ pin_hw_e MyHardwareClass::PinNr2Fn(int pin_nr,int polarity,int pin_port)
 
 	if((pin_nr != PIN_LPT_NONE) && (polarity != 0))
 	{
-		result = (pin_hw_e)((int)result+1); // This gives inversed polarity
+		result = (pin_hw_e)((int32_t)result+1); // This gives inversed polarity
 	}
 
 	return result;
@@ -479,7 +479,7 @@ pin_hw_e MyHardwareClass::PinNr2Fn(int pin_nr,int polarity,int pin_port)
 //	Configures step/dir pins
 //
 //
-int MyHardwareClass::ConfigureStepPins(int axis,int step_pin_nr,int step_polarity,int step_pin_port,int dir_pin_nr,int dir_polarity,int dir_pin_port)
+int32_t MyHardwareClass::ConfigureStepPins(int32_t axis,int32_t step_pin_nr,int32_t step_polarity,int32_t step_pin_port,int32_t dir_pin_nr,int32_t dir_polarity,int32_t dir_pin_port)
 {
 	pin_map_e		step_pin;
 	pin_map_e		dir_pin;
@@ -541,9 +541,9 @@ int MyHardwareClass::ConfigureStepPins(int axis,int step_pin_nr,int step_polarit
 //	Dumps internal variables into strings
 //
 //
-int MyHardwareClass::GetStats(char * buffer,int buffer_size,int line)
+int32_t MyHardwareClass::GetStats(char * buffer,int32_t buffer_size,int32_t line)
 {
-	int result;
+	int32_t result;
 	timer_resp_t	status;
 
 	switch(line)
@@ -702,7 +702,7 @@ void   MyHardwareClass::CalculateAxis(
 
 
 void   MyHardwareClass::PrepareAxisData(
-	int						  axis,
+	int32_t						  axis,
 	uint32_t                  Frequency,
     VectorSpeedType        *  Vs,
     timer_step_t		   *  AccVector,

@@ -54,6 +54,7 @@ class MyDeviceClass
 private:
 	
 	int32_t				  ReadyForRun;
+	int32_t				  DataLinkOk;
 	MyConsoleClass		* console;
 	MyHardwareClass		* hardware;
 	std::string			  dev_ip_addr;
@@ -82,9 +83,9 @@ private:
 	int32_t			      HomeSignal;
 	double				  HomeVel;
 	double				  HomeAcc;
-	int32_t				  HomeMask;
-	int32_t		          HomeMaskValActive;
-	int32_t				  HomeMaskValInActive;
+	uint64_t			  HomeMask;
+	uint64_t		      HomeMaskValActive;
+	uint64_t			  HomeMaskValInActive;
 	int32_t				  HomeDistance;
 	int32_t				  HomeDelay;
 

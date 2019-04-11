@@ -49,20 +49,20 @@ typedef struct
 class MyHardwareClass
 {
 private:
-	int       steps_fw[4];
+	int32_t   steps_fw[4];
 	double    steps_accumulated[4];
 	char      dev_address[128];
 	double	  move_tick;
 	uint32_t  move_tick_ms;
-	int		  connected;	
+	int32_t   connected;	
 
-	uint32_t  CalcSpeed(int delta);
+	uint32_t  CalcSpeed(int32_t delta);
 
 
-	pin_hw_e PinNr2Fn(int pin_nr,int polarity,int pin_port);
+	pin_hw_e PinNr2Fn(int32_t pin_nr,int32_t polarity,int32_t pin_port);
 
 	void	CalculateAxis(VectorSpeedType * VS);
-	void	PrepareAxisData(int	axis,uint32_t Frequency,VectorSpeedType *  Vs,timer_step_t	*  AccVector,timer_step_t *  ConstVector,timer_step_t *  DccVector);
+	void	PrepareAxisData(int32_t	axis,uint32_t Frequency,VectorSpeedType *  Vs,timer_step_t	*  AccVector,timer_step_t *  ConstVector,timer_step_t *  DccVector);
 
 
 	void	Init(double move_tick,const char * address);
@@ -77,25 +77,25 @@ public:
 
 	// GCode moves processing
 	uint32_t	GetLineId(void);
-	int		    AddMove(double ex,double ey,double ez,double ea,uint32_t line_id);
+	int32_t		AddMove(double ex,double ey,double ez,double ea,uint32_t line_id);
 
 	// IO control
-	uint64_t     GetInputs(void);
-	void         SetOutputs(uint64_t outputs,uint64_t mask);
-	void         UpdateCoords(int Xc,int Yc,int Zc, int Ac);
+	uint64_t    GetInputs(void);
+	void        SetOutputs(uint64_t outputs,uint64_t mask);
+	void        UpdateCoords(int32_t Xc,int32_t Yc,int32_t Zc, int32_t Ac);
 
 	// Jog
-	void		StartJogMove(int axis,int distance,double  JogVel, double JogAcc,int PinStopMask,int PinStopValue);
+	void		StartJogMove(int32_t axis,int32_t distance,double  JogVel, double JogAcc,uint64_t PinStopMask,uint64_t PinStopValue);
 	void		FinishJogMove(void);
 
 	// Proces control
-	int			ReadDeviceFeedback(int * coords);
+	int32_t		ReadDeviceFeedback(int32_t * coords);
 	bool		IsIdle();
-	int			ConfigureStepPins(int axis,int step_pin_nr,int step_polarity,int step_pin_port,int dir_pin_nr,int dir_polarity,int dir_pin_port);
-	int			Reset(void);
+	int32_t		ConfigureStepPins(int32_t axis,int32_t step_pin_nr,int32_t step_polarity,int32_t step_pin_port,int32_t dir_pin_nr,int32_t dir_polarity,int32_t dir_pin_port);
+	int32_t		Reset(void);
 	void        Stop(void);
 
 	// Debugging info
-	int			GetStats(char * buffer,int buffer_size,int line);
+	int32_t		GetStats(char * buffer,int32_t buffer_size,int32_t line);
 
 };

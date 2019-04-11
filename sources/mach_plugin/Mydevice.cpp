@@ -1,3 +1,4 @@
+
 // ----------------------------------------------------------------------------
 /**
  
@@ -26,6 +27,7 @@ MyDeviceClass::MyDeviceClass()
 	console		= NULL;
 	hardware	= NULL;
 	ReadyForRun = 0;
+	DataLinkOk  = 0;
 
 	memset(&stats,0,sizeof(stats));
 
@@ -186,6 +188,7 @@ void  MyDeviceClass::Reconfigure(std::string ip_address,bool debug_mode)
 	Reset();
 
 	ReadyForRun = 1;
+	DataLinkOk  = 1;
 }
 
 
@@ -210,14 +213,21 @@ void  MyDeviceClass::Update()
 			Engine->Axis[1].Index = coords[1];
 			Engine->Axis[2].Index = coords[2];
 			Engine->Axis[3].Index = coords[3];
+
+			DataLinkOk = 1;
 		}
 		else
 		{
+			if(DataLinkOk != 0)
+			{
+				DataLinkOk = 0;
+				SetMachError("Step2Cnc communication error (no link)!!");
+			}
+
 			// Data link is broken !! Fatal error
 			if(!Engine->EStop )
 			{
 				Engine->EStop = true;
-				SetMachError("Step2Cnc communication error!!");
 			}
 		}
 
@@ -899,6 +909,8 @@ void  MyDeviceClass::ConfigureHardware(void)
 	
    // Check pin
    HomeSignal     = home_signals[axis];
+
+
    HomePin		  = Engine->InSigs[HomeSignal].InPin;
 
    if(	(HomePin < 10) || (HomePin == 14) || (HomePin > 15) )
@@ -908,6 +920,16 @@ void  MyDeviceClass::ConfigureHardware(void)
        return;
    }
 
+   if(Engine->InSigs[HomeSignal].InPort == 1)
+   {
+		// No addition
+   }
+   else if(Engine->InSigs[HomeSignal].InPort == 2)
+   {
+	   HomePin		  +=  32;
+   }
+
+   
 
    //Ok, now we can start single axis homing
 
@@ -930,16 +952,16 @@ void  MyDeviceClass::ConfigureHardware(void)
 
    // Execute home move
    // Run until switch becomes activated
-   HomeMask = (1<< (HomePin-1));
+   HomeMask = ((uint64_t)1<< (HomePin-1));
 
    if(Engine->InSigs[HomeSignal].Negated)
    {
 	   HomeMaskValActive    = 0;
-	   HomeMaskValInActive  = (1<< (HomePin-1));
+	   HomeMaskValInActive  = ((uint64_t)1<< (HomePin-1));
    }
    else
    {
-	   HomeMaskValActive    = (1<< (HomePin-1));
+	   HomeMaskValActive    = ((uint64_t)1<< (HomePin-1));
 	   HomeMaskValInActive  = 0;
    }
 
@@ -1007,11 +1029,13 @@ void MyDeviceClass::Reset(void)
 	{
 		ConfigureHardware();
 		SetMachError("Step2Cnc connected");
+		DataLinkOk = 1;
 	}
 	else
 	{
 		Engine->EStop = true;
 		SetMachError("Step2Cnc communication error!!");
+		DataLinkOk = 0;
 	}
 
 	// Cleanup internal state

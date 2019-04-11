@@ -49,7 +49,7 @@ static void mach_conn_thread(void *nf)
    {
          sRemoteAddrLen = sizeof(sRemoteAddr);
 
-         nbytes = lwip_recvfrom(lSocket, buffer, sizeof(buffer),0,&sRemoteAddr,&sRemoteAddrLen);
+         nbytes = lwip_recvfrom(lSocket, buffer, sizeof(buffer),MSG_DONTWAIT,&sRemoteAddr,&sRemoteAddrLen);
          if (nbytes>0)
          {
              serial_process_receive(buffer,nbytes);
@@ -69,7 +69,7 @@ static void mach_conn_thread(void *nf)
             if(sRemoteOk > 0)
             {
               serial_prepare_response(&send_buffer,&send_length);
-              lwip_sendto(lSocket, send_buffer, send_length, 0, &sRemoteAddr, sRemoteAddrLen);
+              lwip_sendto(lSocket, send_buffer, send_length, MSG_DONTWAIT, &sRemoteAddr, sRemoteAddrLen);
             }
         }
 

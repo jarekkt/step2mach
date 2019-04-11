@@ -17,10 +17,6 @@
 #define MACH_FIRMWARE_H
 
 
-#ifdef _WIN32
-#pragma pack(push, 2)
-#endif
-
 #define VERSION_NR              0x11
 #define WATCHDOG_JOG_TIMEOUT    400
 #define WATCHDOG_COMM_TIMEOUT   250
@@ -137,6 +133,8 @@ typedef enum
 
 
 
+#pragma pack(push, 1)
+
 typedef struct
 {
      uint8_t size;
@@ -180,9 +178,6 @@ typedef struct
         
     }motion;
 }timer_step_t;
-
-
-
 
 
 typedef struct
@@ -256,10 +251,7 @@ typedef struct
 }timer_resp_t;
 
 
-#ifdef _WIN32
-#pragma pack(pop)
-#endif
-
+#pragma pack(pop) 
 
 
 #endif // MACH_FIRMWARE_H

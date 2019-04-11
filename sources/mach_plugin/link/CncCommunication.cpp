@@ -236,11 +236,11 @@ FrameChars:
 
 				  ((char *)&response)[PartialIndex++] = TmpBuffer[TmpIndexBeg];
 
-				  if( PartialIndex == (int)sizeof(response) -1)
+				  if( PartialIndex == (int)sizeof(response) )
 				  {
 					  if(response.magic_end == '#')
 					  {
-						  if(crc_verify(((const unsigned char *)&response),sizeof(response) -1) != 0)
+						  if(crc_verify(((const unsigned char *)&response),sizeof(response)) != 0)
 						  {
 							  current_response_timestamp = last_recv = clock();
 							  current_response_valid	 = 1;
@@ -444,6 +444,10 @@ int	STDCALL Cnc_Communication_Enable(const char * address)
 				if(status.header.version != step2mach_ver)
 				{
 					upgrade = true;
+				}
+				else
+				{
+					ComUpdateRequest = 0;
 				}
 			}
 			else
@@ -706,13 +710,16 @@ static void	  CncCom_SendKeepalive(void)
 
 int  STDCALL Cnc_Status_Get(timer_resp_t  * status)
 {
-	int result = -1;
+	int			result = -1;
+	double		diff;
+	double      limit = ((double)WATCHDOG_COMM_TIMEOUT/1000);
 
 	EnterCriticalSection(&CriticalSection);
 
 	if( current_response_valid != 0)
 	{
-		if(   ((double)(clock() - current_response_timestamp))/CLOCKS_PER_SEC < ((double)WATCHDOG_COMM_TIMEOUT/1000))
+		diff = 	  ((double)(clock() - current_response_timestamp))/CLOCKS_PER_SEC;
+		if(  diff < limit )
 		{
 			memcpy(status,&current_response,sizeof(*status));
 			result = 0;
