@@ -59,15 +59,20 @@ private:
 	uint32_t  CalcSpeed(int delta);
 
 
-	pin_hw_e PinNr2Fn(int pin_nr,int polarity);
+	pin_hw_e PinNr2Fn(int pin_nr,int polarity,int pin_port);
 
 	void	CalculateAxis(VectorSpeedType * VS);
 	void	PrepareAxisData(int	axis,uint32_t Frequency,VectorSpeedType *  Vs,timer_step_t	*  AccVector,timer_step_t *  ConstVector,timer_step_t *  DccVector);
 
+
+	void	Init(double move_tick,const char * address);
+	
 public:
 
 	MyHardwareClass(double move_tick,const char * address);	
 	virtual ~MyHardwareClass();
+
+	void Reinit(double move_tick,const char * address);
 
 
 	// GCode moves processing
@@ -75,8 +80,8 @@ public:
 	int		    AddMove(double ex,double ey,double ez,double ea,uint32_t line_id);
 
 	// IO control
-	unsigned int GetInputs(void);
-	void         SetOutputs(unsigned int outputs,unsigned int mask);
+	uint64_t     GetInputs(void);
+	void         SetOutputs(uint64_t outputs,uint64_t mask);
 	void         UpdateCoords(int Xc,int Yc,int Zc, int Ac);
 
 	// Jog
@@ -86,7 +91,7 @@ public:
 	// Proces control
 	int			ReadDeviceFeedback(int * coords);
 	bool		IsIdle();
-	int			ConfigureStepPins(int axis,int step_pin_nr,int step_polarity,int dir_pin_nr,int dir_polarity);
+	int			ConfigureStepPins(int axis,int step_pin_nr,int step_polarity,int step_pin_port,int dir_pin_nr,int dir_polarity,int dir_pin_port);
 	int			Reset(void);
 	void        Stop(void);
 

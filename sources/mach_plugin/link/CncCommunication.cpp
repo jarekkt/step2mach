@@ -579,7 +579,7 @@ int  STDCALL Cnc_SetCoords(timer_coord_t  * coord)
 
 //---------------------------------------------------------------------------
 
-int  STDCALL Cnc_SetOutputs(uint32_t outputs,uint32_t mask)
+int  STDCALL Cnc_SetOutputs(uint64_t outputs,uint64_t mask)
 {
 	int result = -1;
 
@@ -609,14 +609,10 @@ int  STDCALL Cnc_SetOutputs(uint32_t outputs,uint32_t mask)
 
 //---------------------------------------------------------------------------
 
-FNTYPE int  STDCALL Cnc_GetInputs(void)
+FNTYPE uint64_t  STDCALL Cnc_GetInputs(void)
 {
-	int  inputs = 0;
-
-	// Map LPT signals
-	inputs = (((unsigned int)current_response.data.inputs) << 9);
-
-	return inputs;
+	// Inputs are directly mapped
+	return current_response.data.inputs;
 }
 
 

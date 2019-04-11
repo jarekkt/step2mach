@@ -30,9 +30,9 @@ void pinctrl_map(pin_map_e  pin_id,pin_hw_e pin_fn);
 void pinctrl_set(pin_map_e pin_id);
 void pinctrl_clear(pin_map_e pin_id);
 
-void pinctrl_set_outputs(uint32_t outputs,uint32_t mask);
+void pinctrl_set_outputs(uint64_t outputs,uint64_t mask);
 
-uint32_t pinctrl_read(void);
+uint64_t pinctrl_read(void);
 
 
 

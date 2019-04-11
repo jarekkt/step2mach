@@ -62,9 +62,7 @@ void serial_prepare_response(char ** bufp,uint32_t * size)
 
     response.data.inputs         = buffer.inputs;    
     response.data.last_valid_id  = buffer.last_valid_id;
-
-    // We have only 8 bit variable for free slots, so we have 2 slots resolution
-    response.data.free_slots   = (uint8_t)((TIMER_BUF_LEN  - buffer.slots_used)/2);
+    response.data.free_slots     = TIMER_BUF_LEN  - buffer.slots_used;
      
 
     if( (buffer.current_step != NULL) || (buffer.current_jog != NULL) )

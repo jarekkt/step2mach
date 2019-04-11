@@ -23,7 +23,7 @@
 
 
 
-#define TIMER_BUF_LEN   432
+#define TIMER_BUF_LEN   1024
 
 
 #if defined(__DEBUG)
@@ -36,15 +36,15 @@ typedef struct
 {   
     timer_frame_t    * current_step;
     timer_frame_t    * current_jog;
-    uint8_t            inputs; 
+    uint64_t           inputs; 
 
-    int16_t            last_valid_id;              
-    uint16_t           slots_head;    
-    uint16_t           slots_tail;
-    uint16_t           slots_used;     
-    int                jog_mode;
-    uint16_t           jog_in_mask;
-    uint16_t           jog_in_value;
+    int32_t            last_valid_id;              
+    uint32_t           slots_head;    
+    uint32_t           slots_tail;
+    uint32_t           slots_used;     
+    int32_t            jog_mode;
+    uint64_t           jog_in_mask;
+    uint64_t           jog_in_value;
     
 }timer_buffer_t;
 

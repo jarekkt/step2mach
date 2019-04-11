@@ -19,8 +19,7 @@
 #include "mach_pclib_protocol.h"
 
 
-
-MyHardwareClass::MyHardwareClass(double move_tick,const char * address)
+void MyHardwareClass::Init(double move_tick,const char * address)
 {
 	this->move_tick	   = move_tick;
 	this->move_tick_ms = (uint32_t)(move_tick * 1000);
@@ -35,7 +34,20 @@ MyHardwareClass::MyHardwareClass(double move_tick,const char * address)
 	Cnc_Init_Controller();
 
 	connected = Cnc_Communication_Enable(this->dev_address);
+}
 
+void MyHardwareClass::Reinit(double move_tick,const char * address)
+{
+	Cnc_Communication_Disable();
+	Cnc_Exit_Controller();
+
+	Init(move_tick,address);
+
+}
+
+MyHardwareClass::MyHardwareClass(double move_tick,const char * address)
+{
+	Init(move_tick,address);
 }
 
 
@@ -280,13 +292,12 @@ uint32_t	 MyHardwareClass::GetLineId(void)
 //	 Get digital inputs
 //
 
-unsigned int MyHardwareClass::GetInputs(void)
+uint64_t MyHardwareClass::GetInputs(void)
 {
 	if(connected != 0)
 	{
 		return 0;
 	}
-
 
 	return Cnc_GetInputs();
 }
@@ -315,12 +326,14 @@ void  MyHardwareClass::UpdateCoords(int Xc,int Yc,int Zc, int Ac)
 //	 Set outputs
 //
 //
-void MyHardwareClass::SetOutputs(unsigned int outputs,unsigned int mask)
+void MyHardwareClass::SetOutputs(uint64_t outputs,uint64_t mask)
 {
 	if(connected != 0)
 	{
 		return;
 	}
+
+	// TODO - check what happens for two ports and pin mapping
 
 	Cnc_SetOutputs(outputs,mask);
 }
@@ -406,28 +419,54 @@ int MyHardwareClass::ReadDeviceFeedback(int * coords)
 //	Maps pin function for the hardware
 //
 //
-pin_hw_e MyHardwareClass::PinNr2Fn(int pin_nr,int polarity)
+pin_hw_e MyHardwareClass::PinNr2Fn(int pin_nr,int polarity,int pin_port)
 {
 	pin_hw_e result;
 
-	switch(pin_nr)
+	if(pin_port == 1)
 	{
-		case 1: result = PIN_LPTO_1;break;
-		case 2: result = PIN_LPTO_2;break;
-		case 3: result = PIN_LPTO_3;break;
-		case 4: result = PIN_LPTO_4;break;
-		case 5: result = PIN_LPTO_5;break;
-		case 6: result = PIN_LPTO_6;break;
-		case 7: result = PIN_LPTO_7;break;
-		case 8: result = PIN_LPTO_8;break;
-		case 9: result = PIN_LPTO_9;break;
-		case 14: result = PIN_LPTO_14;break;
-		case 16: result = PIN_LPTO_16;break;
-		case 17: result = PIN_LPTO_17;break;
-		default: result = PIN_LPTO_NONE;break;
+		switch(pin_nr)
+		{
+			case 1: result = PIN_LPT1_01;break;
+			case 2: result = PIN_LPT1_02;break;
+			case 3: result = PIN_LPT1_03;break;
+			case 4: result = PIN_LPT1_04;break;
+			case 5: result = PIN_LPT1_05;break;
+			case 6: result = PIN_LPT1_06;break;
+			case 7: result = PIN_LPT1_07;break;
+			case 8: result = PIN_LPT1_08;break;
+			case 9: result = PIN_LPT1_09;break;
+			case 14: result = PIN_LPT1_14;break;
+			case 16: result = PIN_LPT1_16;break;
+			case 17: result = PIN_LPT1_17;break;
+			default: result = PIN_LPT_NONE;break;
+		}
+	}
+	else if (pin_port == 2)
+	{
+		switch(pin_nr)
+		{
+			case 1: result = PIN_LPT2_01;break;
+			case 2: result = PIN_LPT2_02;break;
+			case 3: result = PIN_LPT2_03;break;
+			case 4: result = PIN_LPT2_04;break;
+			case 5: result = PIN_LPT2_05;break;
+			case 6: result = PIN_LPT2_06;break;
+			case 7: result = PIN_LPT2_07;break;
+			case 8: result = PIN_LPT2_08;break;
+			case 9: result = PIN_LPT2_09;break;
+			case 14: result = PIN_LPT2_14;break;
+			case 16: result = PIN_LPT2_16;break;
+			case 17: result = PIN_LPT2_17;break;
+			default: result = PIN_LPT_NONE;break;
+		}
+	}
+	else
+	{
+		result = PIN_LPT_NONE;
 	}
 
-	if((pin_nr != PIN_LPTO_NONE) && (polarity != 0))
+	if((pin_nr != PIN_LPT_NONE) && (polarity != 0))
 	{
 		result = (pin_hw_e)((int)result+1); // This gives inversed polarity
 	}
@@ -440,7 +479,7 @@ pin_hw_e MyHardwareClass::PinNr2Fn(int pin_nr,int polarity)
 //	Configures step/dir pins
 //
 //
-int MyHardwareClass::ConfigureStepPins(int axis,int step_pin_nr,int step_polarity,int dir_pin_nr,int dir_polarity)
+int MyHardwareClass::ConfigureStepPins(int axis,int step_pin_nr,int step_polarity,int step_pin_port,int dir_pin_nr,int dir_polarity,int dir_pin_port)
 {
 	pin_map_e		step_pin;
 	pin_map_e		dir_pin;
@@ -486,9 +525,9 @@ int MyHardwareClass::ConfigureStepPins(int axis,int step_pin_nr,int step_polarit
 
 	map.map_cnt = 2;
 	map.pin_map[0] = step_pin;
-	map.pin_hw[0]  = PinNr2Fn(step_pin_nr,step_polarity);
+	map.pin_hw[0]  = PinNr2Fn(step_pin_nr,step_polarity,step_pin_port);
 	map.pin_map[1] = dir_pin;
-	map.pin_hw[1]  = PinNr2Fn(dir_pin_nr,dir_polarity);
+	map.pin_hw[1]  = PinNr2Fn(dir_pin_nr,dir_polarity,dir_pin_port);
 
     Cnc_SetMap(&map,1);
 

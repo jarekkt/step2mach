@@ -6,8 +6,8 @@
    
    See license.txt for details
 
-   Author:      Jaros³aw Karwik
-   E-Mail:     jaroslaw.karwik(at)gnail.com
+   Author:      Jaroslaw Karwik
+   E-Mail:     jaroslaw.karwik(at)gmail.com
    
 **/
 // -------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@
 FNTYPE int  STDCALL Cnc_Init_Controller(void);
 FNTYPE int  STDCALL Cnc_Exit_Controller(void);
 
-FNTYPE int	STDCALL Cnc_Communication_Enable(const char * address);
+FNTYPE int  STDCALL Cnc_Communication_Enable(const char * address);
 FNTYPE int  STDCALL Cnc_Communication_Disable(void);
 
 FNTYPE int  STDCALL Cnc_Communication_GetSerial(void);
@@ -57,13 +57,13 @@ FNTYPE int  STDCALL Cnc_Status_Get(timer_resp_t  * status);
 
 FNTYPE int  STDCALL Cnc_SetCoords(timer_coord_t  * coord);
 FNTYPE int  STDCALL Cnc_SetMap(timer_map_t    * map, int map_cnt);
-FNTYPE int  STDCALL Cnc_SetOutputs(uint32_t outputs,uint32_t mask);
+FNTYPE int  STDCALL Cnc_SetOutputs(uint64_t outputs,uint64_t mask);
 
 FNTYPE void STDCALL Cnc_SendCommand(command_e cmd,int clear_queue);
 
 FNTYPE int  STDCALL Cnc_GetBufferStatus(void);
 FNTYPE int  STDCALL Cnc_IsQueEmpty(void);
-FNTYPE int  STDCALL Cnc_GetInputs(void);
+FNTYPE uint64_t  STDCALL Cnc_GetInputs(void);
 
 FNTYPE int  STDCALL Cnc_SetFrame(timer_frame_t  * frame, int frame_cnt,int replace_queue);
 

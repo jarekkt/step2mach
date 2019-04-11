@@ -158,8 +158,7 @@ void  MyDeviceClass::Reconfigure(std::string ip_address,bool debug_mode)
 		// Reinit hardware - in case of different address
 		if(dev_ip_addr != ip_address)
 		{
-			delete hardware;
-			hardware = new MyHardwareClass(MOTION_TIME_SLICE,ip_address.c_str());
+			hardware->Reinit(MOTION_TIME_SLICE,ip_address.c_str());
 		}
 	}
 	dev_ip_addr = ip_address;
@@ -324,8 +323,9 @@ void  MyDeviceClass::SendHoldingMovement()
 //
 void MyDeviceClass::GetInputs(void)
 {
-   int  x;
-   unsigned int  hw_input;
+   int		 x;
+   uint64_t  hw_input;
+   uint64_t  lpt_input;
 
    // Get input state to local variable
    hw_input = hardware->GetInputs();
@@ -334,18 +334,31 @@ void MyDeviceClass::GetInputs(void)
    // Check all signals from 0 to max number of signals.
    for(x = 0; x< nSigs; x++) 
    {
-		if( (Engine->InSigs[x].Active) && (Engine->InSigs[x].InPort == 1 )) //if this signal is turned on, and its set to port #1..check it..
-		{			
-           if(( hw_input  >> (Engine->InSigs[x].InPin -1  ) ) & 0x01 ) // if the nth (pin number) bit is active..
-		   {
+		if(Engine->InSigs[x].Active)
+		{
+			//if this signal is turned on, and retrive port 
+			if( Engine->InSigs[x].InPort == 1 )
+			{
+				lpt_input = (hw_input >> 0) & 0xFFFFFFFF;
+			}
+			else if( Engine->InSigs[x].InPort == 2 )
+			{
+				lpt_input = (hw_input >> 32) & 0xFFFFFFFF;	
+			}
+			else
+			{
+				lpt_input = 0;
+			}
+		
+	 	    if( (lpt_input  >> (Engine->InSigs[x].InPin -1)) & 0x01 ) // if the nth (pin number) bit is active..
+			{
 			   Engine->InSigs[x].Activated = !Engine->InSigs[x].Negated; //set it high or low depending on the "low active"..
-		   }
-		   else
-		   {
+			}
+			else
+			{
 			   Engine->InSigs[x].Activated = Engine->InSigs[x].Negated; //setting..
-		   }
-     	}
-
+     		}
+		}
 	}
 }
 
@@ -359,31 +372,49 @@ void MyDeviceClass::SetOutputs(void)
 {
 	int x;
 
-	unsigned int  hw_output = 0;
-	unsigned int  hw_mask = 0;
+	uint64_t    hw_output = 0;
+	uint64_t    hw_mask = 0;
+	uint64_t    hw_bit = 0;
+	uint32_t    offset;
 
 	// Check all signals from 0 to max number of signals.
 	for( x = 0; x< nSigsOut; x++) 
 	{		
-		//If this signal is turned on, and its set to port #1..check it..
-		if( (Engine->OutSigs[x].active)  && (Engine->OutSigs[x].OutPort == 1) && (Engine->OutSigs[x].OutPin < 18 )) 
+		//If this signal is turned on, and its set to port 
+		if(Engine->OutSigs[x].active)
 		{
-		   bool Should = Engine->OutSigs[x].Activated;
+			if(Engine->OutSigs[x].OutPort == 1)
+			{
+				offset = 0;
+			}
+			else if(Engine->OutSigs[x].OutPort == 2)
+			{
+				offset = 32;
+			}
+			else
+			{
+				offset = 64;
+			}
 
+		    bool Should = Engine->OutSigs[x].Activated;
 
-		   hw_mask |= 1 << (Engine->OutSigs[x].OutPin-1);
+		
+			offset += (Engine->OutSigs[x].OutPin-1);
+			hw_bit = (uint64_t)1 << offset;
 
-		   if( Should ) 
-		   {
+			hw_mask |= hw_bit ;
+
+		    if( Should ) 
+		    {
 			  //we are activated..
 			  Should = !Engine->OutSigs[x].Negated;
 			  if (Should)
 			  {
-				hw_output |= 1 << (Engine->OutSigs[x].OutPin-1);
+				hw_output |= hw_bit ;
 			  }
 			  else
 			  {
-				 hw_output &=  0xffff ^ (1 << (Engine->OutSigs[x].OutPin-1));
+				 hw_output &=  0xffffffffffffffff ^ hw_bit;
 			  }
 		   }
 		   else
@@ -392,11 +423,11 @@ void MyDeviceClass::SetOutputs(void)
 			  Should = Engine->OutSigs[x].Negated;
 			  if (Should)
 			  {
-			     hw_output |= 1 << (Engine->OutSigs[x].OutPin-1);
+			     hw_output |= hw_bit;
 			  }
 			  else
 			  {
-			     hw_output &=  0xffff ^ (1 << (Engine->OutSigs[x].OutPin-1));
+			     hw_output &=  0xffffffffffffffff ^ hw_bit;
 			  }
 		   }		   
      	}
@@ -783,22 +814,15 @@ void  MyDeviceClass::ConfigureHardware(void)
 	{
 		if(Engine->Axis[ii].Enable)
 		{
-			if( (Engine->Axis[ii].DirPort ==1) && (Engine->Axis[ii].StepPort ==1) )
+			if(hardware->ConfigureStepPins(ii,Engine->Axis[ii].StepPin,Engine->Axis[ii].StepNegate,Engine->Axis[ii].StepPort,Engine->Axis[ii].DirPin,Engine->Axis[ii].DirNegate,Engine->Axis[ii].DirPort)!=0)
 			{
-				if(hardware->ConfigureStepPins(ii,Engine->Axis[ii].StepPin,Engine->Axis[ii].StepNegate,Engine->Axis[ii].DirPin,Engine->Axis[ii].DirNegate)!=0)
-				{
-					SetMachError("Detected wrong step/dir pin configuration");
-				}
-			}
-			else
-			{
-				SetMachError("Detected wrong step/dir port configuration");
+				SetMachError("Detected wrong step/dir pin configuration");
 			}
 		}
 		else
 		{
 			// Basically disables axis pins
-			hardware->ConfigureStepPins(ii,0,0,0,0);
+			hardware->ConfigureStepPins(ii,0,0,0,0,0,0);
 		}
 	}
 

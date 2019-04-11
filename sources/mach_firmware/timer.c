@@ -41,12 +41,12 @@ timer_frame_t       frames_jog[3];
 
 uint32_t            tick;
 uint32_t            tick_watchdog;
-int                 watchdog_active;
+int32_t             watchdog_active;
 
 
-int                 allow_run         = 0;
-int                 jog_stop_active   = 0;
-int                 jog_abort_active  = 0;
+int32_t             allow_run         = 0;
+int32_t             jog_stop_active   = 0;
+int32_t             jog_abort_active  = 0;
 
 
 uint32_t            frame_counter    = 0;

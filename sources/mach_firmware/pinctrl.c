@@ -28,57 +28,94 @@
 #define GPIO_PORT_READ(name_)       &GPIO_PORT(name_)->IDR
 #define GPIO_PIN(name_)             name_##_Pin
 
-#define GPIO_STRAIGHT(n_)           { GPIO_PORT_SET(n_),GPIO_PORT_READ(n_),((uint32_t)GPIO_PIN(n_)),     ((uint32_t)GPIO_PIN(n_)<<16) }
-#define GPIO_INV(n_)                { GPIO_PORT_SET(n_),GPIO_PORT_READ(n_),((uint32_t)GPIO_PIN(n_)<<16), ((uint32_t)GPIO_PIN(n_))     }
+#define GPIO_STRAIGHT(n_,s_)           { GPIO_PORT_SET(n_),GPIO_PORT_READ(n_),((uint32_t)GPIO_PIN(n_)),     ((uint32_t)GPIO_PIN(n_)<<16), ((uint64_t)1) << (s_) }
+#define GPIO_INV(n_,s_)                { GPIO_PORT_SET(n_),GPIO_PORT_READ(n_),((uint32_t)GPIO_PIN(n_)<<16), ((uint32_t)GPIO_PIN(n_))    , ((uint64_t)1) << (s_) }
+
+#define GPIO_NONE()                 { NULL,0,0,0 }
 
 
 typedef struct
-{  
+{ 
     volatile uint32_t   * regaddr_set;
     volatile uint32_t   * regaddr_read;
     uint32_t              regval_set;
     uint32_t              regval_clr;
+    uint64_t              seq_mask;
 
 }gpio_sequence_t;
 
-
 gpio_sequence_t gpio_map[] = 
 {
-   { NULL,0,0 },
-   GPIO_STRAIGHT(LPT1_1),
-   GPIO_INV(LPT1_1),
-   GPIO_STRAIGHT(LPT1_2),
-   GPIO_INV(LPT1_2),
-   GPIO_STRAIGHT(LPT1_3),
-   GPIO_INV(LPT1_3),
-   GPIO_STRAIGHT(LPT1_4),
-   GPIO_INV(LPT1_4),
-   GPIO_STRAIGHT(LPT1_5),
-   GPIO_INV(LPT1_5),
-   GPIO_STRAIGHT(LPT1_6),
-   GPIO_INV(LPT1_6),
-   GPIO_STRAIGHT(LPT1_7),
-   GPIO_INV(LPT1_7),
-   GPIO_STRAIGHT(LPT1_8),
-   GPIO_INV(LPT1_8),
-   GPIO_STRAIGHT(LPT1_9),
-   GPIO_INV(LPT1_9),
-   GPIO_STRAIGHT(LPT1_10),
-   GPIO_INV(LPT1_10),
-   GPIO_STRAIGHT(LPT1_11),
-   GPIO_INV(LPT1_11),
-   GPIO_STRAIGHT(LPT1_12),
-   GPIO_INV(LPT1_12),
-   GPIO_STRAIGHT(LPT1_13),
-   GPIO_INV(LPT1_13),
-   GPIO_STRAIGHT(LPT1_14),
-   GPIO_INV(LPT1_14),
-   GPIO_STRAIGHT(LPT1_15),
-   GPIO_INV(LPT1_15),
-   GPIO_STRAIGHT(LPT1_16),
-   GPIO_INV(LPT1_16),
-   GPIO_STRAIGHT(LPT1_17),
-   GPIO_INV(LPT1_17)
+   GPIO_NONE(),
+   GPIO_STRAIGHT(LPT1_01,0),
+   GPIO_INV(LPT1_01,0),
+   GPIO_STRAIGHT(LPT1_02,1),
+   GPIO_INV(LPT1_02,1),
+   GPIO_STRAIGHT(LPT1_03,2),
+   GPIO_INV(LPT1_03,2),
+   GPIO_STRAIGHT(LPT1_04,3),
+   GPIO_INV(LPT1_04,3),
+   GPIO_STRAIGHT(LPT1_05,4),
+   GPIO_INV(LPT1_05,4),
+   GPIO_STRAIGHT(LPT1_06,5),
+   GPIO_INV(LPT1_06,5),
+   GPIO_STRAIGHT(LPT1_07,6),
+   GPIO_INV(LPT1_07,6),
+   GPIO_STRAIGHT(LPT1_08,7),
+   GPIO_INV(LPT1_08,7),
+   GPIO_STRAIGHT(LPT1_09,8),
+   GPIO_INV(LPT1_09,8),
+   GPIO_STRAIGHT(LPT1_10,9),
+   GPIO_INV(LPT1_10,9),
+   GPIO_STRAIGHT(LPT1_11,10),
+   GPIO_INV(LPT1_11,10),
+   GPIO_STRAIGHT(LPT1_12,11),
+   GPIO_INV(LPT1_12,11),
+   GPIO_STRAIGHT(LPT1_13,12),
+   GPIO_INV(LPT1_13,12),
+   GPIO_STRAIGHT(LPT1_14,13),
+   GPIO_INV(LPT1_14,13),
+   GPIO_STRAIGHT(LPT1_15,14),
+   GPIO_INV(LPT1_15,14),
+   GPIO_STRAIGHT(LPT1_16,15),
+   GPIO_INV(LPT1_16,15),
+   GPIO_STRAIGHT(LPT1_17,16),
+   GPIO_INV(LPT1_17,16),
+
+   GPIO_STRAIGHT(LPT2_01,32),
+   GPIO_INV(LPT2_01,32),
+   GPIO_STRAIGHT(LPT2_02,33),
+   GPIO_INV(LPT2_02,33),
+   GPIO_STRAIGHT(LPT2_03,34),
+   GPIO_INV(LPT2_03,34),
+   GPIO_STRAIGHT(LPT2_04,35),
+   GPIO_INV(LPT2_04,35),
+   GPIO_STRAIGHT(LPT2_05,36),
+   GPIO_INV(LPT2_05,36),
+   GPIO_STRAIGHT(LPT2_06,37),
+   GPIO_INV(LPT2_06,37),
+   GPIO_STRAIGHT(LPT2_07,38),
+   GPIO_INV(LPT2_07,38),
+   GPIO_STRAIGHT(LPT2_08,39),
+   GPIO_INV(LPT2_08,39),
+   GPIO_STRAIGHT(LPT2_09,40),
+   GPIO_INV(LPT2_09,40),
+   GPIO_STRAIGHT(LPT2_10,42),
+   GPIO_INV(LPT2_10,42),
+   GPIO_STRAIGHT(LPT2_11,42),
+   GPIO_INV(LPT2_11,42),
+   GPIO_STRAIGHT(LPT2_12,43),
+   GPIO_INV(LPT2_12,43),
+   GPIO_STRAIGHT(LPT2_13,44),
+   GPIO_INV(LPT2_13,44),
+   GPIO_STRAIGHT(LPT2_14,45),
+   GPIO_INV(LPT2_14,45),
+   GPIO_STRAIGHT(LPT2_15,46),
+   GPIO_INV(LPT2_15,46),
+   GPIO_STRAIGHT(LPT2_16,47),
+   GPIO_INV(LPT2_16,47),
+   GPIO_STRAIGHT(LPT2_17,48),
+   GPIO_INV(LPT2_17,48)
 
 };
 
@@ -86,32 +123,64 @@ gpio_sequence_t gpio_map[] =
 
 gpio_sequence_t gpio_output_map[] = 
 {
-   GPIO_STRAIGHT(LPT1_1),
-   GPIO_STRAIGHT(LPT1_2),
-   GPIO_STRAIGHT(LPT1_3),
-   GPIO_STRAIGHT(LPT1_4),
-   GPIO_STRAIGHT(LPT1_5),
-   GPIO_STRAIGHT(LPT1_6),
-   GPIO_STRAIGHT(LPT1_7),
-   GPIO_STRAIGHT(LPT1_8),
-   GPIO_STRAIGHT(LPT1_9),
-   GPIO_STRAIGHT(LPT1_10),
-   GPIO_STRAIGHT(LPT1_11),
-   GPIO_STRAIGHT(LPT1_12),
-   GPIO_STRAIGHT(LPT1_13),
-   GPIO_STRAIGHT(LPT1_14),
-   GPIO_STRAIGHT(LPT1_15),
-   GPIO_STRAIGHT(LPT1_16),
-   GPIO_STRAIGHT(LPT1_17)
+   GPIO_STRAIGHT(LPT1_01,0),
+   GPIO_STRAIGHT(LPT1_02,1),
+   GPIO_STRAIGHT(LPT1_03,2),
+   GPIO_STRAIGHT(LPT1_04,3),
+   GPIO_STRAIGHT(LPT1_05,4),
+   GPIO_STRAIGHT(LPT1_06,5),
+   GPIO_STRAIGHT(LPT1_07,6),
+   GPIO_STRAIGHT(LPT1_08,7),
+   GPIO_STRAIGHT(LPT1_09,8),
+   GPIO_STRAIGHT(LPT1_10,9),
+   GPIO_STRAIGHT(LPT1_11,10),
+   GPIO_STRAIGHT(LPT1_12,11),
+   GPIO_STRAIGHT(LPT1_13,12),
+   GPIO_STRAIGHT(LPT1_14,13),
+   GPIO_STRAIGHT(LPT1_15,14),
+   GPIO_STRAIGHT(LPT1_16,15),
+   GPIO_STRAIGHT(LPT1_17,16),
+   GPIO_STRAIGHT(LPT2_01,32),
+   GPIO_STRAIGHT(LPT2_02,33),
+   GPIO_STRAIGHT(LPT2_03,34),
+   GPIO_STRAIGHT(LPT2_04,35),
+   GPIO_STRAIGHT(LPT2_05,36),
+   GPIO_STRAIGHT(LPT2_06,37),
+   GPIO_STRAIGHT(LPT2_07,38),
+   GPIO_STRAIGHT(LPT2_08,39),
+   GPIO_STRAIGHT(LPT2_09,40),
+   GPIO_STRAIGHT(LPT2_10,42),
+   GPIO_STRAIGHT(LPT2_11,42),
+   GPIO_STRAIGHT(LPT2_12,43),
+   GPIO_STRAIGHT(LPT2_13,44),
+   GPIO_STRAIGHT(LPT2_14,45),
+   GPIO_STRAIGHT(LPT2_15,46),
+   GPIO_STRAIGHT(LPT2_16,47),
+   GPIO_STRAIGHT(LPT2_17,48)
 };
 
 gpio_sequence_t gpio_input_map[] = 
 {
-   GPIO_STRAIGHT(LPT1_10),
-   GPIO_STRAIGHT(LPT1_11),
-   GPIO_STRAIGHT(LPT1_12),
-   GPIO_STRAIGHT(LPT1_13),
-   GPIO_STRAIGHT(LPT1_15),
+   GPIO_STRAIGHT(LPT1_10,9),
+   GPIO_STRAIGHT(LPT1_11,10),
+   GPIO_STRAIGHT(LPT1_12,11),
+   GPIO_STRAIGHT(LPT1_13,12),
+   GPIO_STRAIGHT(LPT1_15,14),
+
+   GPIO_STRAIGHT(LPT2_02,33),
+   GPIO_STRAIGHT(LPT2_03,34),
+   GPIO_STRAIGHT(LPT2_04,35),
+   GPIO_STRAIGHT(LPT2_05,36),
+   GPIO_STRAIGHT(LPT2_06,37),
+   GPIO_STRAIGHT(LPT2_07,38),
+   GPIO_STRAIGHT(LPT2_08,39),
+   GPIO_STRAIGHT(LPT2_09,40),
+   GPIO_STRAIGHT(LPT2_10,41),
+   GPIO_STRAIGHT(LPT2_11,42),
+   GPIO_STRAIGHT(LPT2_12,43),
+   GPIO_STRAIGHT(LPT2_13,44),
+   GPIO_STRAIGHT(LPT2_15,46)
+
 };
 
 
@@ -119,14 +188,14 @@ gpio_sequence_t gpio_input_map[] =
 pinctrl_data_t  pcd = 
 {
     {
-       PIN_LPTO_2,  //PIN_MAP_X_STEP  
-       PIN_LPTO_3,  //PIN_MAP_X_DIR
-       PIN_LPTO_4,  //PIN_MAP_Y_STEP
-       PIN_LPTO_5,  //PIN_MAP_Y_DIR
-       PIN_LPTO_6,  //PIN_MAP_Z_STEP
-       PIN_LPTO_7,  //PIN_MAP_Z_DIR   
-       PIN_LPTO_8,  //PIN_MAP_A_STEP
-       PIN_LPTO_9,  //PIN_MAP_A_DIR    
+       PIN_LPT1_02,  //PIN_MAP_X_STEP  
+       PIN_LPT1_03,  //PIN_MAP_X_DIR
+       PIN_LPT1_04,  //PIN_MAP_Y_STEP
+       PIN_LPT1_05,  //PIN_MAP_Y_DIR
+       PIN_LPT1_06,  //PIN_MAP_Z_STEP
+       PIN_LPT1_07,  //PIN_MAP_Z_DIR   
+       PIN_LPT1_08,  //PIN_MAP_A_STEP
+       PIN_LPT1_09,  //PIN_MAP_A_DIR    
     }
 
 };
@@ -152,7 +221,7 @@ void inline pinctrl_clear(pin_map_e pin_id)
 }
 
 
-void inline pinctrl_set_outputs(uint32_t outputs,uint32_t mask)
+void inline pinctrl_set_outputs(uint64_t outputs,uint64_t mask)
 {
     int ii;
 
@@ -160,7 +229,7 @@ void inline pinctrl_set_outputs(uint32_t outputs,uint32_t mask)
     {
       if(mask & (1<<ii))
       {
-          if(outputs & (1<<ii))
+          if(outputs & gpio_output_map[ii].seq_mask )
           {
              *gpio_output_map[ii].regaddr_set = gpio_output_map[ii].regval_set;
           }
@@ -174,16 +243,16 @@ void inline pinctrl_set_outputs(uint32_t outputs,uint32_t mask)
 }
 
 
-uint32_t pinctrl_read(void)
+uint64_t pinctrl_read(void)
 {
     int      ii;
-    uint32_t result = 0;
+    uint64_t result = 0;
 
     for(ii = 0; ii < DIM(gpio_input_map);ii++)
     {
-        if( (*gpio_input_map[ii].regaddr_read & gpio_input_map[ii].regval_set) != 0)
+        if( ( (*gpio_input_map[ii].regaddr_read) & gpio_input_map[ii].regval_set) != 0)
         {
-           result |= (1<<ii);
+           result |= gpio_input_map[ii].seq_mask;
         }
     }
 

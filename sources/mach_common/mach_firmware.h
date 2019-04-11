@@ -28,31 +28,74 @@
 
 typedef enum
 {
-    PIN_LPTO_NONE = 0,      
-    PIN_LPTO_1,      
-    PIN_LPTO_1_INV,      
-    PIN_LPTO_2,      
-    PIN_LPTO_2_INV,      
-    PIN_LPTO_3,      
-    PIN_LPTO_3_INV,      
-    PIN_LPTO_4,      
-    PIN_LPTO_4_INV,      
-    PIN_LPTO_5,      
-    PIN_LPTO_5_INV,      
-    PIN_LPTO_6,      
-    PIN_LPTO_6_INV,      
-    PIN_LPTO_7,      
-    PIN_LPTO_7_INV,      
-    PIN_LPTO_8,      
-    PIN_LPTO_8_INV,      
-    PIN_LPTO_9,      
-    PIN_LPTO_9_INV,      
-    PIN_LPTO_14,
-    PIN_LPTO_14_INV,
-    PIN_LPTO_16,
-    PIN_LPTO_16_INV,
-    PIN_LPTO_17,
-    PIN_LPTO_17_INV
+    PIN_LPT_NONE = 0,      
+
+    PIN_LPT1_01,      
+    PIN_LPT1_01_INV,      
+    PIN_LPT1_02,      
+    PIN_LPT1_02_INV,      
+    PIN_LPT1_03,      
+    PIN_LPT1_03_INV,      
+    PIN_LPT1_04,      
+    PIN_LPT1_04_INV,      
+    PIN_LPT1_05,      
+    PIN_LPT1_05_INV,      
+    PIN_LPT1_06,      
+    PIN_LPT1_06_INV,      
+    PIN_LPT1_07,      
+    PIN_LPT1_07_INV,      
+    PIN_LPT1_08,      
+    PIN_LPT1_08_INV,      
+    PIN_LPT1_09,      
+    PIN_LPT1_09_INV,  
+    PIN_LPT1_10,      
+    PIN_LPT1_10_INV,  
+    PIN_LPT1_11,      
+    PIN_LPT1_11_INV,  
+    PIN_LPT1_12,      
+    PIN_LPT1_12_INV,  
+    PIN_LPT1_13,      
+    PIN_LPT1_13_INV,          
+    PIN_LPT1_14,
+    PIN_LPT1_14_INV,
+    PIN_LPT1_16,
+    PIN_LPT1_16_INV,
+    PIN_LPT1_17,
+    PIN_LPT1_17_INV,
+
+    PIN_LPT2_01,      
+    PIN_LPT2_01_INV,      
+    PIN_LPT2_02,      
+    PIN_LPT2_02_INV,      
+    PIN_LPT2_03,      
+    PIN_LPT2_03_INV,      
+    PIN_LPT2_04,      
+    PIN_LPT2_04_INV,      
+    PIN_LPT2_05,      
+    PIN_LPT2_05_INV,      
+    PIN_LPT2_06,      
+    PIN_LPT2_06_INV,      
+    PIN_LPT2_07,      
+    PIN_LPT2_07_INV,      
+    PIN_LPT2_08,      
+    PIN_LPT2_08_INV,      
+    PIN_LPT2_09,      
+    PIN_LPT2_09_INV,  
+    PIN_LPT2_10,      
+    PIN_LPT2_10_INV,  
+    PIN_LPT2_11,      
+    PIN_LPT2_11_INV,  
+    PIN_LPT2_12,      
+    PIN_LPT2_12_INV,  
+    PIN_LPT2_13,      
+    PIN_LPT2_13_INV,          
+    PIN_LPT2_14,
+    PIN_LPT2_14_INV,
+    PIN_LPT2_16,
+    PIN_LPT2_16_INV,
+    PIN_LPT2_17,
+    PIN_LPT2_17_INV,
+
 }pin_hw_e;
     
 typedef enum
@@ -110,10 +153,10 @@ typedef struct
     {
         struct
         {
-            int16_t       Xs;
-            int16_t       Ys;
-            int16_t       Zs;
-            int16_t       As;
+            int32_t       Xs;
+            int32_t       Ys;
+            int32_t       Zs;
+            int32_t       As;
 
             uint32_t      Xv;
             uint32_t      Yv;
@@ -127,7 +170,7 @@ typedef struct
             int32_t       dir;
             uint32_t      fract;
             int32_t       vfract;
-            uint16_t      axis;
+            uint32_t      axis;
         }jog;
 
         struct
@@ -160,8 +203,8 @@ typedef struct
 
 typedef struct
 {
-    uint32_t mask;
-    uint32_t outputs;
+    uint64_t mask;
+    uint64_t outputs;
 }timer_io_t;
 
 
@@ -177,8 +220,8 @@ typedef struct
 
         struct
         {
-            uint16_t    mask;
-            uint16_t    value;
+            uint64_t    mask;
+            uint64_t    value;
         }stop_condition;
     }data;
 
@@ -195,11 +238,12 @@ typedef struct
 
 typedef struct
 {
-    uint16_t          last_valid_id;
-    uint8_t           free_slots;
-    uint8_t           inputs;
     timer_coord_t     coords;
     uint32_t          line_id;
+    uint64_t          inputs;
+    uint32_t          last_valid_id;
+    uint32_t          free_slots;
+
 }timer_resp_data_t;
 
 typedef struct

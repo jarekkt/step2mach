@@ -35,14 +35,14 @@ typedef enum
 
 typedef struct
 {
-	unsigned int	JogOnCall;
-	unsigned int	JogOffCall;
-	unsigned int	DwellCall;
-	unsigned int	HomeCall;
-	unsigned int	ProbeCall;
-	unsigned int	PurgeCall;
-	unsigned int	ResetCall;
-	unsigned long	TrajectoryItems;
+	uint32_t	JogOnCall;
+	uint32_t	JogOffCall;
+	uint32_t	DwellCall;
+	uint32_t	HomeCall;
+	uint32_t	ProbeCall;
+	uint32_t	PurgeCall;
+	uint32_t	ResetCall;
+	uint32_t	TrajectoryItems;
 
 }MyDeviceStatsType;
 
@@ -53,7 +53,7 @@ class MyDeviceClass
 
 private:
 	
-	int					  ReadyForRun;
+	int32_t				  ReadyForRun;
 	MyConsoleClass		* console;
 	MyHardwareClass		* hardware;
 	std::string			  dev_ip_addr;
@@ -61,37 +61,37 @@ private:
 
 	// Main state machine variables
 	MySequenceEnum		  sequence;
-	int				      InMotion;
-	int					  WaitForGcodeIdle;
-	int					  WaitForJogIdle;
+	int32_t				  InMotion;
+	int32_t				  WaitForGcodeIdle;
+	int32_t				  WaitForJogIdle;
 	
 	// For servicing Dwell requests
 	DWORD				  DwellTimestamp;
 	DWORD				  DwellDelay;
 
 	// For servicing Jog requests
-	int				      JogAxis;
+	int32_t				  JogAxis;
     double				  JogFeed;
     double				  JogVel;
     double				  JogAcc;
-	int					  JogDistance;
+	int32_t				  JogDistance;
 
 	// For servicing Home requests
-	int				      HomeAxis;
-	int					  HomePin;
-	int					  HomeSignal;
+	int32_t				  HomeAxis;
+	int32_t				  HomePin;
+	int32_t			      HomeSignal;
 	double				  HomeVel;
 	double				  HomeAcc;
-	int					  HomeMask;
-	int					  HomeMaskValActive;
-	int					  HomeMaskValInActive;
-	int					  HomeDistance;
-	int					  HomeDelay;
+	int32_t				  HomeMask;
+	int32_t		          HomeMaskValActive;
+	int32_t				  HomeMaskValInActive;
+	int32_t				  HomeDistance;
+	int32_t				  HomeDelay;
 
 	// For servicing outputs update
-	int					  OutputValid;
-	int					  OutputCurrent;
-	int					  OutputMaskCurrent;
+	int32_t				  OutputValid;
+	uint64_t			  OutputCurrent;
+	uint64_t			  OutputMaskCurrent;
 
 
 
@@ -122,7 +122,7 @@ public:
     void  Update(void);	
 
 	// Helpers
-	static std::string wchar2s(wchar_t * wchar_string,int size);
+	static std::string wchar2s(wchar_t * wchar_string,int32_t size);
 	static std::string nets2s(System::String^ net_string);
 
 

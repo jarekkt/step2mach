@@ -259,7 +259,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -267,20 +269,37 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOG_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LD3_Pin|LD2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOF, LPT2_14_Pin|LPT2_16_Pin|LPT2_17_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, LD3_Pin|LPT2_01_Pin|LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOG, USB_PowerSwitchOn_Pin|LPT1_14_Pin|LPT1_16_Pin|LPT1_17_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LD1_Pin|LPT1_2_Pin|LPT1_3_Pin|LPT1_4_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, LD1_Pin|LPT1_02_Pin|LPT1_03_Pin|LPT1_04_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LPT1_1_GPIO_Port, LPT1_1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LPT1_01_GPIO_Port, LPT1_01_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, LPT1_5_Pin|LPT1_6_Pin|LPT1_7_Pin|LPT1_8_Pin 
-                          |LPT1_9_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, LPT1_05_Pin|LPT1_06_Pin|LPT1_07_Pin|LPT1_08_Pin 
+                          |LPT1_09_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : LPT2_09_Pin LPT2_10_Pin LPT2_11_Pin LPT2_12_Pin 
+                           LPT2_07_Pin LPT2_08_Pin */
+  GPIO_InitStruct.Pin = LPT2_09_Pin|LPT2_10_Pin|LPT2_11_Pin|LPT2_12_Pin 
+                          |LPT2_07_Pin|LPT2_08_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : LPT2_13_Pin */
+  GPIO_InitStruct.Pin = LPT2_13_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(LPT2_13_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : USER_Btn_Pin */
   GPIO_InitStruct.Pin = USER_Btn_Pin;
@@ -288,8 +307,21 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USER_Btn_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD3_Pin LD2_Pin */
-  GPIO_InitStruct.Pin = LD3_Pin|LD2_Pin;
+  /*Configure GPIO pins : LPT2_14_Pin LPT2_16_Pin LPT2_17_Pin */
+  GPIO_InitStruct.Pin = LPT2_14_Pin|LPT2_16_Pin|LPT2_17_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : LPT2_15_Pin */
+  GPIO_InitStruct.Pin = LPT2_15_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(LPT2_15_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LD3_Pin LPT2_01_Pin LD2_Pin */
+  GPIO_InitStruct.Pin = LD3_Pin|LPT2_01_Pin|LD2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -302,14 +334,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : USB_OverCurrent_Pin LPT1_13_Pin LPT1_15_Pin */
-  GPIO_InitStruct.Pin = USB_OverCurrent_Pin|LPT1_13_Pin|LPT1_15_Pin;
+  /*Configure GPIO pins : USB_OverCurrent_Pin LPT1_15_Pin */
+  GPIO_InitStruct.Pin = USB_OverCurrent_Pin|LPT1_15_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD1_Pin LPT1_2_Pin LPT1_3_Pin LPT1_4_Pin */
-  GPIO_InitStruct.Pin = LD1_Pin|LPT1_2_Pin|LPT1_3_Pin|LPT1_4_Pin;
+  /*Configure GPIO pins : LD1_Pin LPT1_02_Pin LPT1_03_Pin LPT1_04_Pin */
+  GPIO_InitStruct.Pin = LD1_Pin|LPT1_02_Pin|LPT1_03_Pin|LPT1_04_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -329,17 +361,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(USB_VBUS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : LPT1_1_Pin */
-  GPIO_InitStruct.Pin = LPT1_1_Pin;
+  /*Configure GPIO pin : LPT1_01_Pin */
+  GPIO_InitStruct.Pin = LPT1_01_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LPT1_1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(LPT1_01_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LPT1_5_Pin LPT1_6_Pin LPT1_7_Pin LPT1_8_Pin 
-                           LPT1_9_Pin */
-  GPIO_InitStruct.Pin = LPT1_5_Pin|LPT1_6_Pin|LPT1_7_Pin|LPT1_8_Pin 
-                          |LPT1_9_Pin;
+  /*Configure GPIO pins : LPT1_05_Pin LPT1_06_Pin LPT1_07_Pin LPT1_08_Pin 
+                           LPT1_09_Pin */
+  GPIO_InitStruct.Pin = LPT1_05_Pin|LPT1_06_Pin|LPT1_07_Pin|LPT1_08_Pin 
+                          |LPT1_09_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -348,13 +380,21 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : LPT1_10_Pin LPT1_11_Pin LPT1_12_Pin */
   GPIO_InitStruct.Pin = LPT1_10_Pin|LPT1_11_Pin|LPT1_12_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LPT2_1_Pin LPT2_2_Pin LPT2_3_Pin */
-  GPIO_InitStruct.Pin = LPT2_1_Pin|LPT2_2_Pin|LPT2_3_Pin;
+  /*Configure GPIO pin : LPT1_13_Pin */
+  GPIO_InitStruct.Pin = LPT1_13_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(LPT1_13_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LPT2_02_Pin LPT2_03_Pin LPT2_04_Pin LPT2_05_Pin 
+                           LPT2_06_Pin */
+  GPIO_InitStruct.Pin = LPT2_02_Pin|LPT2_03_Pin|LPT2_04_Pin|LPT2_05_Pin 
+                          |LPT2_06_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
