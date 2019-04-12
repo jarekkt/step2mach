@@ -74,9 +74,8 @@ static void timer_reset_hw(void)
   NVIC_SystemReset();
 }
 
-int timer_execute_frame(uint8_t * frame_stream,int idx)
+int timer_execute_frame(const uint8_t * frame_stream,int idx)
 {
-   int      ipl;
    int      ii;
    int      head;
 

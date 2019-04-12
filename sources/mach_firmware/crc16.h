@@ -16,9 +16,9 @@
 #define CRC_INIT 0xFFFF
 
 
-uint16_t crc_sum(const unsigned char* message, int length,uint16_t crc);
-void   crc_single(unsigned char cc, uint16_t * crc);
+uint16_t crc_sum(const uint8_t * message, uint32_t  length,uint16_t crc);
+void   crc_single(uint8_t  cc, uint16_t * crc);
 
-int    crc_verify(const unsigned char* message, unsigned long length);
-void   crc_append(unsigned char* message, int length);
+int    crc_verify(const uint8_t * message,uint32_t length);
+void   crc_append(uint8_t  * message, int length);
 

@@ -36,7 +36,7 @@
 
 
 static timer_resp_t         response;
-static uint8_t              recv_buffer[1988]; //check real max size
+
 
 
 
@@ -98,7 +98,7 @@ void  serial_process_receive(char *recv_buffer, uint32_t cnt)
         {
             if( (cnt-3)% sizeof(timer_frame_t) == 0)
             {
-                if(crc_verify(&recv_buffer[1],cnt-1)!=0)
+                if(crc_verify((const uint8_t*)&recv_buffer[1],cnt-1)!=0)
                 {
                     item_idx_max = (cnt-3) / sizeof(timer_frame_t);
 
@@ -108,7 +108,7 @@ void  serial_process_receive(char *recv_buffer, uint32_t cnt)
                     {
                         for(item_idx = 0; item_idx < item_idx_max; item_idx++)
                         {
-                           if(timer_execute_frame(&recv_buffer[1+sizeof(timer_frame_t) * item_idx],item_idx)!=0)
+                           if(timer_execute_frame((const uint8_t*)&recv_buffer[1+sizeof(timer_frame_t) * item_idx],item_idx)!=0)
                            {
                              return;
                            }

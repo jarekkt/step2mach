@@ -43,7 +43,7 @@ static const uint16_t crc_table[256] = {
 
 
 /*---------------------------------------------------------------------------*/
-void   crc_single(unsigned char cc, uint16_t * crc)
+void   crc_single(uint8_t  cc, uint16_t * crc)
 {
       CRC((*crc), cc);    
 }
@@ -51,7 +51,7 @@ void   crc_single(unsigned char cc, uint16_t * crc)
 
 /*---------------------------------------------------------------------------*/
 
-uint16_t crc_sum(const unsigned char* message, int length,uint16_t crc)
+uint16_t crc_sum(const uint8_t * message, uint32_t  length,uint16_t crc)
 {
   int  i;
 
@@ -65,7 +65,7 @@ uint16_t crc_sum(const unsigned char* message, int length,uint16_t crc)
 
 /*---------------------------------------------------------------------------*/
 
-int crc_verify(const unsigned char* message, unsigned long length)
+int crc_verify(const uint8_t * message, uint32_t length)
 {
   /*
    * Returns true if the last two bytes in a message is the crc of the
@@ -79,7 +79,7 @@ int crc_verify(const unsigned char* message, unsigned long length)
 
 /*---------------------------------------------------------------------------*/
 
-void crc_append(unsigned char* message, int length)
+void crc_append(uint8_t * message, int length)
 {
   uint16_t crc;
 

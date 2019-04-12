@@ -78,7 +78,7 @@ void timer_enable_run(void);
 void timer_disable_run(void);
 void timer_flush_buffers(void);
 void timer_sync_coords(void);
-int  timer_execute_frame(uint8_t * frame_stream,int idx);
+int  timer_execute_frame(const uint8_t * frame_stream,int idx);
 
 
 #endif
