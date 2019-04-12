@@ -27,18 +27,14 @@
  <Project>
   <ProjectSessionItem path="step2mach"/>
   <ProjectSessionItem path="step2mach;cube"/>
-  <ProjectSessionItem path="step2mach;cube;Application"/>
-  <ProjectSessionItem path="step2mach;cube;Application;User"/>
   <ProjectSessionItem path="step2mach;cube;Drivers"/>
+  <ProjectSessionItem path="step2mach;cube;Drivers;CMSIS"/>
+  <ProjectSessionItem path="step2mach;cube;Drivers;STM32F4xx_HAL_Driver"/>
   <ProjectSessionItem path="step2mach;cube;Middlewares"/>
-  <ProjectSessionItem path="step2mach;cube;Middlewares;FreeRTOS"/>
-  <ProjectSessionItem path="step2mach;cube;Middlewares;LwIP"/>
-  <ProjectSessionItem path="step2mach;cube;Middlewares;LwIP;inc"/>
   <ProjectSessionItem path="step2mach;step2mach"/>
-  <ProjectSessionItem path="step2mach;step2mach;common"/>
   <ProjectSessionItem path="step2mach;step2mach;Source Files"/>
   <ProjectSessionItem path="step2mach;step2mach;Source Files;lwip_apps"/>
-  <ProjectSessionItem path="step2mach;step2mach;Source Files;lwip_apps;mach_conn"/>
+  <ProjectSessionItem path="step2mach;step2mach;Source Files;lwip_apps;httpd"/>
  </Project>
  <Register1>
   <RegisterWindow visibleNodes="I2C2/CR1;I2C2/CR2;I2C2/OAR1;I2C2/OAR2;I2C2/DR;I2C2/SR1;I2C2/SR2;I2C2/CCR;I2C2/TRISE;I2C2/FLTR;I2C3/CR1;I2C3/CR2;I2C3/OAR1;I2C3/OAR2;I2C3/DR;I2C3/SR1;I2C3/SR2;I2C3/CCR;I2C3/TRISE;I2C3/FLTR;CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/msp;CPU/psp;CPU/cfbp;SCB/CPUID;SCB/ICSR;SCB/VTOR;SCB/AIRCR;SCB/SCR;SCB/CCR;SCB/SHPR1;SCB/SHPR2;SCB/SHPR3;SCB/SHCRS;SCB/CFSR_UFSR_BFSR_MMFSR;SCB/HFSR;SCB/MMFAR;SCB/BFAR;SCB/AFSR;SCB_ACTRL/ACTRL" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context/apsr;CPU/xpsr;CPU/cfbp;SCB;SCB/BFAR;SCB_ACTRL" name="cue" decimalNodes="" octalNodes="" unsignedNodes=""/>
@@ -77,8 +73,8 @@
    <Watchpoint numelements="1500" expression="buffer" evalMode="0" name="buffer" radix="16" linenumber="0" filename="../project" list=""/>
    <Watchpoint numelements="0" expression="from" evalMode="1" name="from" radix="16" linenumber="0" filename="../project" list=""/>
    <Watchpoint numelements="0" expression="fromlen" evalMode="1" name="fromlen" radix="16" linenumber="0" filename="../project" list=""/>
-   <Watchpoint numelements="0" expression="sizeof(response)" evalMode="0" name="sizeof(response)" radix="10" linenumber="0" filename="" list=""/>
-   <Watchpoint numelements="0" expression="response" evalMode="0" name="response" radix="16" linenumber="0" filename="" list=""/>
+   <Watchpoint numelements="0" expression="sizeof(response)" evalMode="0" name="sizeof(response)" radix="10" linenumber="0" filename="../project" list=""/>
+   <Watchpoint numelements="0" expression="response" evalMode="0" name="response" radix="16" linenumber="0" filename="../project" list=""/>
    <Watchpoint numelements="0" expression="divider" evalMode="0" name="divider" radix="11" linenumber="67" filename="../lwip_apps/mach_conn/mach_conn.c" list=""/>
   </Watches>
  </Watch2>
@@ -89,15 +85,16 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="68" useTextEdit="1" useBinaryEdit="0" left="0" path="../lwip_apps/mach_conn/mach_conn.c" selected="1" top="46" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="53" y="80" useTextEdit="1" useBinaryEdit="0" left="0" path="../serial.c" selected="0" top="58" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="68" useTextEdit="1" useBinaryEdit="0" left="0" path="../lwip_apps/mach_conn/mach_conn.c" selected="0" top="46" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="80" useTextEdit="1" useBinaryEdit="0" left="0" path="../serial.c" selected="0" top="74" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="332" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/core/ipv4/icmp.c" selected="0" top="315" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="248" useTextEdit="1" useBinaryEdit="0" left="0" path="../../mach_common/mach_firmware.h" selected="0" top="233" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="103" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Src/main.c" selected="0" top="86" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1261" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/FreeRTOS/Source/tasks.c" selected="0" top="1234" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="377" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" selected="0" top="354" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="764" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/api/sockets.c" selected="0" top="739" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="117" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Src/main.c" selected="0" top="101" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1261" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/FreeRTOS/Source/tasks.c" selected="0" top="1234" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="377" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" selected="0" top="354" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="764" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/api/sockets.c" selected="0" top="739" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="349" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Middlewares/Third_Party/LwIP/src/include/lwip/api.h" selected="0" top="333" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="45" useTextEdit="1" useBinaryEdit="0" left="0" path="../cube/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h" selected="1" top="21" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="step2mach" fileDialogDefaultFilter="*.c" autoConnectTarget="SEGGER J-Link" buildConfiguration="ARM Debug" debugSearchFileMap="" fileDialogInitialDirectory="/home/jarek/Projects/vcs/step2mach/sources/mach_firmware/lwip_apps/mach_conn" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>
