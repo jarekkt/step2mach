@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name ref)(type KiCad)(uri ${KIPRJMOD}/ref)(options "")(descr ""))
+  (lib (name NUCLEO-F429ZI)(type Legacy)(uri ${KIPRJMOD}/ref/NUCLEO-F429ZI.mod)(options "")(descr ""))
+)

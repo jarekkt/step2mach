@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name MCU_Module)(type Legacy)(uri ${KIPRJMOD}/ref/MCU_Module.lib)(options "")(descr ""))
+  (lib (name NUCLEO-F429ZI)(type Legacy)(uri ${KIPRJMOD}/ref/NUCLEO-F429ZI.lib)(options "")(descr ""))
+)

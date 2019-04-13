@@ -122,6 +122,11 @@
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
+			<name>step2mach/common</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
 			<name>step2mach/crc16.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/crc16.c</locationURI>
@@ -710,6 +715,21 @@
 			<name>Middlewares/LwIP/vj.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/cube/Middlewares/Third_Party/LwIP/src/netif/ppp/vj.c</locationURI>
+		</link>
+		<link>
+			<name>step2mach/common/mach_firmware.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mach_common/mach_firmware.h</locationURI>
+		</link>
+		<link>
+			<name>step2mach/common/mach_pclib_protocol.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mach_common/mach_pclib_protocol.h</locationURI>
+		</link>
+		<link>
+			<name>step2mach/common/types.h</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/mach_common/types.h</locationURI>
 		</link>
 		<link>
 			<name>step2mach/lwip_apps/httpd</name>
