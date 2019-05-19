@@ -28,7 +28,7 @@
 
 #define MAX_COMM_BUFFER							  16384
 #define MAX_FRAME_BUFFER						   4096
-#define MAX_FRAME_OUT								 42
+#define MAX_FRAME_OUT							( (1438 /* UDP payload MTU limit*/- sizeof(uint32_t) - sizeof(uint8_t) /* markers */ ) / sizeof(timer_frame_t) )
 
 
 static void				*   ComHandle;
@@ -346,7 +346,7 @@ void CncCom_SendQueue(void)
 
 	while(frame_end_sent[frame_buf_in_use] != frame_end[frame_buf_in_use])
 	{
-		if( ii >= (2* (int)(unsigned int)current_response.data.free_slots /* herewe have real value divided by 2 - due to Uint8 limitation*/) )
+		if( ii >=  (int)(unsigned int)current_response.data.free_slots )
 		{
 			break;
 		}
