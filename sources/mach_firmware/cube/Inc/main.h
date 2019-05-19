@@ -88,8 +88,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LPT2_09_Pin GPIO_PIN_2
-#define LPT2_09_GPIO_Port GPIOE
+#define LPT2_06_Pin GPIO_PIN_2
+#define LPT2_06_GPIO_Port GPIOE
 #define LPT2_10_Pin GPIO_PIN_3
 #define LPT2_10_GPIO_Port GPIOE
 #define LPT2_11_Pin GPIO_PIN_4
@@ -116,6 +116,8 @@ void Error_Handler(void);
 #define RMII_REF_CLK_GPIO_Port GPIOA
 #define RMII_MDIO_Pin GPIO_PIN_2
 #define RMII_MDIO_GPIO_Port GPIOA
+#define LPT1_17_Pin GPIO_PIN_4
+#define LPT1_17_GPIO_Port GPIOA
 #define RMII_CRS_DV_Pin GPIO_PIN_7
 #define RMII_CRS_DV_GPIO_Port GPIOA
 #define RMII_RXD0_Pin GPIO_PIN_4
@@ -130,6 +132,16 @@ void Error_Handler(void);
 #define STLK_RX_GPIO_Port GPIOD
 #define STLK_TX_Pin GPIO_PIN_9
 #define STLK_TX_GPIO_Port GPIOD
+#define LPT2_05_Pin GPIO_PIN_11
+#define LPT2_05_GPIO_Port GPIOD
+#define LPT1_15_Pin GPIO_PIN_12
+#define LPT1_15_GPIO_Port GPIOD
+#define LPT1_14_Pin GPIO_PIN_13
+#define LPT1_14_GPIO_Port GPIOD
+#define LPT2_09_Pin GPIO_PIN_15
+#define LPT2_09_GPIO_Port GPIOD
+#define LPT2_08_Pin GPIO_PIN_2
+#define LPT2_08_GPIO_Port GPIOG
 #define USB_PowerSwitchOn_Pin GPIO_PIN_6
 #define USB_PowerSwitchOn_GPIO_Port GPIOG
 #define USB_OverCurrent_Pin GPIO_PIN_7
@@ -176,18 +188,12 @@ void Error_Handler(void);
 #define LPT1_12_GPIO_Port GPIOD
 #define LPT1_13_Pin GPIO_PIN_9
 #define LPT1_13_GPIO_Port GPIOG
-#define LPT1_14_Pin GPIO_PIN_10
-#define LPT1_14_GPIO_Port GPIOG
 #define RMII_TX_EN_Pin GPIO_PIN_11
 #define RMII_TX_EN_GPIO_Port GPIOG
-#define LPT1_15_Pin GPIO_PIN_12
-#define LPT1_15_GPIO_Port GPIOG
 #define RMII_TXD0_Pin GPIO_PIN_13
 #define RMII_TXD0_GPIO_Port GPIOG
 #define LPT1_16_Pin GPIO_PIN_14
 #define LPT1_16_GPIO_Port GPIOG
-#define LPT1_17_Pin GPIO_PIN_15
-#define LPT1_17_GPIO_Port GPIOG
 #define LPT2_01_Pin GPIO_PIN_3
 #define LPT2_01_GPIO_Port GPIOB
 #define LPT2_02_Pin GPIO_PIN_4
@@ -196,16 +202,8 @@ void Error_Handler(void);
 #define LPT2_03_GPIO_Port GPIOB
 #define LPT2_04_Pin GPIO_PIN_6
 #define LPT2_04_GPIO_Port GPIOB
-#define LD2_Pin GPIO_PIN_7
-#define LD2_GPIO_Port GPIOB
-#define LPT2_05_Pin GPIO_PIN_8
-#define LPT2_05_GPIO_Port GPIOB
-#define LPT2_06_Pin GPIO_PIN_9
-#define LPT2_06_GPIO_Port GPIOB
 #define LPT2_07_Pin GPIO_PIN_0
 #define LPT2_07_GPIO_Port GPIOE
-#define LPT2_08_Pin GPIO_PIN_1
-#define LPT2_08_GPIO_Port GPIOE
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

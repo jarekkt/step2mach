@@ -94,9 +94,6 @@
         <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c" />
         <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c" />
         <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" />
-        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c" />
-        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c" />
-        <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c" />
         <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" />
         <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" />
         <file file_name="../cube/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" />
