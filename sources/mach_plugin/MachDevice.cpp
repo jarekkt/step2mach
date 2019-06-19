@@ -192,6 +192,8 @@ extern "C" __declspec(dllexport) bool InitControl( void *oEngine , void *oSetup 
 	MainPlanner = (_TrajectoryControl *) oMainPlanner;
 	MachView	= (_CMach4View *) oView;
 
+
+
 #ifdef	PI_INITCONTROL
 	startPrinter = piInitControl();
 #else

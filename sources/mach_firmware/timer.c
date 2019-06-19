@@ -391,7 +391,7 @@ static  void timer_gcode_mode(void)
     static int  next_step_pulse = 0;
     static int  phase;   
     int         is_active = 0;
-    int32_t    tmp;
+    uint32_t    tmp;
 
     if(phase++ & 0x01)
     {        

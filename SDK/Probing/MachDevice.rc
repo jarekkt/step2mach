@@ -1,0 +1,307 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\MachDevice.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "1 TYPELIB ""MachDevice.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "ArtSoft 2006"
+            VALUE "FileDescription", "Probeing PlugIn"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "Probe.dll"
+            VALUE "LegalCopyright", "Artsoft 2006"
+            VALUE "OriginalFilename", "Probe.dll"
+            VALUE "ProductName", "Mach3 PlugIn"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINCONFIG DIALOGEX 0, 0, 183, 254
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Configure Sequence Routines"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,57,226,50,14
+    LTEXT           "To use plugin, select 3d probing from menu ",IDC_STATIC,
+                    24,18,140,8
+    LTEXT           "Not Yet Required",IDC_STATIC,62,100,56,8
+END
+
+IDD_TOOLSETCFG DIALOGEX 0, 0, 270, 217
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Tool Touch Config"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,104,188,50,14
+    CONTROL         "Move first to ",IDC_PREMOVE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,63,32,59,10
+    EDITTEXT        IDC_XPOS,149,31,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_YPOS,149,45,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ZPOS,149,61,40,12,ES_AUTOHSCROLL
+    LTEXT           "X",IDC_STATIC,133,32,8,8
+    LTEXT           "Y",IDC_STATIC,133,48,8,8
+    LTEXT           "Z",IDC_STATIC,133,63,8,8
+    LTEXT           "If Selected , all axis will move to this G53 location prior to touchoff",
+                    IDC_STATIC,34,15,212,8
+    GROUPBOX        "Start",IDC_STATIC,17,3,236,78
+    GROUPBOX        "Stage 2",IDC_STATIC,18,83,235,43
+    LTEXT           "Z Axis will then Probe downward stopping on probe switch or plate.",
+                    IDC_STATIC,32,95,216,8
+    GROUPBOX        "Final Stage",IDC_STATIC,17,134,235,49
+    CONTROL         "Zero Z axis using current Work Offset System",
+                    IDC_ZEROWORK,"Button",BS_AUTORADIOBUTTON | WS_GROUP,49,
+                    146,162,10
+    CONTROL         "Zero Z by modifying currently selected Tool Table Entry",
+                    IDC_ZEROTOOL,"Button",BS_AUTORADIOBUTTON,49,159,193,10
+    CONTROL         "Move Back to original position",IDC_MOVEBACK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,50,171,110,10
+    LTEXT           "To a maximum depth/hight of : ",IDC_STATIC,31,108,101,8
+    EDITTEXT        IDC_DEPTH,137,107,40,12,ES_AUTOHSCROLL
+END
+
+IDD_PROBECONFIG DIALOGEX 0, 0, 407, 217
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | 
+    DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "3D Probe Settings"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_LENGTH,360,7,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WIDTH,360,23,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_XSTEPOVER,360,39,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PROBEDIST,360,54,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_CLEAR,360,69,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FEEDRATE,360,85,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PROBEDIAM,360,102,40,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Start Scanning",IDOK,290,196,110,14
+    LTEXT           "Width ( X Axis)",IDC_STATIC,297,10,48,8
+    LTEXT           "Width (Y axis)",IDC_STATIC,299,26,46,8
+    LTEXT           "Max Grid  Increment",IDC_STATIC,290,41,66,8
+    LTEXT           "Probe Depth",IDC_STATIC,298,56,41,8
+    LTEXT           "Probe Clear",IDC_STATIC,298,72,38,8
+    LTEXT           "Probe Rate (unit/min)",IDC_STATIC,276,87,70,8
+    PUSHBUTTON      "Cancel",IDC_CANCEL,350,159,50,14
+    LTEXT           "Warning: Only multiaxis probes are used with this plugin.",
+                    IDC_STATIC,37,145,182,8
+    CONTROL         4023,IDC_STATIC,"Static",SS_BITMAP,31,16,194,127
+    LTEXT           "Rectangualr Grid Digitizing",IDC_STATIC,89,7,84,8
+    LTEXT           "Probe depth is max depth to probe to. ",IDC_STATIC,258,
+                    134,126,8
+    LTEXT           "Probe Clearance is pullback amount from hit.",
+                    IDC_STATIC,249,144,143,8
+    LTEXT           "Your probe should be zeroed at indicated position in X,Y and",
+                    IDC_STATIC,28,155,193,8
+    LTEXT           "the Z axis should be zeroed above the highest part of the model",
+                    IDC_STATIC,27,167,206,8
+    LTEXT           "   Probing will then move to center of model and begin probeing outwards.",
+                    IDC_STATIC,6,177,237,8
+    LTEXT           "Probe Ball Diameter",IDC_STATIC,280,104,63,8
+    LTEXT           "Maximum Z height for stuck probe",IDC_STATIC,235,119,
+                    109,8
+    EDITTEXT        IDC_PROBESTUCK,360,116,40,12,ES_AUTOHSCROLL
+END
+
+IDD_OKAYTOMOVE DIALOGEX 0, 0, 187, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Start Movement???"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Yes",IDYES,25,74,50,14
+    PUSHBUTTON      "No",IDNO,109,74,50,14
+    LTEXT           "Sequence will start with Cycle/Start",IDC_STATIC,36,50,
+                    131,8
+    CONTROL         "Probe Active",IDC_PROBEACTIVE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,95,30,57,10
+    LTEXT           "Press Probe Tip to test:",IDC_STATIC,29,19,76,8
+    LTEXT           "Start Sequence operation?",IDC_STATIC,50,59,86,8
+END
+
+IDD_CENTER DIALOGEX 0, 0, 265, 193
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Center from 3 points"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,208,172,50,14
+    LTEXT           "Circle or Arc center is at :",IDC_STATIC,23,26,82,8
+    LTEXT           "X:",IDC_STATIC,153,48,8,8
+    LTEXT           "Y:",IDC_STATIC,153,67,8,8
+    LTEXT           "Radius of Arc or Circle is:",IDC_STATIC,79,82,81,8
+    EDITTEXT        IDC_XPOINT,170,46,40,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_YPOINT,170,64,40,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_RADIUS,170,82,40,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Move Directly to x,y",IDC_MOVETO,104,109,108,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_MAINCONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 176
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 247
+    END
+
+    IDD_TOOLSETCFG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 263
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 210
+    END
+
+    IDD_PROBECONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 400
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 210
+    END
+
+    IDD_OKAYTOMOVE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_CENTER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 258
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 186
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_PROBE               BITMAP                  "res\\probe.bmp"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\MachDevice.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+1 TYPELIB "MachDevice.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

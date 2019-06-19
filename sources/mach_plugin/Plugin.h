@@ -28,6 +28,7 @@ namespace mach_plugin {}				// setup default namespace for .NET
 #define PI_PURGE				// piPurge()
 #define PI_PROBE				// piProbe()
 #define PI_HOME					// piHome()
+#define PI_DOBUTTON				// piDoButton()
 
 //=====================================================================
 //
@@ -59,6 +60,7 @@ namespace mach_plugin {}				// setup default namespace for .NET
 #define PI_MIX_PURGE			managed		// piPurge()
 #define PI_MIX_PROBE			managed		// piProbe()
 #define PI_MIX_HOME				managed		// piHome()
+#define PI_MIX_DOBUTTON			managed		// piDoButton()
 
 //=====================================================================
 //
@@ -166,6 +168,8 @@ void piProbe();
 #endif
 void piHome(short axis);
 #endif
+
+
 
 //---------------------------------------------------------------------
 //
