@@ -1,0 +1,57 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=Windows-1252">
+</head>
+<body>
+<pre>
+<table width=100% bgcolor=#CFCFE5><tr> <td> <font face=arial size=+3>
+Build Log
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+<h3>------- Build started: Project: MachDevice, Configuration: Debug|Win32 -------
+</h3>
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Command Lines
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Creating temporary file "c:\Mach3\PlugIns\Galil PlugIn\Debug\RSP00000A.rsp" with contents
+[
+/OUT:"..\G100.dll" /INCREMENTAL /NOLOGO /DLL /DEF:".\MachDevice.def" /DELAYLOAD:"OleAcc.dll" /DEBUG /PDB:"Debug/MachDevice.pdb" /SUBSYSTEM:WINDOWS /IMPLIB:"Debug/MachDevice.lib" /MACHINE:X86 winmm.lib Iphlpapi.lib DMC32.lib DMCMLIB.lib DelayImp.lib ".\DMC32.lib" ".\DMCMLIB.lib" DelayImp.lib
+".\Debug\Decoders.obj"
+".\Debug\ExternalMovement.obj"
+".\Debug\G100Config.obj"
+".\Debug\G100FLASHCONFIG.obj"
+".\Debug\G100General.obj"
+".\Debug\G100Monitor.obj"
+".\Debug\LocalIPQuery.obj"
+".\Debug\MachDevice.obj"
+".\Debug\MachDevImplementation.obj"
+".\Debug\MessageTracker.obj"
+".\Debug\Monitoring.obj"
+".\Debug\stdafx.obj"
+".\Debug\UDPSocket.obj"
+".\Debug\XMLProfile.obj"
+".\Debug\MachDevice.res"
+".\Debug\Dmcwin.obj"
+]
+Creating command line "link.exe @"c:\Mach3\PlugIns\Galil PlugIn\Debug\RSP00000A.rsp""
+Creating temporary file "c:\Mach3\PlugIns\Galil PlugIn\Debug\BAT00000B.bat" with contents
+[
+@echo off
+regsvr32 /s /c "c:\Mach3\PlugIns\G100.dll"
+if errorlevel 1 goto VCReportError
+goto VCEnd
+:VCReportError
+echo Project : error PRJ0019: A tool returned an error code from "Performing registration"
+exit 1
+:VCEnd
+]
+Creating command line ""c:\Mach3\PlugIns\Galil PlugIn\Debug\BAT00000B.bat""
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Output Window
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Linking...
+   Creating library Debug/MachDevice.lib and object Debug/MachDevice.exp
+Performing registration
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Results
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+Build log was saved at "file://c:\Mach3\PlugIns\Galil PlugIn\Debug\BuildLog.htm"
+MachDevice - 0 error(s), 0 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
+</font></table></body></html>

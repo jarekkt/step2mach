@@ -1,0 +1,522 @@
+// GalilControl.cpp : implementation file
+//
+
+#include "stdafx.h"
+#include "MachDevice.h"
+#include "TrajectoryControl.h"
+#include "Mach4View.h"
+#include "Engine.h"
+#include "rs274ngc.h"
+#include "GalilControl.h"
+#include "GalilStructs.h"
+#include ".\galilcontrol.h"
+
+
+extern TrajectoryControl *MainPlanner;	// used for most planner funcitons and program control 
+extern CMach4View *MachView;			// used for most framework and configuration calls. 
+extern TrajBuffer *Engine;				// Ring0 memory for printer port control and other device syncronisation
+extern setup *_setup;					// Trajectory planners setup block. Always in effect 
+// GalilControl
+
+ bool m_UseRefPostion;
+ bool m_UseCalcSpeed;
+
+ GalilStruct State;
+
+IMPLEMENT_DYNAMIC(GalilControl, CWnd)
+
+
+char *ConProgram[] = { 
+	   "#CONSUB",
+       "DM done[256],xmov[256],ymov[256],zmov[256]amov[256],bmov[256],cmov[256],ring[2]",
+       "ring[0] = 0",
+       "ring[1] = 0",
+       "#LOOP",
+       "index = ring[0]",
+       "done[index] = 1",
+       "ring[0] = ring[0] + 1",
+       "JP #LOOP,ring[0] < 256",
+       "ring[0] = 0",
+       "index = 0",
+       "#MN",                     //all done array is now set to done. 
+	   "DT0;CD 0=0",
+	   "#ST1",
+       "JP #ST1,done[index] = 1",  
+	   "DT1",
+	   "#MN2",
+          "CD xmov[index],ymov[index],zmov[index],amov[index],bmov[index],cmov[index]",
+          "WC",   //wait here if the buffer is full
+          "done[index] = 1", //set that one done
+           "ring[0] = ring[0] + 1",  //move to next item..
+           "IF ring[0] = 256",
+               "ring[0] = 0",
+           "ENDIF",
+           "index = ring[0]",
+		   "JP #MN2, done[index] = 0", //loop till done..
+		   "CD 0,0,0,0,0,0",  //set the end point..
+       "JP #MN",              //then shut off contour mode.
+       "EN"
+
+};
+#define ConProgramsz 30 //nLines + 1
+
+GalilControl::GalilControl()
+{
+	//initialition of the Galil Unit controller
+	State.Connected = false; // But were not connected as yet..
+	m_DMCWin = new CDMCWin(1);
+	
+}
+
+GalilControl::~GalilControl()
+{
+	 m_DMCWin->Close();
+     delete m_DMCWin;
+}
+
+
+BEGIN_MESSAGE_MAP(GalilControl, CWnd)
+END_MESSAGE_MAP()
+
+
+
+// GalilControl message handlers
+
+//Connects to the Galil 
+bool GalilControl::Connect(void)
+{
+   // Open a connection to the controller 
+	m_hDmc = NULL;
+	MainPlanner->ExternalType = EX_COMMAND;
+	rc =  m_DMCWin->Open(1,m_hWnd);
+	if(!rc==DMCNOERROR)
+	{
+		rc = m_DMCWin->Close();
+		SetMachError( "Galil card not connected!!" ); 
+		State.Connected = false;
+		return false;
+	}
+	rc = DMCOpen( 1, m_hWnd, &m_hDmc );
+	rc = DMCGetDataRecordConstPointer( m_hDmc, (const char**)&State.Record );
+	State.Connected = true;
+	if( rc == S_OK )
+       SetMachError( "Galil Communications begun!!" ); 	
+	else
+	{
+       SetMachError( "Galil Communications Open, but error in getting data record.!!" ); 	
+	   return false;
+	}
+	ResetControl();
+	//set the max speeds of MAch3 for this device..
+	for( int x = 0; x < 7; x++ )
+		MainPlanner->ExternalPulseRates[x] = 3000000;
+
+	//set the begin command for the correct axis number.
+	switch( State.nAxis )
+	{
+	case( 1 ): State.Begin = "BG A"; State.Linear = "CMA"; break;
+    case( 2 ): State.Begin = "BG AB";  State.Linear = "CMAB";break;
+    case( 3 ): State.Begin = "BG ABC";  State.Linear = "CMABC";break;
+    case( 4 ): State.Begin = "BG ABCD";  State.Linear = "CMABCD";break;
+    case( 5 ): State.Begin = "BG ABCDE";  State.Linear = "CMABCDE";break;
+    case( 6 ): State.Begin = "BG ABCDEF";  State.Linear = "CMABCDEF";break;
+
+	}
+	SendCommand("RS");
+	SendCommand("HX0");
+    SendProgram( ConProgram , ConProgramsz);
+	SendCommand("DT1"); //set for 1ms traffic..
+	SendCommand("LM AB");
+	return true;
+}
+
+//Sends messages out the Status line of Mach3
+
+void GalilControl::SetMachError(CString Message)
+{
+	CString *err = &MainPlanner->LastError;
+	*err = Message;
+
+}
+//main update loop at 10hz.
+void GalilControl::Update(void)
+{
+	static bool busy = false;
+	if( busy ) return;
+	busy = true;
+	//Only gets called if we're connected, but called at 10hz..(Can be reprogrammed to as high as 50hz..)
+ 	USHORT sz = 0;
+	rc = m_DMCWin->RefreshDataRecord(); //update the data block from the device. 
+	if( rc == S_OK )
+	{
+      UpdateInputs(); //we have the data block, so update all the inputs..
+	}
+	else
+	{   //Hmm, not speaking to us, lets stop everythinf for now, should never happen..
+		SetMachError( "Galil Communications Failure.Restart program..!!" ); 
+		Engine->EStop = true; //trigger an Estop so things come to a halt..
+		rc = m_DMCWin->Close();
+		State.Connected = false;
+	}
+
+	DoGCode();
+    busy = false;
+  
+}
+
+void GalilControl::UpdateInputs()
+{
+	//updates Mach3's input signals..
+static int loop = 0;
+static int    steps10[6];
+
+	unsigned int in = (unsigned char)State.Record->Input0 |
+		              (unsigned char)State.Record->Input1 << 8  |
+					  (unsigned char)State.Record->Input1 << 16 |
+					  (unsigned char)State.Record->Input1 << 24 ;
+	//first put first 32 inputs in an integer. 
+	for( int x = 0; x< nSigs; x++) //check all signals from 0 to max number of signals.
+	{
+		if( Engine->InSigs[x].Active &&
+			Engine->InSigs[x].InPort == 1 ) //if this signal is turned on, and its set to port #1..check it..
+		{
+           if(( in >> (Engine->InSigs[x].InPin -1) ) & 0x01 ) // if the nth (pin number) bit is active..
+			   Engine->InSigs[x].Activated = !Engine->InSigs[x].Negated; //set it high or low depending on the "low active"..
+		   else
+			   Engine->InSigs[x].Activated = Engine->InSigs[x].Negated; //setting..
+     	}
+
+	} //There, all digital inputs done..
+  //Now outputs..
+  //get 32 outputs..and see if we need to send a general output command..
+  unsigned short outword = 0;
+  bool outreq = false;
+  unsigned int out  = (unsigned char)State.Record->Output0 |
+		              (unsigned char)State.Record->Output1 << 8  |
+					  (unsigned char)State.Record->Output2 << 16 |
+					  (unsigned char)State.Record->Output3 << 24 ;
+  for( int x = 0; x< nSigsOut; x++) //check all signals from 0 to max number of signals.
+	{
+		if( Engine->OutSigs[x].active &&
+			Engine->OutSigs[x].OutPort == 1 && 
+			Engine->OutSigs[x].OutPin < 16 ) //if this signal is turned on, and its set to port #1..check it..
+		{
+		   bool Should = Engine->OutSigs[x].Activated;
+		   if( Should ) Should = !Engine->OutSigs[x].Negated;
+           if( (( out >> ( Engine->OutSigs[x].OutPin -1 ) ) & 0x01 ) != Should )
+		   {
+            outword |= 1 << Engine->OutSigs[x].OutPin;
+            //time to do output..         
+            outreq = true; 
+
+		   }
+     	}
+
+	}
+  //since output words dont match with Mach3's output variables, lets update the Galil 
+  //to proper output level. Should only occur whwn an output changes..
+  if( outreq )
+  {
+	  CString Com;
+	  Com.Format( "OP %d",outword );
+	  SendCommand(Com.GetBuffer(20));
+      int x = 9; //holder for debug;
+  }
+  //OK, so now lets read the encoders of the system..
+  //We read only the Auxillary encoders..
+  //We'll also update the main index registers here. SO the Axis DRO's 
+  // reflect actual position in the machine coordinates.
+  for( int x = 0; x< 7; x++)
+  {
+	  Engine->Encoders[x].Count[0] = State.Record->AxisInfo[x].AuxillaryPosition;
+	 if( m_UseRefPostion ) Engine->Axis[x].Index = State.Record->AxisInfo[x].ReferencePosition;
+	 else                  Engine->Axis[x].Index = State.Record->AxisInfo[x].MotorPosition;
+
+  }
+
+  //Well, since we're doign everything else in here..lets get the current velocities as well..
+  //but this will only work for encoders on the motors.. 
+  if( !m_UseCalcSpeed )
+  {
+    Engine->StatLast[0] = State.Record->AxisInfo[0].Velocity  / 5;
+    Engine->StatLast[1] = State.Record->AxisInfo[1].Velocity  / 5;
+    Engine->StatLast[2] = State.Record->AxisInfo[2].Velocity  / 5;
+    Engine->StatLast[3] = State.Record->AxisInfo[3].Velocity  / 5;
+    Engine->StatLast[4] = State.Record->AxisInfo[4].Velocity  / 5;
+    Engine->StatLast[5] = State.Record->AxisInfo[5].Velocity  / 5;
+  }
+  else
+  {
+    //here we need to fake movement statistics due to no encoder..over 200ms..
+	  loop++;
+	  if( loop >= 2 )
+	  {
+	    
+        loop = 0; 
+		for( int x = 0; x<6;x++)
+		{
+			Engine->StatLast[x] = abs( Engine->Axis[x].Index - steps10[x]);
+			steps10[x] = Engine->Axis[x].Index; //start with current position..
+		}
+	  }  
+     
+  }
+  
+  if( Engine->EStop )
+	  EnsureStopped();
+
+}
+
+void GalilControl::JogOn( short axis, short dir, double speed)
+{
+	if( Engine->EStop )
+	{
+       SetMachError( "No Jogging in Estop!!" ); 
+	   return;
+	}
+	if( Engine->TrajHead != Engine->TrajIndex ) return;
+	SendCommand( "CD0,0=0" );
+    double JogFeed = (MainPlanner->Velocities[axis]); //rapid steps per second
+    // JogSpeed OverRide. (Used in Velocity mode of MPG jog.) ?
+    if( speed != 0 ) JogFeed = speed;
+    //Keyboard Shift key is on?
+    // If shift is not on, then JogPercent is the speed to use. 
+   if( !(*MachView->m_ShiftState) && speed == 0) 
+            JogFeed = (JogFeed * _setup->JogPercent / 100); //JogSteps/Sec..
+
+    int accs[7];
+	for( int x = 0; x < State.nAxis + 1; x++)
+	{
+		accs[x] = (int)(MainPlanner->Acceleration[x]  * MainPlanner->StepsPerAxis[x]);
+	}
+	//set the accelerations of tha axis..
+	CString Com;
+	Com.Format( "AC %d,%d,%d,%d,%d,%d ", accs[0], accs[1], accs[2], accs[3], accs[4], accs[5], accs[6] );
+	HRESULT res = m_DMCWin->Command(Com.GetBuffer(20));
+	
+	Com.Format( "DC %d,%d,%d,%d,%d,%d ", accs[0], accs[1], accs[2], accs[3], accs[4], accs[5], accs[6] );
+	res = m_DMCWin->Command(Com.GetBuffer(20));
+    if( dir == 0 ) JogFeed = -JogFeed;
+	int feeds[6];
+	memset( feeds, 0, sizeof(int) * 6);
+	Engine->Axis[axis].Jogging = true;
+	feeds[axis] = (int) (JogFeed * MainPlanner->StepsPerAxis[axis]);
+	Engine->Axis[axis].Memory[0] = feeds[axis];
+	for( int x=0; x< State.nAxis + 1; x++)
+		if( Engine->Axis[x].Jogging && x != axis )
+		{
+          feeds[x] = Engine->Axis[x].Memory[0];
+		}
+
+	Com.Format( "JG %d,%d,%d,%d,%d,%d ", feeds[0], feeds[1], feeds[2], feeds[3], feeds[4], feeds[5] );
+	SendCommand(Com.GetBuffer(20));
+	SendCommand(State.Begin.GetBuffer(20)); 
+}
+
+void GalilControl::JogOff( short axis )
+{
+   Engine->Axis[axis].Jogging = false;
+   char * axiscoms[6] = {  "STA" , "STB" , "STC", "STD", "STE", "STF" }; 
+   SendCommand(axiscoms[axis]); 
+   SendCommand( "CD0,0=0" );
+   
+
+}
+
+void GalilControl::EnsureStopped( )
+{ 
+	//we get her eonly if we are EStopped. So stop all motion if any is going on..
+	for( int x = 0; x< 6; x++) 
+	  if( State.Record->AxisInfo[x].Status & 0x8000 ) JogOff( x );
+
+    SendCommand( "LE" );
+	SendCommand( "CD0,0=0" );
+   
+}
+void GalilControl::ResetControl(void)
+{
+    //we do this at the start, and whenever reset is pressed. 
+	if( !State.Connected)
+	{
+	   m_hDmc = NULL;
+       rc =  m_DMCWin->Open(1,m_hWnd);
+	   if(!rc==DMCNOERROR)
+	   {
+		 rc = m_DMCWin->Close();
+		 SetMachError( "Galil card not connected after reset!!" ); 
+		 State.Connected = false;
+		 return;
+	   }
+	   rc = DMCOpen( 1, m_hWnd, &m_hDmc );
+	   rc = DMCGetDataRecordConstPointer( m_hDmc, (const char**)&State.Record );
+	   State.Connected = true;
+	}
+    SendCommand("CD,0=0"); 
+	//GetNumber of axis
+	double Types[6] = { 1, -1, -2, 2, -2.5, 2.5 }; 
+	CString Com;
+	SendCommand("TM 1000");
+	State.nAxis = SendCommand( "QZ" );
+	//now to set each axis to rigth type.
+	CString total;
+	total.Format( "MT %1.1f",Types[ State.motortype[0] ] );
+    for( int x = 1; x < State.nAxis; x++)
+	{
+		Com.Format( ",%1.1f", Types[ State.motortype[x] ] );
+		total += Com;
+	}
+	SendCommand("TM 1000"); //Set time constant to 1000us ( 1ms)
+    SendCommand( total );
+    SendCommand( "SH" ); //servo here command to start the Galil's postioning algorithm
+	SendCommand( "CD0,0=0" );
+	 
+}
+
+
+//this routine for begugging command errors..
+
+void GalilControl::CheckError( )
+{
+   long error = m_DMCWin->GetLastError();
+   char err[80];
+   m_DMCWin->GetErrorText( error, err, 80 ); 
+   CString mess = err;
+   SetMachError( mess ); 	
+   int g = 9;
+}
+
+int GalilControl::BufferLeft(void)
+{
+	HRESULT res;
+	CString Com;
+	Com = "LM ?";
+    ULONG ures = 80;
+	char cres[80];
+	res = m_DMCWin->Command(Com.GetBuffer(20), cres, ures);
+	if( res != S_OK ) CheckError();
+	State.BufferLeft = atoi( cres );
+	Engine->WorstCase = State.BufferLeft;
+	return State.BufferLeft;
+}
+
+int GalilControl::SendCommand(CString com)
+{
+	ULONG ures = 80;
+	HRESULT res;
+	char cres[80];
+	res = m_DMCWin->Command(com.GetBuffer(20),cres, ures);
+	if( res != S_OK ) CheckError();
+	return atoi( cres );
+}
+
+
+void GalilControl::SendProgram(char* Program[],int sz)
+{
+	CString com = " ";
+	CString com2;
+	for ( int x = 0; x < sz; x++ )
+	{
+		char *text = Program[x];
+		com2 =  text;
+		com += com2 + "\n";
+		int h = 9;
+	}
+	
+	//execute the program
+	HRESULT res = m_DMCWin->DownloadFromBuffer( com.GetBuffer() );
+	if( res != S_OK ) CheckError();
+    com.Format("XQ%s,0", Program[0]);
+	SendCommand( com );
+}
+
+void GalilControl::SetHead( int head )
+{
+	unsigned long t = 0;
+    HRESULT res;
+    CString test;
+	char dummy[80];
+	test = itoa( head, dummy, 10 );
+	test = dummy;
+	res = DMCArrayDownload( m_hDmc, "ring", 1, 1,test.GetBuffer(), test.GetLength(),  &t ); //set a new head.
+    if( res!= S_OK ) { CheckError(); return; }
+
+}
+
+void GalilControl::DoGCode(void)
+{
+ return;
+ CString Com = "    ";
+ unsigned long t = 0;
+ HRESULT res;
+ if( Engine->TrajHead == Engine->TrajIndex ) return;
+ res = DMCArrayUpload( m_hDmc, "ring", 0, 0, Com.GetBuffer(200),200,&t,1);
+ if( res!= S_OK ) { CheckError(); return; }
+ State.Index = atoi( Com);
+ res = DMCArrayUpload( m_hDmc, "ring", 1, 1, Com.GetBuffer(200),200,&t,1);
+ State.Head = atoi( Com );
+ //first, lets check were the index and head are and how much buffer is remaining....
+ short bufferleft =State.Head - State.Index;
+ if( bufferleft < 0 ) bufferleft += 255;   //this is the remaining buffer we can add from the head.. 
+                                           //but we need to be sure of no rollover, so stop when we hit 255,
+                                           // and then allow next fill to fill the rest of the buffers. 
+                                           //  We can make this more complex later on if problematic..
+ bufferleft = 255 - bufferleft;           //so now we have from 0 - 255 slots to fill.
+ short tobuffer = bufferleft;
+ CString xbuf= "";
+ if( tobuffer < 50 ) return;
+ SendCommand( State.Linear );
+ SendCommand( "DT1" );
+ short thead = State.Head;
+
+ while( Engine->TrajIndex != Engine->TrajHead )
+ {
+    if( tobuffer == 0 ) break; //we have filled the buffer as full as it can get.
+	//not yet full, get another move..
+    //GMoves thismove = MainPlanner->Movements[Engine->TrajIndex];
+	//speed test buffer
+	for( int x = 0; x < 255; x++)
+	{
+	 Com += "0.00,";
+	 xbuf += "100,";
+	}
+    Com+= "0.00";
+	xbuf+= "100";
+    CString input = " ";
+
+	
+	//just to fake it we have arrays of 255 "100"'s
+	short fillfrom1 = thead;
+	short fillto1 = thead + 200,fillto2 = 0; 
+	if( thead + 200 > 255)
+	{
+       fillto1 = 255;
+	   fillto2 = (thead + 200 ) - 255;
+	 } 
+	short G = Com.GetLength();
+
+	//res = DMCArrayDownload( m_hDmc, "xmov", 0, 255, xbuf.GetBuffer(xbuf.GetLength()),xbuf.GetLength(),&t); //set 256ms of movement
+	//res = DMCArrayDownload( m_hDmc, "done", 0, 255, Com.GetBuffer(Com.GetLength()),Com.GetLength(),&t); //set 256ms of movement
+	//res = DMCArrayUpload( m_hDmc, "done", 0, 255, xbuf.GetBuffer(3000),3000,&t,1);
+
+ 
+	res = DMCArrayDownload( m_hDmc, "xmov", thead, fillto1, xbuf.GetBuffer(xbuf.GetLength()),xbuf.GetLength(),&t); //set 256ms of movement
+	res = DMCArrayDownload( m_hDmc, "done", thead, fillto1, Com.GetBuffer(Com.GetLength()), Com.GetLength(),&t); //let it fly..
+   if( fillto2 != 0 )
+   {
+    res = DMCArrayDownload( m_hDmc, "xmov", 0, fillto2, xbuf.GetBuffer(), xbuf.GetLength() ,&t); //set 256ms of movement
+	res = DMCArrayDownload( m_hDmc, "done", 0, fillto2, Com.GetBuffer(), Com.GetLength(),&t); //let it fly..
+	fillto1 = fillto2;
+   }
+    SetHead( fillto1 + 1 );
+
+	
+    
+	return;
+
+ }
+ 
+ return;
+}
+
+
+

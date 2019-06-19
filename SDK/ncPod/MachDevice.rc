@@ -1,0 +1,292 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\MachDevice.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "1 TYPELIB ""MachDevice.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "ArtSoft 2006"
+            VALUE "FileDescription", "Movement PlugIn for Mach3"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "DeskPod.dll"
+            VALUE "LegalCopyright", "Artsoft 2006"
+            VALUE "OriginalFilename", "DeskPod.dll"
+            VALUE "ProductName", "Mach3 PlugIn"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_NCPOD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 494
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 267
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NCPOD DIALOGEX 0, 0, 501, 274
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "NcPod Status & Config"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "No Homing",IDC_HOMING,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,18,191,50,10
+    CONTROL         "Single Stage -H inputs",IDC_RADIO2,"Button",
+                    BS_AUTORADIOBUTTON,18,202,86,10
+    CONTROL         "Dual stage- H inputs",IDC_RADIO3,"Button",
+                    BS_AUTORADIOBUTTON,18,212,81,10
+    CONTROL         "Dual Stage - L inputs",IDC_RADIO1,"Button",
+                    BS_AUTORADIOBUTTON,18,222,89,10
+    DEFPUSHBUTTON   "OK",IDOK,425,253,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,363,253,50,14
+    GROUPBOX        "Status",IDC_STATIC,7,7,480,153
+    CONTROL         "Pod Powered On",IDC_SBIT1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,23,69,10
+    CONTROL         "SD card not installed",IDC_SBIT2,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,34,81,10
+    CONTROL         "SD card was removed",IDC_SBIT4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,45,85,10
+    CONTROL         "Limit or Estop hit",IDC_SBIT8,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,56,69,10
+    CONTROL         "Probe Hit",IDC_SBIT16,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,67,45,10
+    CONTROL         "Pod in Pause",IDC_SBIT32,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,78,57,10
+    CONTROL         "Pod in Wait condition",IDC_SBIT64,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,89,83,10
+    CONTROL         "Interpolated move in progress",IDC_SBIT128,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,99,113,10
+    CONTROL         "Out1",IDC_BIT0,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    151,34,32,11
+    GROUPBOX        "Outputs->Mach Pins",IDC_STATIC,141,23,78,106
+    CONTROL         "Out2",IDC_BIT1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    151,46,32,10
+    CONTROL         "Out3",IDC_BIT2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    151,57,32,10
+    CONTROL         "Out4",IDC_BIT3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    151,68,32,10
+    CONTROL         "Out5 - Pin 1",IDC_BIT4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,151,79,54,10
+    CONTROL         "Out7 - Pin 3",IDC_BIT6,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,151,102,57,11
+    CONTROL         "Out6 - Pin 2",IDC_BIT5,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,151,90,58,11
+    CONTROL         "Out8 - Pin 4",IDC_BIT7,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,151,114,57,10
+    CONTROL         "bit0 - unued",IDC_IN00,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,37,55,10
+    CONTROL         "bit1 - unused",IDC_IN01,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,47,58,10
+    CONTROL         "Pin1 - Pin1",IDC_IN02,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,58,49,10
+    CONTROL         "Pin2 - Pin2",IDC_IN03,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,69,49,10
+    CONTROL         "Pin3 - Pin3",IDC_IN04,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,80,49,10
+    CONTROL         "Pin4 - Pin4",IDC_IN05,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,91,49,10
+    CONTROL         "Pin6 - Pin6",IDC_IN06,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,111,49,10
+    CONTROL         "Pin5 - Pin5",IDC_IN07,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,238,101,49,10
+    GROUPBOX        "Inputs->MachPins",IDC_STATIC,224,23,83,106
+    COMBOBOX        IDC_CYCLE,320,28,48,171,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Servo Cycle Time",IDC_STATIC,316,17,56,8
+    LTEXT           "Seconds per segment",IDC_STATIC,373,30,70,8
+    LTEXT           "Total Calc Velocities",IDC_STATIC,319,86,64,8
+    EDITTEXT        IDC_VELTOTAL,369,97,40,12,ES_AUTOHSCROLL
+    LTEXT           "/ ( 32768 / DRIPRATE)",IDC_STATIC,384,86,73,8
+    LTEXT           "ncPod reported total steps",IDC_STATIC,320,111,86,8
+    EDITTEXT        IDC_PODTOTAL,322,122,40,12,ES_AUTOHSCROLL
+    GROUPBOX        "Diagnostics for movement totals. ",IDC_STATIC,309,47,
+                    165,108
+    GROUPBOX        "Optional Configs.",IDC_STATIC,7,166,330,101
+    LTEXT           "Firmware:",IDC_FIRMWARE,25,137,218,11
+    PUSHBUTTON      "Match Count",IDC_CLEARCOUNTS,320,69,50,14
+    CONTROL         "Velocity move in progress",IDC_SBIT256,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,30,109,97,10
+    CONTROL         "Scan in progress",IDC_SBIT512,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,30,119,69,10
+    GROUPBOX        "Homing",IDC_STATIC,15,174,95,61
+    LTEXT           "All ins and outs are in Mach3 Port 1",IDC_STATIC,159,14,
+                    113,8
+    EDITTEXT        IDC_DIFFS,424,121,40,12,ES_AUTOHSCROLL
+    LTEXT           "Mach3 Steps",IDC_STATIC,424,112,42,8
+    LTEXT           "X-Axis",IDC_STATIC,395,65,21,8
+    CONTROL         "X",IDC_HOME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,
+                    245,20,10
+    GROUPBOX        "Home Switches",IDC_STATIC,13,237,100,25
+    CONTROL         "Y",IDC_HOME2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,45,
+                    245,20,10
+    CONTROL         "Z",IDC_HOME3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,67,
+                    245,20,10
+    CONTROL         "A",IDC_HOME4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,91,
+                    245,21,10
+    EDITTEXT        IDC_PULLOFF3,178,221,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PULLOFF2,178,206,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PULLOFF1,178,190,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PULLOFF4,272,190,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PULLOFF5,272,206,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PULLOFF6,272,221,40,14,ES_AUTOHSCROLL
+    LTEXT           "X Pull Off",IDC_STATIC,144,193,30,8
+    LTEXT           "Y Pull Off",IDC_STATIC,145,208,30,8
+    LTEXT           "Z Pull Off",IDC_STATIC,144,222,30,8
+    LTEXT           "A Pull Off",IDC_STATIC,239,193,31,8
+    LTEXT           "B Pull Off",IDC_STATIC,240,209,30,8
+    LTEXT           "C Pull Off",IDC_STATIC,239,222,31,8
+    PUSHBUTTON      "Apply Configs",IDC_APPLYPODSETTINGS,267,239,50,14
+    GROUPBOX        "Homing Pull Off",IDC_STATIC,129,178,196,79
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_NCPOD DLGINIT
+BEGIN
+    IDC_CYCLE, 0x403, 7, 0
+0x302e, 0x3030, 0x3438, "\000" 
+    IDC_CYCLE, 0x403, 5, 0
+0x302e, 0x3130, "\000" 
+    IDC_CYCLE, 0x403, 7, 0
+0x302e, 0x3130, 0x3737, "\000" 
+    IDC_CYCLE, 0x403, 5, 0
+0x302e, 0x3230, "\000" 
+    IDC_CYCLE, 0x403, 5, 0
+0x302e, 0x3330, "\000" 
+    IDC_CYCLE, 0x403, 5, 0
+0x302e, 0x3430, "\000" 
+    IDC_CYCLE, 0x403, 5, 0
+0x302e, 0x3530, "\000" 
+    IDC_CYCLE, 0x403, 9, 0
+0x3031, 0x3432, 0x312d, 0x736d, "\000" 
+    0
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\MachDevice.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+1 TYPELIB "MachDevice.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

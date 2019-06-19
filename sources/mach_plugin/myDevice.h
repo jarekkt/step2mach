@@ -126,5 +126,6 @@ public:
 	static std::string wchar2s(wchar_t * wchar_string,int32_t size);
 	static std::string nets2s(System::String^ net_string);
 
+		int32_t				  last_notification;
 
 };

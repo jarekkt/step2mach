@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3BCE2258-BDC9-4403-941A-1B21D07BC585}</ProjectGuid>
+    <Keyword>MFCDLLProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../MachIncludes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>winmm.lib;Iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\Movement.dll</OutputFile>
+      <AdditionalLibraryDirectories> ;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ModuleDefinitionFile>.\MachDevice.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(OutDir)MachDevice.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>$(IntDir)$(ProjectName).tlb</TypeLibraryName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Performing registration</Message>
+      <Command>regsvr32 /s /c "$(TargetPath)"</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\MachIncludes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>winmm.lib;Iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\Movement.dll</OutputFile>
+      <Version>1.0</Version>
+      <ModuleDefinitionFile>.\MachDevice.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>$(OutDir)MachDevice.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>$(IntDir)$(ProjectName).tlb</TypeLibraryName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Performing registration</Message>
+      <Command>regsvr32 /s /c "$(TargetPath)"</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ExternalMovement.cpp" />
+    <ClCompile Include="MachDevice.cpp" />
+    <ClCompile Include="MachDevImplementation.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XMLProfile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MachDevice.def" />
+    <None Include="res\MachDevice.rc2" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="MachDevice.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ExternalMovement.h" />
+    <ClInclude Include="MachDevice.h" />
+    <ClInclude Include="MachDevImplementation.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="XMLProfile.h" />
+    <ClInclude Include="..\MachIncludes\3dmath.h" />
+    <ClInclude Include="..\MachIncludes\_collection.h" />
+    <ClInclude Include="..\MachIncludes\_Font.h" />
+    <ClInclude Include="..\MachIncludes\_Picture.h" />
+    <ClInclude Include="..\MachIncludes\activdbg.h" />
+    <ClInclude Include="..\MachIncludes\activscp_plus.h" />
+    <ClInclude Include="..\MachIncludes\AddonDlg.h" />
+    <ClInclude Include="..\MachIncludes\AppFuncs.h" />
+    <ClInclude Include="..\MachIncludes\AxisMotor.h" />
+    <ClInclude Include="..\MachIncludes\Backlash.h" />
+    <ClInclude Include="..\MachIncludes\BallController.h" />
+    <ClInclude Include="..\MachIncludes\BugReport.h" />
+    <ClInclude Include="..\MachIncludes\ButtonFunctions.h" />
+    <ClInclude Include="..\MachIncludes\canon.h" />
+    <ClInclude Include="..\MachIncludes\CaptureVideo.h" />
+    <ClInclude Include="..\MachIncludes\CDXFReader.h" />
+    <ClInclude Include="..\MachIncludes\cimage.h" />
+    <ClInclude Include="..\MachIncludes\cimagebufferxctrl1.h" />
+    <ClInclude Include="..\MachIncludes\circinterp.h" />
+    <ClInclude Include="..\MachIncludes\ConfCheck.h" />
+    <ClInclude Include="..\MachIncludes\ControlRect.h" />
+    <ClInclude Include="..\MachIncludes\CSimpleDib.h" />
+    <ClInclude Include="..\MachIncludes\devintf.h" />
+    <ClInclude Include="..\MachIncludes\DoHelp.h" />
+    <ClInclude Include="..\MachIncludes\DRO2.h" />
+    <ClInclude Include="..\MachIncludes\DROValues.h" />
+    <ClInclude Include="..\MachIncludes\EmergButton.h" />
+    <ClInclude Include="..\MachIncludes\Enable.h" />
+    <ClInclude Include="..\MachIncludes\EncCal.h" />
+    <ClInclude Include="..\MachIncludes\Encoders.h" />
+    <ClInclude Include="..\MachIncludes\Engine.h" />
+    <ClInclude Include="..\MachIncludes\FileList.h" />
+    <ClInclude Include="..\MachIncludes\FileOperations.h" />
+    <ClInclude Include="..\MachIncludes\Fixtures.h" />
+    <ClInclude Include="..\MachIncludes\font.h" />
+    <ClInclude Include="..\MachIncludes\FontSelect.h" />
+    <ClInclude Include="..\MachIncludes\FormelParser.h" />
+    <ClInclude Include="..\MachIncludes\FormulaSet.h" />
+    <ClInclude Include="..\MachIncludes\Ftd2xx.h" />
+    <ClInclude Include="..\MachIncludes\G100Buffer.h" />
+    <ClInclude Include="..\MachIncludes\G100Machine.h" />
+    <ClInclude Include="..\MachIncludes\GeckoExchange.h" />
+    <ClInclude Include="..\MachIncludes\GeckoIP.h" />
+    <ClInclude Include="..\MachIncludes\GeckoMonitor.h" />
+    <ClInclude Include="..\MachIncludes\GeckoMonitoring.h" />
+    <ClInclude Include="..\MachIncludes\GeckoThread.h" />
+    <ClInclude Include="..\MachIncludes\GenUDPSocket.h" />
+    <ClInclude Include="..\MachIncludes\GetCoords.h" />
+    <ClInclude Include="..\MachIncludes\GodeList.h" />
+    <ClInclude Include="..\MachIncludes\GrandDog.h" />
+    <ClInclude Include="..\MachIncludes\GREXMotor.h" />
+    <ClInclude Include="..\MachIncludes\GState.h" />
+    <ClInclude Include="..\MachIncludes\Helper.h" />
+    <ClInclude Include="..\MachIncludes\HomanConf.h" />
+    <ClInclude Include="..\MachIncludes\HotKeys.h" />
+    <ClInclude Include="..\MachIncludes\IMapi.h" />
+    <ClInclude Include="..\MachIncludes\InputSignals.h" />
+    <ClInclude Include="..\MachIncludes\JMatrixCtrl.h" />
+    <ClInclude Include="..\MachIncludes\Labels.h" />
+    <ClInclude Include="..\MachIncludes\LathePath.h" />
+    <ClInclude Include="..\MachIncludes\LayerControl.h" />
+    <ClInclude Include="..\MachIncludes\LedButton.h" />
+    <ClInclude Include="..\MachIncludes\LEDConditions.h" />
+    <ClInclude Include="..\MachIncludes\LeftView.h" />
+    <ClInclude Include="..\MachIncludes\LocalIPQuery.h" />
+    <ClInclude Include="..\MachIncludes\LogicControl.h" />
+    <ClInclude Include="..\MachIncludes\Mach1Button.h" />
+    <ClInclude Include="..\MachIncludes\Mach1Joystick.h" />
+    <ClInclude Include="..\MachIncludes\Mach1Static.h" />
+    <ClInclude Include="..\MachIncludes\Mach3Image.h" />
+    <ClInclude Include="..\MachIncludes\Mach3Video.h" />
+    <ClInclude Include="..\MachIncludes\Mach4.h" />
+    <ClInclude Include="..\MachIncludes\Mach4_h.h" />
+    <ClInclude Include="..\MachIncludes\Mach4Doc.h" />
+    <ClInclude Include="..\MachIncludes\Mach4View.h" />
+    <ClInclude Include="..\MachIncludes\MacroControl.h" />
+    <ClInclude Include="..\MachIncludes\MacroRun.h" />
+    <ClInclude Include="..\MachIncludes\Macros.h" />
+    <ClInclude Include="..\MachIncludes\MainFrm.h" />
+    <ClInclude Include="..\MachIncludes\Maintenance.h" />
+    <ClInclude Include="..\MachIncludes\MDI.h" />
+    <ClInclude Include="..\MachIncludes\MDIEdit.h" />
+    <ClInclude Include="..\MachIncludes\MemDC.h" />
+    <ClInclude Include="..\MachIncludes\Memmap.h" />
+    <ClInclude Include="..\MachIncludes\MillOptions.h" />
+    <ClInclude Include="..\MachIncludes\ModBusConfig.h" />
+    <ClInclude Include="..\MachIncludes\ModBusCtrl.h" />
+    <ClInclude Include="..\MachIncludes\ModBusStatus.h" />
+    <ClInclude Include="..\MachIncludes\ModBusThread.h" />
+    <ClInclude Include="..\MachIncludes\MosBusPoll.h" />
+    <ClInclude Include="..\MachIncludes\MotorOuts.h" />
+    <ClInclude Include="..\MachIncludes\MotorSetup.h" />
+    <ClInclude Include="..\MachIncludes\MotorTuning.h" />
+    <ClInclude Include="..\MachIncludes\MPGCalibrate.h" />
+    <ClInclude Include="..\MachIncludes\MPGControl.h" />
+    <ClInclude Include="..\MachIncludes\MRUDialog.h" />
+    <ClInclude Include="..\MachIncludes\MyAbout.h" />
+    <ClInclude Include="..\MachIncludes\MyConfSheet.h" />
+    <ClInclude Include="..\MachIncludes\MyScriptObject.h" />
+    <ClInclude Include="..\MachIncludes\MySplitterWnd.h" />
+    <ClInclude Include="..\MachIncludes\MyStatic.h" />
+    <ClInclude Include="..\MachIncludes\MyToolBar.h" />
+    <ClInclude Include="..\MachIncludes\ompensation.h" />
+    <ClInclude Include="..\MachIncludes\OpenGLView.h" />
+    <ClInclude Include="..\MachIncludes\OutputSignals.h" />
+    <ClInclude Include="..\MachIncludes\PathProgress.h" />
+    <ClInclude Include="..\MachIncludes\PhysConst.h" />
+    <ClInclude Include="..\MachIncludes\picture.h" />
+    <ClInclude Include="..\MachIncludes\PrepPosition.h" />
+    <ClInclude Include="..\MachIncludes\Processor.h" />
+    <ClInclude Include="..\MachIncludes\ProfileDialog.h" />
+    <ClInclude Include="..\MachIncludes\PropPorts.h" />
+    <ClInclude Include="..\MachIncludes\QuestionDouble.h" />
+    <ClInclude Include="..\MachIncludes\RealTimeMacro.h" />
+    <ClInclude Include="..\MachIncludes\reateProfile.h" />
+    <ClInclude Include="..\MachIncludes\Reprocessor.h" />
+    <ClInclude Include="..\MachIncludes\ReProcessView.h" />
+    <ClInclude Include="..\MachIncludes\ReProcessWin.h" />
+    <ClInclude Include="..\MachIncludes\ResetWarning.h" />
+    <ClInclude Include="..\MachIncludes\resource.h" />
+    <ClInclude Include="..\MachIncludes\rs274ngc.h" />
+    <ClInclude Include="..\MachIncludes\SafeMoveYesNo.h" />
+    <ClInclude Include="..\MachIncludes\sapi.h" />
+    <ClInclude Include="..\MachIncludes\ScewMap.h" />
+    <ClInclude Include="..\MachIncludes\ScrewMapCurve.h" />
+    <ClInclude Include="..\MachIncludes\ScriptControl.h" />
+    <ClInclude Include="..\MachIncludes\ScriptView.h" />
+    <ClInclude Include="..\MachIncludes\SDIEdit.h" />
+    <ClInclude Include="..\MachIncludes\serialport.h" />
+    <ClInclude Include="..\MachIncludes\SerialRing.h" />
+    <ClInclude Include="..\MachIncludes\SerialRingThread.h" />
+    <ClInclude Include="..\MachIncludes\SetHotKey.h" />
+    <ClInclude Include="..\MachIncludes\SlabSockets.h" />
+    <ClInclude Include="..\MachIncludes\Slave.h" />
+    <ClInclude Include="..\MachIncludes\SMRL.h" />
+    <ClInclude Include="..\MachIncludes\SocketComm.h" />
+    <ClInclude Include="..\MachIncludes\spindgraph.h" />
+    <ClInclude Include="..\MachIncludes\SpindleCal.h" />
+    <ClInclude Include="..\MachIncludes\SpindleFM.h" />
+    <ClInclude Include="..\MachIncludes\SpindleSetup.h" />
+    <ClInclude Include="..\MachIncludes\Splash.h" />
+    <ClInclude Include="..\MachIncludes\stdafx.h" />
+    <ClInclude Include="..\MachIncludes\SystemTray.h" />
+    <ClInclude Include="..\MachIncludes\TCPThread.h" />
+    <ClInclude Include="..\MachIncludes\TextFile.h" />
+    <ClInclude Include="..\MachIncludes\TextQuestion.h" />
+    <ClInclude Include="..\MachIncludes\TitleTip.h" />
+    <ClInclude Include="..\MachIncludes\ToolCabinet.h" />
+    <ClInclude Include="..\MachIncludes\ToolPath.h" />
+    <ClInclude Include="..\MachIncludes\ToolPathConfig.h" />
+    <ClInclude Include="..\MachIncludes\ToolTable.h" />
+    <ClInclude Include="..\MachIncludes\TorchVoltage.h" />
+    <ClInclude Include="..\MachIncludes\Traj.h" />
+    <ClInclude Include="..\MachIncludes\TrajectoryControl.h" />
+    <ClInclude Include="..\MachIncludes\Tserial_event.h" />
+    <ClInclude Include="..\MachIncludes\TurnOptions.h" />
+    <ClInclude Include="..\MachIncludes\TWScriptEdit.h" />
+    <ClInclude Include="..\MachIncludes\UDPSocket.h" />
+    <ClInclude Include="..\MachIncludes\Units.h" />
+    <ClInclude Include="..\MachIncludes\VariJogDisplay.h" />
+    <ClInclude Include="..\MachIncludes\VBEditThread.h" />
+    <ClInclude Include="..\MachIncludes\VBFrame.h" />
+    <ClInclude Include="..\MachIncludes\videoocxctrl1.h" />
+    <ClInclude Include="..\MachIncludes\videoocxtoolsctrl2.h" />
+    <ClInclude Include="..\MachIncludes\xfile.h" />
+    <ClInclude Include="..\MachIncludes\ximabmp.h" />
+    <ClInclude Include="..\MachIncludes\ximacfg.h" />
+    <ClInclude Include="..\MachIncludes\ximadef.h" />
+    <ClInclude Include="..\MachIncludes\ximage.h" />
+    <ClInclude Include="..\MachIncludes\ximagif.h" />
+    <ClInclude Include="..\MachIncludes\ximaico.h" />
+    <ClInclude Include="..\MachIncludes\ximaiter.h" />
+    <ClInclude Include="..\MachIncludes\ximaj2k.h" />
+    <ClInclude Include="..\MachIncludes\ximajas.h" />
+    <ClInclude Include="..\MachIncludes\ximajbg.h" />
+    <ClInclude Include="..\MachIncludes\ximajpg.h" />
+    <ClInclude Include="..\MachIncludes\ximamng.h" />
+    <ClInclude Include="..\MachIncludes\ximapcx.h" />
+    <ClInclude Include="..\MachIncludes\ximapng.h" />
+    <ClInclude Include="..\MachIncludes\ximatga.h" />
+    <ClInclude Include="..\MachIncludes\ximath.h" />
+    <ClInclude Include="..\MachIncludes\ximatif.h" />
+    <ClInclude Include="..\MachIncludes\ximawbmp.h" />
+    <ClInclude Include="..\MachIncludes\ximawmf.h" />
+    <ClInclude Include="..\MachIncludes\xiofile.h" />
+    <ClInclude Include="..\MachIncludes\xmemfile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MachDevice.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="MachDevice.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

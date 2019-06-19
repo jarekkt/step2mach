@@ -1,0 +1,311 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\MachDevice.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "1 TYPELIB ""MachDevice.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "ArtSoft 2006"
+            VALUE "FileDescription", "JoyStick PlugIn for Mach3"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "JoyStick.dll"
+            VALUE "LegalCopyright", "Artsoft 2006"
+            VALUE "OriginalFilename", "JoyStick.dll"
+            VALUE "ProductName", "Mach3 PlugIn"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 327
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 210
+    END
+
+    IDD_JOYSTICKCON, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CONFIG DIALOGEX 0, 0, 334, 217
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "ModIO Config"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,246,172,50,14
+    PUSHBUTTON      "Send Config",IDC_SENDCONFIG,246,138,50,14
+    COMBOBOX        IDC_SPEED,122,79,48,30,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Speed",IDC_STATIC,135,68,21,8
+    COMBOBOX        IDC_PROTOCOL,121,105,48,30,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Protocol",IDC_STATIC,132,93,27,8
+    COMBOBOX        IDC_PUMP,47,104,33,85,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Pump Delay",IDC_STATIC,45,93,38,8
+    EDITTEXT        IDC_FLASHMASK,223,44,32,12,ES_AUTOHSCROLL
+    LTEXT           "Flash Mask",IDC_STATIC,222,32,36,8
+    CONTROL         "Use Pump",IDC_USEPUMP,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,41,70,47,10
+    CONTROL         "Use Discretes",IDC_USEDISCR,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,41,60,59,10
+    CONTROL         "Use Analogues",IDC_USEANA,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,41,50,63,10
+    CONTROL         "UseLCD",IDC_USELCD,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,41,40,41,10
+    CONTROL         "Limit Err Flash",IDC_LIMITERR,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,118,42,60,10
+    CONTROL         "Use MPG1 connected to pins 7,8",IDC_MPG1,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,39,137,119,10
+    CONTROL         "Use MPG2 connected to pins 5,6",IDC_MPG2,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,39,159,119,10
+    GROUPBOX        "Config Reg 102",IDC_STATIC,31,20,79,107
+    CONTROL         "Disable Debug",IDC_DEBUGOFF,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,41,80,61,10
+    GROUPBOX        "UArt Reg 103",IDC_STATIC,116,20,79,107
+    CONTROL         "Use Char Gap",IDC_CHARGAP,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,118,31,60,10
+    GROUPBOX        "Flash config 104",IDC_STATIC,204,20,76,42
+    GROUPBOX        "Config 2  106",IDC_STATIC,31,127,211,59
+    CONTROL         "MPG1 Hi-Res On",IDC_MPG1HI,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,39,148,68,10
+    CONTROL         "MPG2 Hi-Res On",IDC_MPG2HI,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,39,170,68,10
+    CONTROL         "DigiSpeed Off",IDC_DIGIOFF,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,169,137,60,10
+    CONTROL         "Freq. Cnt Off",IDC_FREQOFF,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,169,149,59,10
+    CONTROL         "KeyPad Off",IDC_KEYPAD,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,169,160,53,10
+    PUSHBUTTON      "RESET MODIO",IDC_RESETIO,212,74,50,14
+END
+
+IDD_JOYSTICKCON DIALOGEX 0, 0, 204, 126
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_NOIDLEMSG | 
+    DS_SETFOREGROUND | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_VISIBLE | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_NOPARENTNOTIFY | WS_EX_CONTROLPARENT
+CAPTION "JoyStick Config"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,98,50,14
+    CONTROL         "JoyStick On",IDC_ENABLE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,77,53,10
+    COMBOBOX        IDC_HORIZAXIS,143,22,26,79,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_VERTAXIS,143,43,25,71,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Side action of JoyStick will control my ",-1,20,24,121,
+                    8
+    LTEXT           "Axis",-1,174,24,14,8
+    LTEXT           "Fwd action of JoyStick will control my ",-1,19,46,121,8
+    LTEXT           "Axis",-1,173,46,14,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_CONFIG DLGINIT
+BEGIN
+    IDC_SPEED, 0x403, 5, 0
+0x3639, 0x3030, "\000" 
+    IDC_SPEED, 0x403, 6, 0
+0x3931, 0x3032, 0x0030, 
+    IDC_SPEED, 0x403, 6, 0
+0x3833, 0x3034, 0x0030, 
+    IDC_SPEED, 0x403, 6, 0
+0x3635, 0x3030, 0x0030, 
+    IDC_SPEED, 0x403, 6, 0
+0x3735, 0x3036, 0x0030, 
+    IDC_SPEED, 0x403, 7, 0
+0x3131, 0x3235, 0x3030, "\000" 
+    IDC_SPEED, 0x403, 7, 0
+0x3332, 0x3430, 0x3030, "\000" 
+    IDC_PROTOCOL, 0x403, 6, 0
+0x2d38, 0x2d31, 0x004f, 
+    IDC_PROTOCOL, 0x403, 6, 0
+0x2d38, 0x2d31, 0x0045, 
+    IDC_PROTOCOL, 0x403, 6, 0
+0x2d38, 0x2d32, 0x004e, 
+    IDC_PROTOCOL, 0x403, 6, 0
+0x2d38, 0x2d31, 0x004e, 
+    IDC_PUMP, 0x403, 2, 0
+0x0030, 
+    IDC_PUMP, 0x403, 2, 0
+0x0031, 
+    IDC_PUMP, 0x403, 2, 0
+0x0032, 
+    IDC_PUMP, 0x403, 2, 0
+0x0033, 
+    IDC_PUMP, 0x403, 2, 0
+0x0034, 
+    IDC_PUMP, 0x403, 2, 0
+0x0035, 
+    IDC_PUMP, 0x403, 2, 0
+0x0036, 
+    IDC_PUMP, 0x403, 2, 0
+0x0037, 
+    0
+END
+
+IDD_JOYSTICKCON DLGINIT
+BEGIN
+    IDC_HORIZAXIS, 0x403, 2, 0
+0x0058, 
+    IDC_HORIZAXIS, 0x403, 2, 0
+0x0059, 
+    IDC_HORIZAXIS, 0x403, 2, 0
+0x005a, 
+    IDC_HORIZAXIS, 0x403, 2, 0
+0x0041, 
+    IDC_HORIZAXIS, 0x403, 2, 0
+0x0042, 
+    IDC_HORIZAXIS, 0x403, 2, 0
+0x0043, 
+    IDC_VERTAXIS, 0x403, 2, 0
+0x0058, 
+    IDC_VERTAXIS, 0x403, 2, 0
+0x0059, 
+    IDC_VERTAXIS, 0x403, 2, 0
+0x005a, 
+    IDC_VERTAXIS, 0x403, 2, 0
+0x0041, 
+    IDC_VERTAXIS, 0x403, 2, 0
+0x0042, 
+    IDC_VERTAXIS, 0x403, 2, 0
+0x0043, 
+    0
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\MachDevice.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+1 TYPELIB "MachDevice.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

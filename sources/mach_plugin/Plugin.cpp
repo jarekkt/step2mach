@@ -266,7 +266,7 @@ void piUpdate()
 #endif
 void piNotify(int id)
 {
-
+	MyDevice->last_notification = id;
 
 	if (id == menuStart)
 	{

@@ -1,0 +1,587 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\MachDevice.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "1 TYPELIB ""MachDevice.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "ArtSoft 2006"
+            VALUE "FileDescription", "Movement PlugIn for Mach3"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "G100.dll"
+            VALUE "LegalCopyright", "Artsoft 2006"
+            VALUE "OriginalFilename", "Movement.dll"
+            VALUE "ProductName", "Mach3 PlugIn"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CONFIG DIALOGEX 0, 0, 415, 119
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "An Error has occured attaching to the G100"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Restart Discovery ",IDOK,327,98,81,14
+    CONTROL         "",IDC_IPG100,"SysIPAddress32",WS_TABSTOP,95,46,100,15
+    CONTROL         "",IDC_NMG100,"SysIPAddress32",WS_TABSTOP,95,74,100,15
+    LTEXT           "Reported G100 Address",IDC_STATIC,106,36,78,8
+    LTEXT           "Reported G100 NetMask",IDC_STATIC,105,63,79,8
+    PUSHBUTTON      "Set Temp. Address",IDC_SENDNEW,7,46,80,43
+    LTEXT           "Last Error:",IDC_STATIC,24,14,35,8
+    LTEXT           "Static",IDC_ERRORS,62,12,289,14,SS_SUNKEN
+    CONTROL         "",IDC_MYIP,"SysIPAddress32",WS_TABSTOP,243,45,100,15
+    LTEXT           "Local Address",IDC_STATIC,270,33,45,8
+    PUSHBUTTON      "Exit",IDC_BUTTON2,271,98,50,14
+    LTEXT           "If this IP shows as 127.0.0.1 then you ",IDC_STATIC,237,
+                    65,126,8
+    LTEXT           "must use ipconfig from a command line",IDC_STATIC,237,
+                    73,124,8
+    LTEXT           "to determine a proper address for your G100.",
+                    IDC_STATIC,238,81,148,8
+    LTEXT           "Temporary address may be made permanent in the config screen.",
+                    IDC_STATIC,10,90,212,8
+END
+
+IDD_G100WTCONFIG DIALOGEX 0, 0, 462, 273
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "G100 Current Configuration Data"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,391,252,50,14
+    PUSHBUTTON      "Flash to G100",ID_FLASH,329,252,54,14
+    LTEXT           "Maximum Frequency:",IDC_STATIC,278,146,69,8
+    COMBOBOX        IDC_DIVIDER,356,145,77,117,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COUNTERTRIGGER,332,79,101,111,CBS_DROPDOWN | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "   Internal Incrment",IDC_STATIC,278,127,63,8
+    LTEXT           "External Increment",IDC_STATIC,282,110,62,8
+    EDITTEXT        IDC_INTINC,351,122,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EXTINC,351,106,40,12,ES_AUTOHSCROLL
+    GROUPBOX        "-2047 - 2047",IDC_STATIC,272,98,131,41
+    PUSHBUTTON      "Read From File",IDC_READSETUP,7,227,68,14
+    LTEXT           "Encoder Control",IDC_STATIC,275,82,52,8
+    COMBOBOX        IDC_PULSEMODE,331,60,102,81,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Pulse Mode",IDC_STATIC,278,60,37,8
+    GROUPBOX        "Current Axis Setup",IDC_STATIC,265,7,176,235
+    CONTROL         "X-Axis",IDC_AXISSEL,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,299,25,36,10
+    CONTROL         "Y-Axis",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,337,25,
+                    36,10
+    CONTROL         "Z-Axis",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,378,25,
+                    36,10
+    CONTROL         "A-Axis",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,299,41,
+                    37,10
+    CONTROL         "B-Axis",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,337,41,
+                    36,10
+    CONTROL         "C-Axis",IDC_RADIO6,"Button",BS_AUTORADIOBUTTON,379,41,
+                    37,10
+    CTEXT           "G100 is currently running DLP firmware. ",IDC_STATIC,
+                    109,14,144,8,SS_CENTERIMAGE
+    LTEXT           "Board ID:",IDC_STATIC,72,40,32,8
+    LTEXT           "Max mAVG:",IDC_STATIC,127,72,38,8
+    LTEXT           "  # of Axis:",IDC_STATIC,125,86,37,8
+    LTEXT           "# of Inputs:",IDC_STATIC,128,100,40,8
+    LTEXT           "# of Outputs:",IDC_STATIC,19,74,46,8
+    LTEXT           "# of Ana Inputs:",IDC_STATIC,18,88,55,8
+    LTEXT           "# of Ana Outputs:",IDC_STATIC,18,101,60,8
+    LTEXT           "FPGA Firmware ID",IDC_STATIC,71,26,58,10
+    LTEXT           "Current Verbosity Level:",IDC_STATIC,19,121,79,8
+    LTEXT           "Date Code:",IDC_STATIC,72,55,38,8
+    LTEXT           "Controller Name:",IDC_STATIC,37,145,43,8
+    CONTROL         "",IDC_IPG100,"SysIPAddress32",WS_TABSTOP,80,162,100,15
+    LTEXT           "IP Addr:",IDC_STATIC,51,165,29,10
+    LTEXT           "NetMask:",IDC_STATIC,50,183,32,10
+    CONTROL         "",IDC_NETMASK,"SysIPAddress32",WS_TABSTOP,80,180,100,15
+    COMBOBOX        IDC_NETFLAGS,110,200,71,45,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Net Flags:",IDC_STATIC,62,200,45,10
+    EDITTEXT        IDC_CONTROLNAME,81,144,112,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VERBOSITY,99,120,14,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_FIRMWARE,131,25,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_BOARDID,131,39,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VENDOR,131,53,45,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MAVG,174,70,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NAXIS,174,84,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NINPUT,174,98,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NOUTPUTS,79,71,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NANAIN,79,85,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NANAOUT,79,100,28,12,ES_AUTOHSCROLL
+    GROUPBOX        "General Parameter Block",IDC_STATIC,7,7,250,236
+END
+
+IDD_GENERALCONFIG DIALOGEX 0, 0, 186, 222
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Select Config Type"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,201,50,14
+    PUSHBUTTON      "Current IP connection",IDC_DISCOVERY,45,26,94,14
+    PUSHBUTTON      "General G100 Parameters",IDC_GENERALPARAM,45,58,94,14
+    PUSHBUTTON      "Real-Time Status Window",IDC_STATUS,45,85,94,14
+END
+
+IDD_MONITOR DIALOGEX 0, 0, 553, 305
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_FIXEDSYS | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOPMOST
+CAPTION "G100 Real-Time Device status & monitoring"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,496,284,50,14
+    LTEXT           "Last Acknowledged Message #",IDC_STATIC,14,25,100,8
+    LTEXT           "Last Sent Message #",IDC_STATIC,14,36,68,8
+    LTEXT           "Next Message to be Sent",IDC_STATIC,14,48,82,8
+    LTEXT           "Current G100 Msg Window",IDC_STATIC,14,60,86,8
+    LTEXT           "Current ISR count (HeartBeat)",IDC_STATIC,14,73,99,8
+    LTEXT           "Current Axis DDA's",IDC_STATIC,55,145,62,8
+    LTEXT           "Current axis positions (ABS)",IDC_STATIC,43,211,90,8
+    LTEXT           "Current SSEQ",IDC_STATIC,195,21,45,8
+    LTEXT           "Current ESEQ",IDC_STATIC,195,40,45,8
+    LTEXT           "IsStill:",IDC_STATIC,201,53,20,8
+    LTEXT           "IsDrained:",IDC_STATIC,201,64,34,8
+    LTEXT           "QueueFlags:",IDC_STATIC,195,85,42,8
+    LTEXT           "Digital Update Req:",IDC_STATIC,314,21,63,8
+    LTEXT           "Analogue Update Req:",IDC_STATIC,314,40,74,8
+    GROUPBOX        "Message Traffic ",IDC_STATIC,7,7,175,129
+    GROUPBOX        "Axis Conditions",IDC_STATIC,7,138,175,145
+    GROUPBOX        "Sequence Movement Queue",IDC_STATIC,187,7,116,109
+    GROUPBOX        "Control Logic",IDC_STATIC,307,7,230,108
+    LTEXT           "Current Inputs",IDC_STATIC,194,164,48,8
+    LTEXT           "Current Outputs",IDC_STATIC,196,238,54,8
+    EDITTEXT        IDC_LASTACK,119,23,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LASTSENT,119,35,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LASTQUEUED,119,47,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_WINDOW,119,59,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ISR,119,71,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SSEQ,249,20,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ESEQ,249,39,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_QUEUEFLAGS,249,83,40,12,ES_AUTOHSCROLL
+    CONTROL         "",IDC_DIGREQ,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,392,
+                    20,8,8
+    CONTROL         "",IDC_ANAREQ,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,392,
+                    40,8,8
+    CONTROL         "",IDC_OUT1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,197,
+                    253,8,8
+    CONTROL         "",IDC_OUT2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,207,
+                    253,8,8
+    CONTROL         "",IDC_OUT3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,216,
+                    253,8,8
+    CONTROL         "",IDC_OUT4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,225,
+                    253,8,8
+    CONTROL         "",IDC_OUT5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,235,
+                    253,8,8
+    CONTROL         "",IDC_OUT6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,244,
+                    253,8,8
+    CONTROL         "",IDC_OUT7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,253,
+                    253,8,8
+    CONTROL         "",IDC_OUT8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,263,
+                    253,8,8
+    CONTROL         "",IDC_OUT9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,272,
+                    253,8,8
+    CONTROL         "",IDC_OUT10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,281,
+                    253,8,8
+    CONTROL         "",IDC_OUT11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,291,
+                    253,8,8
+    CONTROL         "",IDC_OUT12,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,300,
+                    253,8,8
+    CONTROL         "",IDC_OUT13,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,309,
+                    253,8,8
+    CONTROL         "",IDC_OUT14,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,319,
+                    253,8,8
+    CONTROL         "",IDC_OUT15,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,328,
+                    253,8,8
+    CONTROL         "",IDC_OUT16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,337,
+                    253,8,8
+    CONTROL         "",IDC_IN1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,199,177,
+                    8,8
+    CONTROL         "",IDC_IN2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,209,177,
+                    8,8
+    CONTROL         "",IDC_IN3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,218,177,
+                    8,8
+    CONTROL         "",IDC_IN4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,227,177,
+                    8,8
+    CONTROL         "",IDC_IN5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,177,
+                    8,8
+    CONTROL         "",IDC_IN6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,246,177,
+                    8,8
+    CONTROL         "",IDC_IN7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,255,177,
+                    8,8
+    CONTROL         "",IDC_IN8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,265,177,
+                    8,8
+    CONTROL         "",IDC_IN9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,199,201,
+                    8,8
+    CONTROL         "",IDC_IN10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,209,
+                    201,8,8
+    CONTROL         "",IDC_IN17,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,198,
+                    228,8,8
+    CONTROL         "",IDC_IN18,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,208,
+                    228,8,8
+    CONTROL         "",IDC_IN19,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,216,
+                    228,8,8
+    CONTROL         "",IDC_IN20,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,226,
+                    228,8,8
+    CONTROL         "",IDC_IN21,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,236,
+                    228,8,8
+    CONTROL         "",IDC_IN22,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,244,
+                    228,8,8
+    LTEXT           "Lim Inputs",IDC_STATIC,196,215,34,8
+    GROUPBOX        "Current IO Status",IDC_STATIC,185,124,349,159
+    LTEXT           "Pins Currently Being Monitored for HALT",IDC_STATIC,331,
+                    58,129,8
+    CONTROL         "",IDC_HALT1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,315,
+                    70,8,8
+    CONTROL         "",IDC_HALT2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,325,
+                    70,8,8
+    CONTROL         "",IDC_HALT3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,334,
+                    70,8,8
+    CONTROL         "",IDC_HALT4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,343,
+                    70,8,8
+    CONTROL         "",IDC_HALT5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,353,
+                    70,8,8
+    CONTROL         "",IDC_HALT6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,362,
+                    70,8,8
+    CONTROL         "",IDC_HALT7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,371,
+                    70,8,8
+    CONTROL         "",IDC_HALT8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,381,
+                    70,8,8
+    CONTROL         "",IDC_HALT9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,390,
+                    70,8,8
+    CONTROL         "",IDC_HALT10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,399,
+                    70,8,8
+    CONTROL         "",IDC_HALT17,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,317,
+                    96,8,8
+    CONTROL         "",IDC_HALT18,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,
+                    96,8,8
+    CONTROL         "",IDC_HALT19,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,335,
+                    96,8,8
+    CONTROL         "",IDC_HALT20,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,344,
+                    96,8,8
+    CONTROL         "",IDC_HALT21,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,353,
+                    96,8,8
+    CONTROL         "",IDC_HALT22,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,362,
+                    96,8,8
+    LTEXT           "Lim Inputs Being Monitored",IDC_STATIC,315,84,87,8
+    LTEXT           "Encoders",IDC_STATIC,341,130,30,8
+    EDITTEXT        IDC_MENC1,339,144,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MENC2,339,163,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MENC3,339,180,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MENC4,339,198,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MENC5,339,216,52,12,ES_AUTOHSCROLL
+    LTEXT           "Pins 1-8",IDC_STATIC,247,164,26,8
+    LTEXT           "Pins 1-16",IDC_STATIC,257,238,30,8
+    EDITTEXT        IDC_MENC6,339,233,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DDA1,26,157,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DDA2,25,174,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DDA3,25,192,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DDA4,109,156,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DDA5,109,175,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DDA6,109,192,61,12,ES_AUTOHSCROLL
+    LTEXT           "X",IDC_STATIC,14,158,8,8
+    LTEXT           "Y",IDC_STATIC,14,176,8,8
+    LTEXT           "Z",IDC_STATIC,14,193,8,8
+    LTEXT           "A",IDC_STATIC,95,159,8,8
+    LTEXT           "B",IDC_STATIC,95,177,8,8
+    LTEXT           "C",IDC_STATIC,95,194,8,8
+    EDITTEXT        IDC_POS1,27,222,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_POS2,27,240,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_POS3,27,257,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_POS4,111,222,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_POS5,111,240,61,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_POS6,111,257,61,12,ES_AUTOHSCROLL
+    LTEXT           "X",IDC_STATIC,15,224,8,8
+    LTEXT           "Y",IDC_STATIC,15,241,8,8
+    LTEXT           "Z",IDC_STATIC,15,259,8,8
+    LTEXT           "A",IDC_STATIC,97,224,8,8
+    LTEXT           "B",IDC_STATIC,97,243,8,8
+    LTEXT           "C",IDC_STATIC,97,259,8,8
+    LTEXT           "X",IDC_STATIC,325,147,8,8
+    LTEXT           "Y",IDC_STATIC,325,165,8,8
+    LTEXT           "Z",IDC_STATIC,325,182,8,8
+    LTEXT           "A",IDC_STATIC,325,199,8,8
+    LTEXT           "B",IDC_STATIC,325,217,8,8
+    LTEXT           "C",IDC_STATIC,325,234,8,8
+    CONTROL         "Enable Debugging File output",IDC_ENABLEDEBUG,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,426,271,109,10
+    CONTROL         "",IDC_IN11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,218,
+                    201,8,8
+    CONTROL         "",IDC_IN12,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,227,
+                    201,8,8
+    CONTROL         "",IDC_IN13,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,237,
+                    201,8,8
+    CONTROL         "",IDC_IN14,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,246,
+                    201,8,8
+    CONTROL         "",IDC_IN15,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,255,
+                    201,8,8
+    CONTROL         "",IDC_IN16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,265,
+                    201,8,8
+    CONTROL         "",IDC_HALT11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,409,
+                    70,8,8
+    CONTROL         "",IDC_HALT12,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,419,
+                    70,8,8
+    CONTROL         "",IDC_HALT13,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,427,
+                    70,8,8
+    CONTROL         "",IDC_HALT14,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,437,
+                    70,8,8
+    CONTROL         "",IDC_HALT15,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,447,
+                    70,8,8
+    CONTROL         "",IDC_HALT16,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,455,
+                    70,8,8
+    CONTROL         "",IDC_STILL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,250,
+                    53,8,8
+    CONTROL         "",IDC_DRAINED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,250,
+                    63,8,8
+    LTEXT           "Analogue In",IDC_STATIC,472,136,40,8
+    EDITTEXT        IDC_ANAIN1,466,149,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ANAIN2,466,168,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ANAIN3,466,185,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ANAIN4,466,203,52,12,ES_AUTOHSCROLL
+    LTEXT           "Pins 9-16",IDC_STATIC,244,190,30,8
+    LTEXT           "Analogue Out",IDC_STATIC,412,136,45,8
+    EDITTEXT        IDC_ANAOUT1,406,149,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ANAOUT2,406,168,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ANAOUT3,406,184,52,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_ANAOUT4,406,203,52,12,ES_AUTOHSCROLL
+    LTEXT           "SEQ Error:",IDC_STATIC,202,75,35,8
+    CONTROL         "",IDC_SEQERROR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    250,73,8,8
+    LTEXT           "Queue Used:",IDC_STATIC,196,99,43,8
+    EDITTEXT        IDC_QUEUEUSED,250,97,40,12,ES_AUTOHSCROLL
+    LTEXT           "Movement ISR remaining",IDC_STATIC,15,85,80,8
+    EDITTEXT        IDC_MISR,119,83,40,12,ES_AUTOHSCROLL
+    LTEXT           "Current MAVG",IDC_STATIC,196,147,46,8
+    EDITTEXT        IDC_CMAVG,250,144,40,14,ES_AUTOHSCROLL
+    CONTROL         "Waiting for Halt Acknowledgement",IDC_HALTACK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,407,19,126,10
+    LTEXT           "Messages in Queue ",IDC_STATIC,15,98,65,8
+    EDITTEXT        IDC_NMESS,119,96,40,12,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 408
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 112
+    END
+
+    IDD_G100WTCONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 455
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 266
+    END
+
+    IDD_GENERALCONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 215
+    END
+
+    IDD_MONITOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 546
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 298
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_G100WTCONFIG DLGINIT
+BEGIN
+    IDC_DIVIDER, 0x403, 5, 0
+0x4d34, 0x7a68, "\000" 
+    IDC_DIVIDER, 0x403, 5, 0
+0x4d32, 0x7a68, "\000" 
+    IDC_DIVIDER, 0x403, 5, 0
+0x4d31, 0x7a68, "\000" 
+    IDC_DIVIDER, 0x403, 7, 0
+0x3035, 0x4b30, 0x7a68, "\000" 
+    IDC_DIVIDER, 0x403, 7, 0
+0x3532, 0x4b36, 0x7a68, "\000" 
+    IDC_DIVIDER, 0x403, 7, 0
+0x3231, 0x4b38, 0x7a68, "\000" 
+    IDC_DIVIDER, 0x403, 6, 0
+0x3536, 0x684b, 0x007a, 
+    IDC_DIVIDER, 0x403, 6, 0
+0x3233, 0x684b, 0x007a, 
+    IDC_COUNTERTRIGGER, 0x403, 11, 0
+0x7551, 0x6461, 0x6172, 0x7574, 0x6572, "\000" 
+    IDC_COUNTERTRIGGER, 0x403, 14, 0
+0x5420, 0x6361, 0x4168, 0x522d, 0x7369, 0x6e69, 0x0067, 
+    IDC_COUNTERTRIGGER, 0x403, 15, 0
+0x5420, 0x6361, 0x4168, 0x462d, 0x6c61, 0x696c, 0x676e, "\000" 
+    IDC_COUNTERTRIGGER, 0x403, 13, 0
+0x6154, 0x6863, 0x2d41, 0x6f44, 0x6275, 0x656c, "\000" 
+    IDC_COUNTERTRIGGER, 0x403, 13, 0
+0x6154, 0x6863, 0x2d42, 0x6952, 0x6973, 0x676e, "\000" 
+    IDC_COUNTERTRIGGER, 0x403, 14, 0
+0x6154, 0x6863, 0x2d42, 0x6146, 0x6c6c, 0x6e69, 0x0067, 
+    IDC_COUNTERTRIGGER, 0x403, 13, 0
+0x6154, 0x6863, 0x2d42, 0x6f44, 0x6275, 0x656c, "\000" 
+    IDC_COUNTERTRIGGER, 0x403, 13, 0
+0x7453, 0x7065, 0x462d, 0x6c61, 0x696c, 0x676e, "\000" 
+    IDC_COUNTERTRIGGER, 0x403, 12, 0
+0x7453, 0x7065, 0x522d, 0x7369, 0x6e69, 0x0067, 
+    IDC_COUNTERTRIGGER, 0x403, 17, 0
+0x7453, 0x7065, 0x522d, 0x7665, 0x462d, 0x6c61, 0x696c, 0x676e, "\000" 
+    IDC_COUNTERTRIGGER, 0x403, 16, 0
+0x7453, 0x7065, 0x522d, 0x7665, 0x522d, 0x7369, 0x6e69, 0x0067, 
+    IDC_PULSEMODE, 0x403, 21, 0
+0x3035, 0x2025, 0x7544, 0x7974, 0x412d, 0x7463, 0x7669, 0x2065, 0x6948, 
+0x6867, "\000" 
+    IDC_PULSEMODE, 0x403, 20, 0
+0x3035, 0x2025, 0x7544, 0x7974, 0x4120, 0x7463, 0x7669, 0x2065, 0x6f4c, 
+0x0077, 
+    IDC_PULSEMODE, 0x403, 22, 0
+0x3532, 0x4425, 0x7475, 0x2079, 0x6341, 0x6974, 0x6576, 0x4520, 0x7469, 
+0x6568, 0x0072, 
+    IDC_PULSEMODE, 0x403, 22, 0
+0x3537, 0x4425, 0x7475, 0x2079, 0x6341, 0x6974, 0x6576, 0x4520, 0x7469, 
+0x6568, 0x0072, 
+    IDC_PULSEMODE, 0x403, 12, 0
+0x5120, 0x6175, 0x7264, 0x7461, 0x7275, 0x0065, 
+    IDC_NETFLAGS, 0x403, 5, 0
+0x4844, 0x5043, "\000" 
+    IDC_NETFLAGS, 0x403, 4, 0
+0x5355, 0x0042, 
+    IDC_NETFLAGS, 0x403, 9, 0
+0x5445, 0x4548, 0x4e52, 0x5445, "\000" 
+    0
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\MachDevice.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+1 TYPELIB "MachDevice.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

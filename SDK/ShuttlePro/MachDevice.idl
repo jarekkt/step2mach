@@ -1,0 +1,10 @@
+// MachDevice.idl : type library source for MachDevice.dll
+// This file will be processed by the MIDL compiler to produce the
+// type library (MachDevice.tlb).
+
+[ uuid(0C9FB259-B864-40A5-B59F-65E11E209FC4), version(1.0) ]
+library MachDevice
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+};

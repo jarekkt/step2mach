@@ -202,7 +202,15 @@ void  MyDeviceClass::Reconfigure(std::string ip_address,bool debug_mode)
 void  MyDeviceClass::Update()
 {
 	int				coords[4];
+	static volatile int ii = 0;
 	
+
+	if(Engine->KeyAction != 0)
+	{
+		ii++;
+	}
+
+
 	// Make sure we are initialized
 	if(ReadyForRun != 0)
 	{
@@ -671,7 +679,7 @@ void MyDeviceClass::JogOn( short axis, short direction, double SpeedNorm)
 	  JogFeed = SpeedNorm;
    }
 
-   // Keyboard Shift key is on?
+   // `board Shift key is on?
    // If shift is not on, then JogPercent is the speed to use. 
    if( !(*MachView->m_ShiftState) && SpeedNorm == 0) 
    {
@@ -1112,10 +1120,11 @@ void  MyDeviceClass::DumpConfig(void)
 	);
 	console->ConsolePrint(0,col++,buffer);
 
-	_snprintf(buffer,sizeof(buffer),"Mach Internals  : Sync(%d) ExternalStill(%d) SoftWait(%08I64X)",
+	_snprintf(buffer,sizeof(buffer),"Mach Internals  : Sync(%d) ExternalStill(%d) SoftWait(%08I64X) Notification(%d)",
 			Engine->Sync,
 			MainPlanner->ExternalStill,
-			MainPlanner->SoftWait
+			MainPlanner->SoftWait,
+			last_notification
 	);
 	console->ConsolePrint(0,col++,buffer);
 

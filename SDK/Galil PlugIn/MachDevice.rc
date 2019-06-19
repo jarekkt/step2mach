@@ -1,0 +1,321 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\MachDevice.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "1 TYPELIB ""MachDevice.tlb""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "ArtSoft 2006"
+            VALUE "FileDescription", "Galil Plugin for DMC series"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "Galil.dll"
+            VALUE "LegalCopyright", "Artsoft 2006"
+            VALUE "OriginalFilename", "Galil.dll"
+            VALUE "ProductName", "Mach3 PlugIn"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_GALILCON DIALOGEX 0, 0, 448, 210
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Galil Options"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,391,189,50,14
+    CONTROL         "Use Ref position not Encoder for position feedback",
+                    IDC_REFPOS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,20,
+                    178,10
+    GROUPBOX        "Motor Options",IDC_STATIC,7,7,211,45
+    CONTROL         "Use Calculated Actual speed instead of encoder.",
+                    IDC_CALCSPEED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,
+                    34,171,10
+    GROUPBOX        "Motor Types.",IDC_STATIC,17,56,204,135
+    COMBOBOX        IDC_MT1,45,78,109,88,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MT2,45,92,109,90,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MT3,45,107,109,100,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MT4,45,122,109,69,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MT5,45,137,109,54,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_MT6,45,152,109,66,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "X",IDC_STATIC,25,79,8,8
+    LTEXT           "Y",IDC_STATIC,25,93,8,8
+    LTEXT           "Z",IDC_STATIC,25,108,8,8
+    LTEXT           "A",IDC_STATIC,25,124,8,8
+    LTEXT           "B",IDC_STATIC,25,138,8,8
+    LTEXT           "C",IDC_STATIC,25,154,8,8
+    GROUPBOX        "Diagnostics",IDC_STATIC,237,7,197,61
+    EDITTEXT        IDC_XBUF,279,24,40,12,ES_AUTOHSCROLL
+    LTEXT           "X-BufIndex",IDC_STATIC,240,26,37,8
+    LTEXT           "CommandPos",IDC_STATIC,327,26,44,8
+    EDITTEXT        IDC_COMPOS,372,24,40,12,ES_AUTOHSCROLL
+    LTEXT           "PlannerPos",IDC_STATIC,330,40,36,8
+    EDITTEXT        IDC_PLANPOS,372,38,40,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_NSPINDLEAXIS,85,171,16,14,ES_AUTOHSCROLL
+    LTEXT           "Spindle Axis #",IDC_STATIC,39,174,46,8
+    LTEXT           "0-5 (-1 = No Spindle)",IDC_STATIC,103,174,68,8
+    EDITTEXT        IDC_VECTTIMECONST,322,88,40,14,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_VECTDECEL,322,106,48,14,ES_AUTOHSCROLL
+    LTEXT           "Vetor Time Const",IDC_STATIC,263,91,56,8
+    LTEXT           "VectorDeceleration",IDC_STATIC,257,109,62,8
+    LTEXT           "(1024 - 67107840)",IDC_STATIC,373,109,61,8
+    LTEXT           "(.1 - 1.4)",IDC_STATIC,365,91,30,8
+    GROUPBOX        "Move Settings",IDC_STATIC,237,75,198,54
+    CONTROL         " ",IDC_XINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,158,
+                    81,18,10
+    CONTROL         " ",IDC_YINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,158,
+                    94,18,10
+    CONTROL         " ",IDC_ZINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,158,
+                    108,18,10
+    CONTROL         " ",IDC_AINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,158,
+                    123,18,10
+    CONTROL         " ",IDC_BINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,158,
+                    138,18,10
+    CONTROL         " ",IDC_CINDEX,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,158,
+                    153,18,10
+    LTEXT           "Use Index Pulse",IDC_STATIC,137,67,52,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_GALILCON, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 441
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 203
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_GALILCON DLGINIT
+BEGIN
+    IDC_MT1, 0x403, 12, 0
+0x6553, 0x7672, 0x206f, 0x6f4d, 0x6f74, 0x0072, 
+    IDC_MT1, 0x403, 14, 0
+0x6553, 0x7672, 0x206f, 0x6552, 0x6576, 0x7372, 0x0065, 
+    IDC_MT1, 0x403, 19, 0
+0x5320, 0x6574, 0x7070, 0x7265, 0x4820, 0x2069, 0x6341, 0x6974, 0x6576, 
+"\000" 
+    IDC_MT1, 0x403, 18, 0
+0x7453, 0x7065, 0x6570, 0x2072, 0x6f4c, 0x4120, 0x7463, 0x7669, 0x0065, 
+
+    IDC_MT1, 0x403, 25, 0
+0x7453, 0x7065, 0x7220, 0x7665, 0x7265, 0x6573, 0x2064, 0x482d, 0x2069, 
+0x6361, 0x6974, 0x6576, "\000" 
+    IDC_MT1, 0x403, 25, 0
+0x7453, 0x7065, 0x5220, 0x7665, 0x7265, 0x6573, 0x2e64, 0x4c20, 0x206f, 
+0x6341, 0x6974, 0x6576, "\000" 
+    IDC_MT2, 0x403, 12, 0
+0x6553, 0x7672, 0x206f, 0x6f4d, 0x6f74, 0x0072, 
+    IDC_MT2, 0x403, 14, 0
+0x6553, 0x7672, 0x206f, 0x6552, 0x6576, 0x7372, 0x0065, 
+    IDC_MT2, 0x403, 19, 0
+0x5320, 0x6574, 0x7070, 0x7265, 0x4820, 0x2069, 0x6341, 0x6974, 0x6576, 
+"\000" 
+    IDC_MT2, 0x403, 18, 0
+0x7453, 0x7065, 0x6570, 0x2072, 0x6f4c, 0x4120, 0x7463, 0x7669, 0x0065, 
+
+    IDC_MT2, 0x403, 25, 0
+0x7453, 0x7065, 0x7220, 0x7665, 0x7265, 0x6573, 0x2064, 0x482d, 0x2069, 
+0x6361, 0x6974, 0x6576, "\000" 
+    IDC_MT2, 0x403, 25, 0
+0x7453, 0x7065, 0x5220, 0x7665, 0x7265, 0x6573, 0x2e64, 0x4c20, 0x206f, 
+0x6341, 0x6974, 0x6576, "\000" 
+    IDC_MT3, 0x403, 12, 0
+0x6553, 0x7672, 0x206f, 0x6f4d, 0x6f74, 0x0072, 
+    IDC_MT3, 0x403, 14, 0
+0x6553, 0x7672, 0x206f, 0x6552, 0x6576, 0x7372, 0x0065, 
+    IDC_MT3, 0x403, 19, 0
+0x5320, 0x6574, 0x7070, 0x7265, 0x4820, 0x2069, 0x6341, 0x6974, 0x6576, 
+"\000" 
+    IDC_MT3, 0x403, 18, 0
+0x7453, 0x7065, 0x6570, 0x2072, 0x6f4c, 0x4120, 0x7463, 0x7669, 0x0065, 
+
+    IDC_MT3, 0x403, 25, 0
+0x7453, 0x7065, 0x7220, 0x7665, 0x7265, 0x6573, 0x2064, 0x482d, 0x2069, 
+0x6361, 0x6974, 0x6576, "\000" 
+    IDC_MT3, 0x403, 25, 0
+0x7453, 0x7065, 0x5220, 0x7665, 0x7265, 0x6573, 0x2e64, 0x4c20, 0x206f, 
+0x6341, 0x6974, 0x6576, "\000" 
+    IDC_MT4, 0x403, 12, 0
+0x6553, 0x7672, 0x206f, 0x6f4d, 0x6f74, 0x0072, 
+    IDC_MT4, 0x403, 14, 0
+0x6553, 0x7672, 0x206f, 0x6552, 0x6576, 0x7372, 0x0065, 
+    IDC_MT4, 0x403, 19, 0
+0x5320, 0x6574, 0x7070, 0x7265, 0x4820, 0x2069, 0x6341, 0x6974, 0x6576, 
+"\000" 
+    IDC_MT4, 0x403, 18, 0
+0x7453, 0x7065, 0x6570, 0x2072, 0x6f4c, 0x4120, 0x7463, 0x7669, 0x0065, 
+
+    IDC_MT4, 0x403, 25, 0
+0x7453, 0x7065, 0x7220, 0x7665, 0x7265, 0x6573, 0x2064, 0x482d, 0x2069, 
+0x6361, 0x6974, 0x6576, "\000" 
+    IDC_MT4, 0x403, 25, 0
+0x7453, 0x7065, 0x5220, 0x7665, 0x7265, 0x6573, 0x2e64, 0x4c20, 0x206f, 
+0x6341, 0x6974, 0x6576, "\000" 
+    IDC_MT5, 0x403, 12, 0
+0x6553, 0x7672, 0x206f, 0x6f4d, 0x6f74, 0x0072, 
+    IDC_MT5, 0x403, 14, 0
+0x6553, 0x7672, 0x206f, 0x6552, 0x6576, 0x7372, 0x0065, 
+    IDC_MT5, 0x403, 19, 0
+0x5320, 0x6574, 0x7070, 0x7265, 0x4820, 0x2069, 0x6341, 0x6974, 0x6576, 
+"\000" 
+    IDC_MT5, 0x403, 18, 0
+0x7453, 0x7065, 0x6570, 0x2072, 0x6f4c, 0x4120, 0x7463, 0x7669, 0x0065, 
+
+    IDC_MT5, 0x403, 25, 0
+0x7453, 0x7065, 0x7220, 0x7665, 0x7265, 0x6573, 0x2064, 0x482d, 0x2069, 
+0x6361, 0x6974, 0x6576, "\000" 
+    IDC_MT5, 0x403, 25, 0
+0x7453, 0x7065, 0x5220, 0x7665, 0x7265, 0x6573, 0x2e64, 0x4c20, 0x206f, 
+0x6341, 0x6974, 0x6576, "\000" 
+    IDC_MT6, 0x403, 12, 0
+0x6553, 0x7672, 0x206f, 0x6f4d, 0x6f74, 0x0072, 
+    IDC_MT6, 0x403, 14, 0
+0x6553, 0x7672, 0x206f, 0x6552, 0x6576, 0x7372, 0x0065, 
+    IDC_MT6, 0x403, 19, 0
+0x5320, 0x6574, 0x7070, 0x7265, 0x4820, 0x2069, 0x6341, 0x6974, 0x6576, 
+"\000" 
+    IDC_MT6, 0x403, 18, 0
+0x7453, 0x7065, 0x6570, 0x2072, 0x6f4c, 0x4120, 0x7463, 0x7669, 0x0065, 
+
+    IDC_MT6, 0x403, 25, 0
+0x7453, 0x7065, 0x7220, 0x7665, 0x7265, 0x6573, 0x2064, 0x482d, 0x2069, 
+0x6361, 0x6974, 0x6576, "\000" 
+    IDC_MT6, 0x403, 25, 0
+0x7453, 0x7065, 0x5220, 0x7665, 0x7265, 0x6573, 0x2e64, 0x4c20, 0x206f, 
+0x6341, 0x6974, 0x6576, "\000" 
+    0
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\MachDevice.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+1 TYPELIB "MachDevice.tlb"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
