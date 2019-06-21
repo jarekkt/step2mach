@@ -211,12 +211,21 @@ void   pinctrl_map(pin_map_e  pin_id,pin_hw_e pin_fn)
 
 void inline pinctrl_set(pin_map_e pin_id)
 {
-    *gpio_map[pin_id].regaddr_set = gpio_map[pin_id].regval_set;            
+   uint32_t   pin_hw;
+
+     
+    pin_hw = (uint32_t)pcd.map[pin_id];
+
+    *gpio_map[pin_hw].regaddr_set = gpio_map[pin_hw].regval_set;            
 }
 
 void inline pinctrl_clear(pin_map_e pin_id)
 {
-    *gpio_map[pin_id].regaddr_set = gpio_map[pin_id].regval_clr;    
+    uint32_t   pin_hw;
+     
+    pin_hw = (uint32_t)pcd.map[pin_id];
+
+    *gpio_map[pin_hw].regaddr_set = gpio_map[pin_hw].regval_clr;    
 
 }
 

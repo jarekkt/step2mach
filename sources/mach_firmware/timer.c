@@ -25,7 +25,7 @@
 
 
 
-#define BASE_FREQ       100000   /*  Hz             */
+#define BASE_FREQ        50000   /*  Hz             */
 #define IO_FREQ           1000   /*  Hz             */
 
 
@@ -612,6 +612,8 @@ static  void timer_jog_mode(void)
 
 void TIM3_IRQHandler()  
 {
+    __HAL_TIM_CLEAR_IT(&tsrv.hTim3, TIM_IT_UPDATE);
+
     if(buffer.jog_mode != 0)
     {
         timer_jog_mode();
@@ -620,8 +622,6 @@ void TIM3_IRQHandler()
     {
         timer_gcode_mode();
     }
-
-    __HAL_TIM_CLEAR_IT(&tsrv.hTim3, TIM_IT_UPDATE);
 }
 
 
@@ -631,6 +631,8 @@ void TIM4_IRQHandler()
     uint32_t    inputs = 0;
     static int hit_cntr = 0;
     
+    __HAL_TIM_CLEAR_IT(&tsrv.hTim4, TIM_IT_UPDATE);
+
     // System 1ms tick
     tick++;
 
@@ -672,15 +674,13 @@ void TIM4_IRQHandler()
     }
 
 
-    __HAL_TIM_CLEAR_IT(&tsrv.hTim4, TIM_IT_UPDATE);
-
 }
 
 
 
 void timer_init( void )
 {
-#define PRESCALER_DIV  1000000   
+#define TIMER_SRV_1MHZ  1000000
 
     memset(&coords,0,sizeof(coords));
     memset(&buffer,0,sizeof(buffer));
@@ -690,41 +690,36 @@ void timer_init( void )
 
     buffer.last_valid_id = -1;
 
-    // Becasue of TIM_CLOCKDIVISION_DIV4
-    tsrv.tim_clock = SystemCoreClock / 4;
+    // Becasue of TIM_CLOCKDIVISION_DIV4 and static x2
+    tsrv.tim_clock = 2 * SystemCoreClock / 4;
 
     // Main pulse clock
      __HAL_RCC_TIM3_CLK_ENABLE();
 
     tsrv.hTim3.Instance           = TIM3;
-    tsrv.hTim3.Init.Prescaler     = (tsrv.tim_clock/ PRESCALER_DIV) - 1;
+    tsrv.hTim3.Init.Prescaler     = (tsrv.tim_clock/ TIMER_SRV_1MHZ) - 1;
     tsrv.hTim3.Init.CounterMode   = TIM_COUNTERMODE_UP;
-    tsrv.hTim3.Init.Period        = PRESCALER_DIV / (BASE_FREQ * 2);
+    tsrv.hTim3.Init.Period        = TIMER_SRV_1MHZ  / (BASE_FREQ * 2);
     tsrv.hTim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
     HAL_TIM_Base_Init(&tsrv.hTim3);
-
     HAL_TIM_Base_Start_IT(&tsrv.hTim3); 
-
-
     HAL_NVIC_SetPriority(TIM3_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(TIM3_IRQn);
 
-    // IO clock
+    // IO clock 
     __HAL_RCC_TIM4_CLK_ENABLE();
 
     tsrv.hTim4.Instance           = TIM4;
-    tsrv.hTim4.Init.Prescaler     = (tsrv.tim_clock/ IO_FREQ ) - 1;
+    tsrv.hTim4.Init.Prescaler     = (tsrv.tim_clock/ TIMER_SRV_1MHZ ) - 1;
     tsrv.hTim4.Init.CounterMode   = TIM_COUNTERMODE_UP;
-    tsrv.hTim4.Init.Period        = -1;
+    tsrv.hTim4.Init.Period        = TIMER_SRV_1MHZ / IO_FREQ;
     tsrv.hTim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
     HAL_TIM_Base_Init(&tsrv.hTim4);
-
     HAL_TIM_Base_Start_IT(&tsrv.hTim4); 
-
-
     HAL_NVIC_SetPriority(TIM4_IRQn, 1, 0);
     HAL_NVIC_EnableIRQ(TIM4_IRQn);
 
     watchdog_active = 0;
 }
+
 

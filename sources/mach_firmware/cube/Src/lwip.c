@@ -86,7 +86,7 @@ void MX_LWIP_Init(void)
 {
   /* IP addresses initialization */
   IP_ADDRESS[0] = 192;
-  IP_ADDRESS[1] = 168;
+  IP_ADDRESS[1] = 169;
   IP_ADDRESS[2] = 1;
   IP_ADDRESS[3] = 10;
   NETMASK_ADDRESS[0] = 255;
@@ -94,7 +94,7 @@ void MX_LWIP_Init(void)
   NETMASK_ADDRESS[2] = 255;
   NETMASK_ADDRESS[3] = 0;
   GATEWAY_ADDRESS[0] = 192;
-  GATEWAY_ADDRESS[1] = 168;
+  GATEWAY_ADDRESS[1] = 169;
   GATEWAY_ADDRESS[2] = 1;
   GATEWAY_ADDRESS[3] = 1;
   
@@ -149,7 +149,7 @@ sio_fd_t sio_open(u8_t devnum)
 /* USER CODE BEGIN 7 */
   sd = 0; // dummy code
 /* USER CODE END 7 */
-	
+    
   return sd;
 }
 
@@ -184,7 +184,7 @@ u32_t sio_read(sio_fd_t fd, u8_t *data, u32_t len)
 
 /* USER CODE BEGIN 9 */
   recved_bytes = 0; // dummy code
-/* USER CODE END 9 */	
+/* USER CODE END 9 */   
   return recved_bytes;
 }
 
@@ -203,7 +203,7 @@ u32_t sio_tryread(sio_fd_t fd, u8_t *data, u32_t len)
 
 /* USER CODE BEGIN 10 */
   recved_bytes = 0; // dummy code
-/* USER CODE END 10 */	
+/* USER CODE END 10 */  
   return recved_bytes;
 }
 #endif /* MDK ARM Compiler */
